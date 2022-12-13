@@ -70,14 +70,17 @@ const StudentList = () => {
     pageSize: 10,
   });
 
-  const [selected, setSelected] = useState<Student[]>([]);
-
   // Dialog state
+  const [selected, setSelected] = useState<Student[]>([]);
   const [activateDialog, setActivateDialog] = useState<boolean>(false);
-
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
-  const [updateStatus, setUpdateStatus] = useState<string>("");
+
+  const [singleSelected, setSingleSelected] = useState<Student[]>([]);
+  const [singleActivateDialog, setSingleActivateDialog] = useState<boolean>(false);
+  const [singleUpdateDialog, setSingleUpdateDialog] = useState<boolean>(false);
+
+  const [updateStatus, setUpdateStatus] = useState<string>('');
 
   useEffect(() => {
     init();
@@ -104,7 +107,7 @@ const StudentList = () => {
       setData([]);
       setLoading(false);
     }
-  }
+  };
 
   const handleDelete = () => {};
 
@@ -155,7 +158,11 @@ const StudentList = () => {
         Cell: ({ cell }) => {
           const date = String(cell.getValue());
           const toString = new Date(date).toLocaleDateString();
-          return <Typography>{String(toString) === "Invalid Date" ? "---" : String(toString)}</Typography>;
+          return (
+            <Typography>
+              {String(toString) === 'Invalid Date' ? '---' : String(toString)}
+            </Typography>
+          );
         },
         Filter: ({ column }) => (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -193,14 +200,14 @@ const StudentList = () => {
   );
 
   const displayTitle = (st: string) => {
-    if (st === "active") {
-      return "Kích hoạt tài khoản đã chọn ?";
-    } else if (st === "inactive") {
-      return "Tạm ngừng tài khoản đã chọn ?";
-    } else if (st === "deleted") {
-      return "Xóa tài khoản đã chọn ?";
+    if (st === 'active') {
+      return 'Kích hoạt tài khoản đã chọn ?';
+    } else if (st === 'inactive') {
+      return 'Tạm ngừng tài khoản đã chọn ?';
+    } else if (st === 'deleted') {
+      return 'Xóa tài khoản đã chọn ?';
     }
-  }
+  };
 
   return (
     <>
@@ -269,7 +276,7 @@ const StudentList = () => {
                 key={1}
                 onClick={() => {
                   closeMenu();
-                  console.log("Gui Email");
+                  console.log('Gui Email');
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}
               >
@@ -295,10 +302,9 @@ const StudentList = () => {
                 key={3}
                 onClick={() => {
                   closeMenu();
-                  setSelected([row.original]);
-                  // selected.push(row.original);
-                  setUpdateStatus("deleted");
-                  setActivateDialog(true);
+                  setSingleSelected([row.original]);
+                  setUpdateStatus('deleted');
+                  setSingleActivateDialog(true);
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}
               >
@@ -310,30 +316,27 @@ const StudentList = () => {
             ]}
             renderTopToolbarCustomActions={({ table }) => {
               const handleDeactivate = () => {
-               
                 table.getSelectedRowModel().flatRows.forEach((row) => {
                   selected.push(row.original);
                   return;
                 });
-                setUpdateStatus("inactive");
+                setUpdateStatus('inactive');
                 setActivateDialog(true);
               };
               const handleActivate = () => {
-                
                 table.getSelectedRowModel().flatRows.forEach((row) => {
                   selected.push(row.original);
                   return;
                 });
-                setUpdateStatus("active");
+                setUpdateStatus('active');
                 setActivateDialog(true);
               };
               const handleDelete = () => {
-                
                 table.getSelectedRowModel().flatRows.forEach((row) => {
                   selected.push(row.original);
                   return;
                 });
-                setUpdateStatus("deleted");
+                setUpdateStatus('deleted');
                 setActivateDialog(true);
               };
               return (
@@ -415,7 +418,55 @@ const StudentList = () => {
         }}
         isLoading={loadingUpdate}
         listEntities={selected}
-        setLoading={(loading)=> {setLoadingUpdate(loading)}}
+        setLoading={(loading) => {
+          setLoadingUpdate(loading);
+        }}
+        status={updateStatus}
+      />
+      <Dialog
+        open={singleActivateDialog}
+        onClose={() => {
+          setSingleActivateDialog(false);
+        }}
+      >
+        <DialogContent>
+          <Typography>{displayTitle(updateStatus)}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setSingleActivateDialog(false);
+            }}
+            variant="outlined"
+            color="error"
+          >
+            Thoát
+          </Button>
+          <Button
+            onClick={() => {
+              setSingleActivateDialog(false);
+              setLoadingUpdate(true);
+              setSingleUpdateDialog(true);
+            }}
+            color="primary"
+            variant="contained"
+          >
+            Xác nhận
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <CustomDialog
+        open={singleUpdateDialog}
+        onClose={() => {
+          setSingleUpdateDialog(false);
+          setSingleSelected([]);
+          init();
+        }}
+        isLoading={loadingUpdate}
+        listEntities={singleSelected}
+        setLoading={(loading) => {
+          setLoadingUpdate(loading);
+        }}
         status={updateStatus}
       />
     </>

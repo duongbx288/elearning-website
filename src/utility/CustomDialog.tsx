@@ -77,7 +77,7 @@ const CustomDialog = (props: CustomDialogProps) => {
         setLoading(false);
       }
     }
-  }, [open, listEntities, showDetailFail, showDetailSuccess, listSuccess, listFailed]);
+  }, [open, isLoading]);
 
   const updateEntities = async (index: number) => {
     if (listEntities && listEntities.length > 0 && index <= listEntities.length - 1) {
