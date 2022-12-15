@@ -31,11 +31,13 @@ import { Create } from '@mui/icons-material';
 import CreateSectionAndPage from '../components/section/CreateSectionAndPage';
 
 import TeacherList from '../components/teachers/TeacherList';
+import TeacherDetail from '../components/teachers/TeacherDetail';
 import StudentList from '../components/student/StudentList';
 import AffiliateList from '../components/affiliates/AffiliateList';
 import CourseList from '../components/courses/CourseList';
 import StudentDetail from '../components/student/StudentDetail';
 import StudentUpdate from '../components/student/StudentUpdate';
+import AffiliateDetail from '../components/affiliates/AffiliateDetail';
 
 const mdTheme = createTheme();
 
@@ -99,10 +101,12 @@ const MainLayout = (props: any) => {
             <Route exact path="/banner/update/:id" component={UpdateBanner} /> */}
             <Route exact path="/report" component={Reports} />
             <Route exact path="/teacher" component={TeacherList} />
+            <Route exact path="/teacher/detail/:id" component={TeacherDetail} />
             <Route exact path="/student" component={StudentList} />
             <Route exact path="/student/detail/:id" component={StudentDetail} />
             <Route exact path="/student/update/:id" component={StudentUpdate} />
             <Route exact path="/affiliate" component={AffiliateList} />
+            <Route exact path="/affiliate/detail/:id" component={AffiliateDetail} />
             <Route exact path="/course" component={CourseList} />
             <Route exact path="/">
               <Redirect to="/student" />
