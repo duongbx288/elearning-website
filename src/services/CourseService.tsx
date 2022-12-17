@@ -33,8 +33,8 @@ class CourseService {
         return axios.get(`/api/course/teacherId=${request.teacherId}`);
     }
 
-    getById = (request: CourseRequest) => {
-        return axios.get(`/api/course/${request.id}`);
+    getById = (id: number) => {
+        return axios.get(`/api/course/${id}`);
     }
 
 }

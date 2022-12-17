@@ -1,4 +1,4 @@
-export type Orders = {
+export type Order = {
     id: number;
     userId?: number;
     courseId?: number;

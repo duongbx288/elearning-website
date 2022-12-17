@@ -20,7 +20,6 @@ import UpdateSection from '../components/section/UpdateSection';
 import CreateWebsite from '../components/websites/CreateWebsite';
 import UpdateWebsite from '../components/websites/UpdateWebsite';
 import AddBannerPopUpInPage from '../components/pages/AddBannerPopUpInPage';
-import Banner from '../pages/Banner';
 import PageManage from '../pages/PageManage';
 import PageManageWebId from '../pages/PageManageWebId';
 import Section from '../pages/Section';
@@ -34,10 +33,13 @@ import TeacherList from '../components/teachers/TeacherList';
 import TeacherDetail from '../components/teachers/TeacherDetail';
 import StudentList from '../components/student/StudentList';
 import AffiliateList from '../components/affiliates/AffiliateList';
-import CourseList from '../components/courses/CourseList';
 import StudentDetail from '../components/student/StudentDetail';
 import StudentUpdate from '../components/student/StudentUpdate';
 import AffiliateDetail from '../components/affiliates/AffiliateDetail';
+import CourseList from '../components/courses/CourseList';
+import CourseDetail from '../components/courses/CourseDetail';
+import OrderDetail from '../components/order/OrderDetail';
+import OrderList from '../components/order/OrderList';
 
 const mdTheme = createTheme();
 
@@ -108,6 +110,9 @@ const MainLayout = (props: any) => {
             <Route exact path="/affiliate" component={AffiliateList} />
             <Route exact path="/affiliate/detail/:id" component={AffiliateDetail} />
             <Route exact path="/course" component={CourseList} />
+            <Route exact path="/course/detail/:id" component={CourseDetail} />
+            <Route exact path="/order/detail/:id" component={OrderDetail} />
+            <Route exact path="/order" component={OrderList} />
             <Route exact path="/">
               <Redirect to="/student" />
             </Route>
