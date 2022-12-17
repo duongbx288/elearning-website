@@ -10,20 +10,20 @@ const API_URL = "/api/";
 //   });
 // };
 
-export const login = (username: string, password: string) => {
-  return axios
-    .post(API_URL + "login", {
-      username,
-      password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
+// export const login = (username: string, password: string) => {
+//   return axios
+//     .post(API_URL + "login", {
+//       username,
+//       password,
+//     })
+//     .then((response) => {
+//       if (response.data.accessToken) {
+//         localStorage.setItem("user", JSON.stringify(response.data));
+//       }
 
-      return response.data;
-    });
-};
+//       return response.data;
+//     });
+// };
 
 export const logout = () => {
   localStorage.removeItem("user");
