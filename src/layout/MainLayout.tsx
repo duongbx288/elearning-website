@@ -4,30 +4,31 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import BannerDetail from '../components/banners/BannerDetail';
-import CreateBanner from '../components/banners/CreateBanner';
-import UpdateBanner from '../components/banners/UpdateBanner';
-import AddSectionInPage from '../components/pages/AddSectionInPage';
-import CreatePage from '../components/pages/CreatePage';
-import PageSection from '../components/pages/PageSection';
-import UpdatePage from '../components/pages/UpdatePage';
-import UpdateSectionInPage from '../components/pages/UpdateSectionInPage';
-import AddBannerOnSection from '../components/section/AddBannerInSection';
-import CreateSection from '../components/section/CreateSection';
-import SectionDetail from '../components/section/SectionDetail';
-import UpdateBannerOnSection from '../components/section/UpdateBannerInSection';
-import UpdateSection from '../components/section/UpdateSection';
-import CreateWebsite from '../components/websites/CreateWebsite';
-import UpdateWebsite from '../components/websites/UpdateWebsite';
-import AddBannerPopUpInPage from '../components/pages/AddBannerPopUpInPage';
-import PageManage from '../pages/PageManage';
-import PageManageWebId from '../pages/PageManageWebId';
-import Section from '../pages/Section';
-import WebsiteManage from '../pages/WebsiteManage';
+// import BannerDetail from '../components/banners/BannerDetail';
+// import CreateBanner from '../components/banners/CreateBanner';
+// import UpdateBanner from '../components/banners/UpdateBanner';
+// import AddSectionInPage from '../components/pages/AddSectionInPage';
+// import CreatePage from '../components/pages/CreatePage';
+// import PageSection from '../components/pages/PageSection';
+// import UpdatePage from '../components/pages/UpdatePage';
+// import UpdateSectionInPage from '../components/pages/UpdateSectionInPage';
+// import AddBannerOnSection from '../components/section/AddBannerInSection';
+// import CreateSection from '../components/section/CreateSection';
+// import SectionDetail from '../components/section/SectionDetail';
+// import UpdateBannerOnSection from '../components/section/UpdateBannerInSection';
+// import UpdateSection from '../components/section/UpdateSection';
+// import CreateWebsite from '../components/websites/CreateWebsite';
+// import UpdateWebsite from '../components/websites/UpdateWebsite';
+// import AddBannerPopUpInPage from '../components/pages/AddBannerPopUpInPage';
+// import PageManage from '../pages/PageManage';
+// import PageManageWebId from '../pages/PageManageWebId';
+// import Section from '../pages/Section';
+// import WebsiteManage from '../pages/WebsiteManage';
+// import { Create } from '@mui/icons-material';
+// import CreateSectionAndPage from '../components/section/CreateSectionAndPage';
 import Reports from '../pages/Report';
 import Navbar from './Navbar';
-import { Create } from '@mui/icons-material';
-import CreateSectionAndPage from '../components/section/CreateSectionAndPage';
+
 
 import TeacherList from '../components/teachers/TeacherList';
 import TeacherDetail from '../components/teachers/TeacherDetail';
@@ -66,7 +67,7 @@ const MainLayout = (props: any) => {
           }}
         >
           <Switch>
-            <Route exact path="/website" component={WebsiteManage} />
+            {/* <Route exact path="/website" component={WebsiteManage} />
             <Route exact path="/website/add" component={CreateWebsite} />
             <Route exact path="/website/page" component={PageManageWebId} />
             <Route exact path="/website/update/:id" component={UpdateWebsite} />
@@ -96,7 +97,7 @@ const MainLayout = (props: any) => {
               exact
               path="/section/update-banner/:id"
               component={UpdateBannerOnSection}
-            />
+            /> */}
             {/* <Route exact path="/banner" component={Banner} />
             <Route exact path="/banner/create" component={CreateBanner} />
             <Route exact path="/banner/detail/:id" component={BannerDetail} />
