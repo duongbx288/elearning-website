@@ -119,10 +119,10 @@ const CourseDetail = () => {
             </Table>
           </Box>
           <Box style={BoxStyle}>
-            <Typography>Khoa hoc da mua</Typography>
-            <Typography>Tong tien da chi</Typography>
-            <Typography>So khoa hoc da hoan thanh</Typography>
-            <Typography>Tong so khoa hoc da mua</Typography>
+            <Typography>So luong hoc sinh dang ki khoa hoc</Typography>
+            <Typography>So luong hoc sinh da hoan thanh</Typography>
+            <Typography>Danh gia khoa hoc</Typography>
+            <Typography>Binh luan ve khoa hoc</Typography>
           </Box>
         </Box>
 

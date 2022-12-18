@@ -58,5 +58,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText disableTypography primary="Danh sách đơn hàng" sx={text} />
     </ListItemButton>
+    <ListItemButton component={Link} to="/course" sx={itemStyle}>
+      <ListItemIcon sx={listIcon}>
+        <ViewCarouselIcon sx={{ color: 'white' }} />
+      </ListItemIcon>
+      <ListItemText disableTypography primary="Danh sách khóa học" sx={text} />
+    </ListItemButton>
   </React.Fragment>
 );

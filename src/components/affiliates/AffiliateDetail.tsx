@@ -156,9 +156,9 @@ const AffiliateDetail = () => {
             </Table>
           </Box>
           <Box style={BoxStyle}>
-            <Typography>Khoa hoc da mua</Typography>
-            <Typography>Tong tien da chi</Typography>
-            <Typography>So khoa hoc da hoan thanh</Typography>
+            <Typography>Tong so khoa hoc da gioi thieu duoc</Typography>
+            <Typography>Thoi gian hoat dong</Typography>
+            <Typography>Tong tien hoa hoc duoc nhan</Typography>
             <Typography>Tong so khoa hoc da mua</Typography>
           </Box>
         </Box>

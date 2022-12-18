@@ -8,7 +8,7 @@ const setupAxiosInterceptors = () => {
   const onRequestSuccess = (config) => {
     const token =
       sessionStorage.getItem('authenticationToken') ||
-      sessionStorage.getItem('authenticationToken');
+      localStorage.getItem('authenticationToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

@@ -165,10 +165,10 @@ import { Teacher } from './type';
               </Table>
             </Box>
             <Box style={BoxStyle}>
-                  <Typography>Khoa hoc da mua</Typography>
-                  <Typography>Tong tien da chi</Typography>
-                  <Typography>So khoa hoc da hoan thanh</Typography>
-                  <Typography>Tong so khoa hoc da mua</Typography>
+                  <Typography>Khoa hoc da tao</Typography>
+                  <Typography>Khoa hoc da ban</Typography>
+                  <Typography>Khoa hoc da tham gia: ?</Typography>
+                  <Typography>Trong thang co bao nhieu nguoi mua khoa hoc ?</Typography>
             </Box>
           </Box>
   
