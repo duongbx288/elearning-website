@@ -40,6 +40,7 @@ const Login = (props: LoginProps) => {
     setLoading(true);
     const result = await dispatch(login(username, password));
     if (result?.payload?.data) {
+      
       history.push(from);
     } else {
       console.log(result);
