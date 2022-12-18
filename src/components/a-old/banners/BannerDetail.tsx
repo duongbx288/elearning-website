@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 
 type BannerInfo = {
   id: number;

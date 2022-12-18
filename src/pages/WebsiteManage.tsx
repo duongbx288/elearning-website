@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Typography, Toolbar, Box } from '@mui/material';
 import { BoxStyle, ToolbarStyle } from '../styles/style';
 
-import WebsiteList from '../components/websites/WebsiteList';
+import WebsiteList from '../components/old/websites/WebsiteList';
 
 const WebsiteManage: React.FC = () => {
   const history = useHistory();

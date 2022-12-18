@@ -10,9 +10,9 @@ import { Divider, SelectChangeEvent } from '@mui/material';
 import { Toolbar, Typography, Box } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import SectionService from '../../services/SectionService';
+import SectionService from '../../../services/SectionService';
 import Snackbar from '@mui/material/Snackbar';
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

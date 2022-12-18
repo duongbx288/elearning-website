@@ -4,13 +4,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useHistory } from 'react-router-dom';
 import { GridColumns, GridActionsCellItem, GridRowId } from '@mui/x-data-grid-pro';
 import EditIcon from '@mui/icons-material/Edit';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import '../../styles/App.css';
 import { Tooltip, Typography } from '@mui/material';
-import { LinkStyle, Url } from '../../styles/style';
+import { LinkStyle, Url } from '../../../styles/style';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import Banner from '../../pages/Banner';
+import Banner from '../../../pages/Banner';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

@@ -15,9 +15,9 @@ import {
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import BannerStatus from '../banners/BannerStatus';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import { useHistory } from 'react-router-dom';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 type SectionInfo = {

@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import { useEffect } from 'react';
-import PageService from '../../services/PageService';
+import PageService from '../../../services/PageService';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import {

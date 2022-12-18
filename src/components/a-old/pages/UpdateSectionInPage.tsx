@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import SectionService from '../../services/SectionService';
+import SectionService from '../../../services/SectionService';
 import SectionStatus from '../section/SectionStatus';
 import {
   Toolbar,

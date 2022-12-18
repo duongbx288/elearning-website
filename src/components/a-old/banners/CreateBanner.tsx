@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../configs/FireBase';
+import { storage } from '../../../configs/FireBase';
 import { SelectChangeEvent } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import { Divider } from '@mui/material';
-import { BoxStyle1 } from '../../styles/style';
+import { BoxStyle1 } from '../../../styles/style';
 import DemoBanner from './DemoBanner';
 import AddInWeb from './AddInWeb';
 import AddInPage from './AddInPage';
@@ -30,10 +30,10 @@ import {
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import SectionService from '../../services/SectionService';
+import SectionService from '../../../services/SectionService';
 const styleModal = {
   position: 'absolute' as 'absolute',
   top: '30%',

@@ -17,13 +17,13 @@ import {
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-import PageService from '../../services/PageService';
-import SectionService from '../../services/SectionService';
-import BannerService from '../../services/BannerService';
+import PageService from '../../../services/PageService';
+import SectionService from '../../../services/SectionService';
+import BannerService from '../../../services/BannerService';
 import '../../styles/App.css';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { BoxStyle, CellTable, ToolbarStyle } from '../../styles/style';
-import { LinkStyle, Url } from '../../styles/style';
+import { BoxStyle, CellTable, ToolbarStyle } from '../../../styles/style';
+import { LinkStyle, Url } from '../../../styles/style';
 import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 type PageInfo = {

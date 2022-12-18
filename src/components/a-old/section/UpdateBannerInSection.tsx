@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import BannerStatus from '../banners/BannerStatus';
 type SectionInfo = {
   id: number;

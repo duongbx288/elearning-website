@@ -11,9 +11,9 @@ import {
   GridRenderCellParams,
 } from '@mui/x-data-grid-pro';
 import '../../styles/banner/bannerList.css';
-import SectionService from '../../services/SectionService';
+import SectionService from '../../../services/SectionService';
 import '../../styles/App.css';
-import { LinkStyle } from '../../styles/style';
+import { LinkStyle } from '../../../styles/style';
 import { Tooltip, Typography } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';

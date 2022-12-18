@@ -25,11 +25,11 @@ import {
 import { useHistory, useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import PageService from '../../services/PageService';
-import WebsiteService from '../../services/WebsiteService';
+import PageService from '../../../services/PageService';
+import WebsiteService from '../../../services/WebsiteService';
 import '../../styles/App.css';
-import { LinkStyle, Url } from '../../styles/style';
-import { BoxStyle, CellTable } from '../../styles/style';
+import { LinkStyle, Url } from '../../../styles/style';
+import { BoxStyle, CellTable } from '../../../styles/style';
 
 type WebsiteInfo = {
   id: number;

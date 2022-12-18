@@ -14,8 +14,8 @@ import {
   FormControl,
   Select,
 } from '@mui/material';
-import { BoxStyle } from '../../styles/style';
-import SectionService from '../../services/SectionService';
+import { BoxStyle } from '../../../styles/style';
+import SectionService from '../../../services/SectionService';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 const styleModal = {

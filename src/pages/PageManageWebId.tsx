@@ -1,6 +1,6 @@
 import { Button, Typography, Box, Toolbar } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import PageListByWebId from '../components/pages/PageWebsite';
+import PageListByWebId from '../components/old/pages/PageWebsite';
 import { ToolbarStyle } from '../styles/style';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 

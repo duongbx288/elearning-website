@@ -12,12 +12,12 @@ import {
   Toolbar,
 } from '@mui/material';
 import { useLocation, useHistory } from 'react-router-dom';
-import PageService from '../../services/PageService';
-import WebsiteService from '../../services/WebsiteService';
+import PageService from '../../../services/PageService';
+import WebsiteService from '../../../services/WebsiteService';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

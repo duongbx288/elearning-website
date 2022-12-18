@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import {
   Toolbar,

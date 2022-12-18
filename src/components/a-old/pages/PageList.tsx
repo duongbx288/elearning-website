@@ -10,11 +10,11 @@ import { Button, Tooltip, Typography } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import PageService from '../../services/PageService';
-import WebsiteService from '../../services/WebsiteService';
+import PageService from '../../../services/PageService';
+import WebsiteService from '../../../services/WebsiteService';
 import '../../styles/App.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { LinkStyle, Url } from '../../styles/style';
+import { LinkStyle, Url } from '../../../styles/style';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 

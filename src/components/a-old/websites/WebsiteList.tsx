@@ -11,11 +11,11 @@ import { Dialog, Tooltip, Typography, DialogTitle, DialogContent, DialogContentT
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import '../../styles/App.css';
-import { LinkStyle, Url } from '../../styles/style';
+import { LinkStyle, Url } from '../../../styles/style';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
-import WebsiteService from '../../services/WebsiteService';
+import WebsiteService from '../../../services/WebsiteService';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

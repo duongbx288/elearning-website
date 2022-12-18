@@ -12,10 +12,10 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import BannerService from '../../services/BannerService';
+import BannerService from '../../../services/BannerService';
 import { Toolbar, Typography, Box, Tooltip, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { DataGrid, GridColumns, GridRowId, GridActionsCellItem } from '@mui/x-data-grid';
-import { BoxStyle, ToolbarStyle } from '../../styles/style';
+import { BoxStyle, ToolbarStyle } from '../../../styles/style';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 type SectionInfo = {
