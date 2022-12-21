@@ -21,6 +21,7 @@ import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import StudentCourseService from '../../services/StudentCourseService';
 import Chart from 'react-apexcharts';
 import { create } from 'domain';
+import { ApexOptions } from 'apexcharts';
 
 interface CustomerState {
   id: number;
@@ -45,16 +46,24 @@ const StudentDetail = () => {
 
   const [studentInfo, setStudentInfo] = useState<Student>();
   const [data, setData] = useState<Course[]>([]);
+  const [courseBought, setCourseBought] = useState<number>(0);
+  const [courseCompleted, setCourseCompleted] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
     StudentService.getStudentById(studentId.id).then((response) => {
       if (response.data) {
-        console.log(response);
         setStudentInfo(response.data);
       }
-      StudentCourseService.getByStudentId(studentId.id).then((res) => {
-        console.log(res);
-        setData(res.data);
+      StudentService.getStudentPurchaseInfo(studentId.id).then((res) => {
+        if (res.data) {
+          setCourseBought(res.data.courseBought);
+          setCourseCompleted(res.data.courseCompleted);
+          setTotal(res.data.total);
+        }
+      });
+      StudentCourseService.getByStudentId(studentId.id).then((result) => {
+        setData(result.data);
         return;
       });
     });
@@ -102,28 +111,72 @@ const StudentDetail = () => {
   };
 
   const createChart = () => {
-    const info = {
-      options: {
-        chart: {
-          id: 'basic-bar',
-        },
-        xaxis: {
-          categories: ['TRY', 'MORE', 'BITE'],
+    const option = {
+      chart: {
+        id: 'basic-bar'
+      },
+      xaxis: {
+        categories: ['Thống kê khóa học của học viên'],
+      },
+      yaxis: {
+        show: false,
+      },
+      title: {
+        text: 'Thống kê khóa học của học viên',
+        align: 'center',
+        margin: 10,
+        style: {
+          fontSize: '15px',
         },
       },
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: { 
+            enabled: true,
+            delay: 150
+        },
+        dynamicAnimation: {
+            enabled: true,
+            speed: 350
+        }
+    }
+    } as ApexOptions;
+    const info = {
       series: [
         {
-          name: 'series-1',
-          data: [10, 20, 30],
+          name: 'Đã mua',
+          data: [courseBought],
         },
         {
-          name: 'series-2',
-          data: [20, 30, 40],
+          name: 'Đã hoàn tất',
+          data: [courseCompleted],
         },
       ],
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150,
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350,
+        },
+      },
     };
 
-    return <Chart options={info.options} series={info.series} type={'bar'}></Chart>;
+    return (
+      <Chart
+        options={option}
+        series={info.series}
+        type={'bar'}
+        animations={info.animations}
+      ></Chart>
+    );
   };
 
   return (
@@ -202,12 +255,12 @@ const StudentDetail = () => {
           </Grid>
           <Grid item xs={4}>
             <Box sx={{ mt: 3, mr: 2, mb: 1 }} style={BoxStyle} height={'600'}>
-            <Box style={BoxStyle}>
-                <Typography>Tong tien da chi</Typography>
-                <Typography>So khoa hoc da hoan thanh</Typography>
-                <Typography>Tong so khoa hoc da mua</Typography>
-              </Box>
               {createChart()}
+              <Box style={BoxStyle}>
+                <Typography>Tổng tiền đã chi: {total}</Typography>
+                <Typography>Số khóa học được hoàn thành: {courseBought}</Typography>
+                <Typography>Số khóa học đã mua: {courseCompleted}</Typography>
+              </Box>
             </Box>
           </Grid>
         </Grid>

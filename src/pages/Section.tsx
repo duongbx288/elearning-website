@@ -1,6 +1,6 @@
 import { Toolbar, Box, Typography, Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import SectionList from '../components/old/section/SectionList';
+import SectionList from '../components/a-old/section/SectionList';
 import { BoxStyle, ToolbarStyle } from '../styles/style';
 
 const Section: React.FC = () => {

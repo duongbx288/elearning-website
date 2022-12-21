@@ -29,6 +29,10 @@ class StudentService {
     updateStudent = (request: StudentRequest) => {
         return axios.put(`/api/students/update`, request);
     }
+
+    getStudentPurchaseInfo = (request: number) => {
+        return axios.get(`/api/students/get-purchase-info/student-id=${request}`);
+    }
 }
 
 export default new StudentService();

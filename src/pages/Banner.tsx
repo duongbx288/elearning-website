@@ -2,7 +2,7 @@ import { Button, Toolbar, Box, Typography } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { BoxStyle, ToolbarStyle } from '../styles/style';
 
-import BannerList from '../components/old/banners/BannerList';
+import BannerList from '../components/a-old/banners/BannerList';
 
 const Banner: React.FC = () => {
   const history = useHistory();

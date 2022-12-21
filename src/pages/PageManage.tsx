@@ -2,7 +2,7 @@ import { Button, Typography, Box, Toolbar } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { BoxStyle, ToolbarStyle } from '../styles/style';
 
-import PageList from '../components/old/pages/PageList';
+import PageList from '../components/a-old/pages/PageList';
 
 const PageManage: React.FC = () => {
   const history = useHistory();
