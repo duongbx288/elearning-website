@@ -8,6 +8,7 @@ import {
   Divider,
   Table,
   TableBody,
+  Grid,
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
 import Toolbar from '../../layout/Toolbar';
@@ -20,6 +21,8 @@ import TeacherService from '../../services/TeacherService';
 import { Teacher } from '../teachers/type';
 import AffiliateService from '../../services/AffiliateService';
 import { Affiliate } from './type';
+import { Order } from '../order/type';
+import OrderService from '../../services/OrderService';
 
 interface CustomerState {
   id: number;
@@ -39,18 +42,24 @@ const AffiliateDetail = () => {
   const history = useHistory();
 
   const [affiliateInfo, setAffiliateInfo] = useState<Affiliate>();
-  const [data, setData] = useState<Course[]>([]);
+  const [data, setData] = useState<Order[]>([]);
+  const [countStudent, setCountStudent] = useState<number>(0);
+  const [countOrder, setCountOrder] = useState<number>(0);
 
   useEffect(() => {
     AffiliateService.getAffiliateById(affiliateId.id).then((response) => {
       if (response.data) {
-        console.log(response);
         setAffiliateInfo(response.data);
       }
-      StudentCourseService.getByStudentId(affiliateId.id).then((res) => {
-        console.log(res);
+      OrderService.getByAffiliateId(affiliateId.id).then((res) => {
         setData(res.data);
+        setCountOrder(res.data.length);
         return;
+      });
+      AffiliateService.countStudent(affiliateId.id).then((res1) => {
+        if (res1.data) {
+          setCountStudent(res1.data);
+        }
       });
     });
   }, []);
@@ -65,19 +74,23 @@ const AffiliateDetail = () => {
     } else return;
   };
 
-  const columns = useMemo<MRT_ColumnDef<Course>[]>(
+  const columns = useMemo<MRT_ColumnDef<Order>[]>(
     () => [
       {
-        accessorKey: 'courseId',
-        header: 'id',
+        accessorKey: 'id',
+        header: 'Id đơn hàng',
       },
       {
-        accessorKey: 'courseName',
-        header: 'Tên',
+        accessorKey: 'userId',
+        header: 'Id người sử dụng',
       },
       {
-        accessorKey: 'price',
-        header: 'price',
+        accessorKey: 'affiliateId',
+        header: 'Mã affiliate',
+      },
+      {
+        accessorKey: 'total',
+        header: 'Tổng tiền',
       },
       {
         accessorKey: 'status',
@@ -85,6 +98,21 @@ const AffiliateDetail = () => {
         size: 200,
         Cell: ({ cell }) => {
           return statusProcess(cell.getValue());
+        },
+      },
+      {
+        accessorKey: 'createdDate',
+        // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
+        header: 'Ngày tạo',
+        size: 200,
+        Cell: ({ cell }) => {
+          const date = String(cell.getValue());
+          const toString = new Date(date).toLocaleDateString();
+          return (
+            <Typography>
+              {String(toString) === 'Invalid Date' ? '---' : String(toString)}
+            </Typography>
+          );
         },
       },
     ],
@@ -100,69 +128,77 @@ const AffiliateDetail = () => {
     <>
       <Toolbar />
       <Box>
-        <Box sx={{ mt: 3, ml: 2, mr: 2, mb: 1 }} style={BoxStyle}>
-          {/* <Image>avatar</Image> */}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-            <Typography variant="h6" sx={{ color: 'blue' }}>
-              Thông tin chi tiết về học viên{' '}
-            </Typography>
-            <div>
-              <Button
-                variant="contained"
-                sx={{
-                  width: '165px',
-                }}
-
-              >
-                Sửa thông tin
-              </Button>
-            </div>
-          </Box>
-          <Divider />
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
-            <Table sx={{ width: '50%' }}>
-              <TableBody>
-                <TableRow>
-                  <TableCell sx={CellTable}>Tên học viên: </TableCell>
-                  <TableCell sx={CellTable}>
-                    <b>{affiliateInfo?.name}</b>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell sx={CellTable}>Địa chỉ:</TableCell>
-                  <TableCell sx={CellTable}>
-                    <b>{affiliateInfo?.address}</b>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell sx={CellTable}>Email:</TableCell>
-                  <TableCell sx={CellTable}>
-                    <b>{affiliateInfo?.email}</b>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell sx={CellTable}>Trạng thái:</TableCell>
-                  <TableCell sx={CellTable}>
-                    <b>{affiliateInfo?.status}</b>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell sx={CellTable}>Ngày sinh:</TableCell>
-                  <TableCell sx={CellTable}>
-                    <b>{formatDate(String(affiliateInfo?.birthDate))}</b>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </Box>
-          <Box style={BoxStyle}>
-            <Typography>Tong so khoa hoc da gioi thieu duoc</Typography>
-            <Typography>Thoi gian hoat dong</Typography>
-            <Typography>Tong tien hoa hoc duoc nhan</Typography>
-            <Typography>Tong so khoa hoc da mua</Typography>
-          </Box>
-        </Box>
-
+        <Grid container spacing={2}>
+          <Grid item xs={9}>
+            <Box sx={{ mt: 3, ml: 2, mr: 2, mb: 1 }} style={BoxStyle}>
+              {/* <Image>avatar</Image> */}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                <Typography variant="h6" sx={{ color: 'blue' }}>
+                  Thông tin chi tiết về người phân phối{' '}
+                </Typography>
+                <div>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      width: '165px',
+                    }}
+                  >
+                    Sửa thông tin
+                  </Button>
+                </div>
+              </Box>
+              <Divider />
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
+                <Table sx={{ width: '50%' }}>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Tên người phân phối: </TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{affiliateInfo?.name}</b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Địa chỉ:</TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{affiliateInfo?.address}</b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Email:</TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{affiliateInfo?.email}</b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Trạng thái:</TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{statusProcess(affiliateInfo?.status)}</b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Ngày sinh:</TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{formatDate(String(affiliateInfo?.birthDate))}</b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={CellTable}>Link facebook:</TableCell>
+                      <TableCell sx={CellTable}>
+                        <b>{affiliateInfo?.facebook}</b>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={3}>
+            <Box sx={{ mt: 3, mr: 2, mb: 1 }} style={BoxStyle}>
+              <Typography>Số đơn hàng đã chốt được: {countOrder}</Typography>
+              <Typography>Số học sinh giới thiệu được: {countStudent}</Typography>
+            </Box>
+          </Grid>
+        </Grid>
         <Box sx={{ padding: 2 }}>
           <MaterialReactTable
             columns={columns}
@@ -172,7 +208,7 @@ const AffiliateDetail = () => {
               return (
                 <>
                   <Box sx={{ padding: 2 }}>
-                    <Typography>Các khóa học đã mua</Typography>
+                    <Typography>Các đơn đã chốt được</Typography>
                   </Box>
                   <Divider />
                 </>

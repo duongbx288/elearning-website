@@ -10,10 +10,14 @@ export type CourseRequest = {
     introduction?: string;
     price?: string;
     status?: string;
-    createdDate?: Date;
-    lastModifiedDate?: Date;
+    createdAt?: Date;
+    lastModifiedAt?: Date;
     createdBy?: string;
     lastModifiedBy?: string;
+    boughtCount?: number;
+    month?: number;
+    year?: number;
+    limit?: number;
 }
 
 class CourseService {
@@ -29,12 +33,24 @@ class CourseService {
         return axios.put(`/api/course/update`, request);
     }
 
-    getByTeacherId = (request: CourseRequest) => {
-        return axios.get(`/api/course/teacherId=${request.teacherId}`);
+    getByTeacherId = (id: number) => {
+        return axios.get(`/api/course/teacherId=${id}`);
     }
 
     getById = (id: number) => {
         return axios.get(`/api/course/${id}`);
+    }
+
+    getSoldByTeacherId = (id: number, limit: number) => {
+        return axios.get(`/api/course/course-sold/teacherId=${id}/limit=${limit}`);
+    }
+
+    getCourseSoldByTeacher = (teacherId: number, limit: number) => {
+        return axios.get(`/api/course/course-sold/teacherId=${teacherId}/limit=${limit}`)
+    }
+
+    getCourseSoldAtAnyMonth = (teacherId: number, month: number, year: number, limit: number) => {
+        return axios.get(`/api/course/particular-month/teacher=${teacherId}/month=${month}/year=${year}/limit=${limit}`)
     }
 
 }

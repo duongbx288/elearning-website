@@ -30,14 +30,17 @@ class OrderService {
         return axios.put(`/api/orders/update`, request);
     }
 
-    getByAffiliateId = (request: OrderRequest) => {
-        return axios.get(`/api/orders/affiliateId=${request.affiliateId}`);
-    }
+    // getByAffiliateId = (request: OrderRequest) => {
+    //     return axios.get(`/api/orders/affiliateId=${request.affiliateId}`);
+    // }
 
     getById = (id: number) => {
         return axios.get(`/api/orders/${id}`);
     }
 
+    getByAffiliateId = (id: number) => {
+        return axios.get(`/api/orders/affiliateId=${id}`);
+    }
     
 
 }

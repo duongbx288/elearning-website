@@ -127,6 +127,7 @@ const StudentDetail = () => {
         margin: 10,
         style: {
           fontSize: '15px',
+          fontFamily: 'Montserrat',
         },
       },
       animations: {
@@ -197,12 +198,6 @@ const StudentDetail = () => {
                     sx={{
                       width: '165px',
                     }}
-                    //   onClick={() =>
-                    //     history.push({
-                    //       pathname: '/website/update/' + websiteInfo.id,
-                    //       state: { detail: websiteInfo },
-                    //     })
-                    //   }
                   >
                     Sửa thông tin
                   </Button>

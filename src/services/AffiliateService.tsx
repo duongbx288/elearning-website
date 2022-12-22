@@ -25,6 +25,10 @@ class AffiliateService {
         return axios.put(`/api/affiliate/update`, request);
     }
 
+    countStudent = (id: number) => {
+        return axios.get(`/api/affiliate/count-student/${id}`);
+    }
+
 }
 
 export default new AffiliateService();

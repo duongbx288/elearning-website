@@ -78,8 +78,6 @@ const TeacherList = () => {
     init();
   }, [pagination.pageIndex, pagination.pageSize]);
 
-  console.log(selected);
-
   const init = () => {
     const request: TeacherRequest = {
       pageNum: pagination.pageIndex,
@@ -105,8 +103,8 @@ const TeacherList = () => {
 
   const handleUpdate = () => {};
 
-  const handleDetailClick = (studentId: number) => () => {
-    const id = studentId;
+  const handleDetailClick = (teacherId: number) => () => {
+    const id = teacherId;
     history.push({
       pathname: '/teacher/detail/' + id,
       state: { id: id },
