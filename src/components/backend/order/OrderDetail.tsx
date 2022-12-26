@@ -11,14 +11,14 @@ import {
   Tooltip
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
-import Toolbar from '../../layout/Toolbar';
+import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { BoxStyle, CellTable, LinkStyle } from '../../styles/style';
+import { BoxStyle, CellTable, LinkStyle } from '../../../styles/style';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
-import StudentCourseService from '../../services/StudentCourseService';
+import StudentCourseService from '../../../services/StudentCourseService';
 import { Order } from './type';
-import OrderService from '../../services/OrderService';
+import OrderService from '../../../services/OrderService';
 
 interface CustomerState {
   id: number;

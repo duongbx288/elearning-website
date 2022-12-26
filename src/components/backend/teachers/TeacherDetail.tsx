@@ -13,15 +13,15 @@ import {
   MenuItem,
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
-import Toolbar from '../../layout/Toolbar';
+import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { BoxStyle, CellTable } from '../../styles/style';
+import { BoxStyle, CellTable } from '../../../styles/style';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
-import StudentCourseService from '../../services/StudentCourseService';
-import TeacherService from '../../services/TeacherService';
+import StudentCourseService from '../../../services/StudentCourseService';
+import TeacherService from '../../../services/TeacherService';
 import { Teacher } from './type';
-import CourseService, { CourseRequest } from '../../services/CourseService';
+import CourseService, { CourseRequest } from '../../../services/CourseService';
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 

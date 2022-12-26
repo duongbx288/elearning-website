@@ -12,7 +12,7 @@ import {
   import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
   import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
   import { useHistory } from 'react-router-dom';
-  import { Course } from '../../components/courses/type';
+  import { Course } from '../../components/backend/courses/type';
   import CourseService from '../../services/CourseService';
 
   interface CustomDialogProps {

@@ -12,7 +12,7 @@ import {
   import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
   import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
   import { useHistory } from 'react-router-dom';
-  import { Order } from '../../components/order/type';
+  import { Order } from '../../components/backend/order/type';
   import OrderService from '../../services/OrderService';
   
   interface CustomDialogProps {

@@ -21,8 +21,8 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { LinkStyle, ToolbarStyle } from '../../styles/style';
-import Toolbar from '../../layout/Toolbar';
+import { LinkStyle, ToolbarStyle } from '../../../styles/style';
+import Toolbar from '../../../layout/Toolbar';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,17 +31,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { processStatus } from '../../services/helpers/InfoFilterHelpers';
-import CustomDialog from '../../utility/affiliate/StatusUpdateDialog';
+import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
 import _ from 'lodash';
+import { Course } from './type';
+import CustomCourseDialog from '../../../utility/course/StatusUpdateDialog';
+import CourseService, { CourseRequest } from '../../../services/CourseService';
 
-import { Affiliate } from './type';
-import AffiliateService, { AffiliateRequest } from '../../services/AffiliateService';
-
-const AffiliateList = () => {
+const CourseList = () => {
   const history = useHistory();
   // data
-  const [data, setData] = useState<Affiliate[]>([]);
+  const [data, setData] = useState<Course[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
@@ -60,12 +59,12 @@ const AffiliateList = () => {
   });
 
   // Dialog state
-  const [selected, setSelected] = useState<Affiliate[]>([]);
+  const [selected, setSelected] = useState<Course[]>([]);
   const [activateDialog, setActivateDialog] = useState<boolean>(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
 
-  const [singleSelected, setSingleSelected] = useState<Affiliate[]>([]);
+  const [singleSelected, setSingleSelected] = useState<Course[]>([]);
   const [singleActivateDialog, setSingleActivateDialog] = useState<boolean>(false);
   const [singleUpdateDialog, setSingleUpdateDialog] = useState<boolean>(false);
 
@@ -78,12 +77,12 @@ const AffiliateList = () => {
   console.log(selected);
 
   const init = () => {
-    const request: AffiliateRequest = {
+    const request: CourseRequest = {
       pageNum: pagination.pageIndex,
       pageLimit: pagination.pageSize,
     };
     try {
-      AffiliateService.getAffiliatePag(request).then((res) => {
+      CourseService.getAllPag(request).then((res) => {
         if (res.data.content.length > 0) {
           setData(res.data.content);
           setRowCount(res.data.totalElements);
@@ -102,15 +101,15 @@ const AffiliateList = () => {
 
   const handleUpdate = () => {};
 
-  const handleDetailClick = (affiliateId: number) => () => {
-    const id = affiliateId;
+  const handleDetailClick = (courseId: number) => () => {
+    const id = courseId;
     history.push({
-      pathname: '/affiliate/detail/' + id,
+      pathname: '/course/detail/' + id,
       state: { id: id },
     });
   };
 
-  const columns = useMemo<MRT_ColumnDef<Affiliate>[]>(
+  const columns = useMemo<MRT_ColumnDef<Course>[]>(
     () => [
       {
         accessorKey: 'id',
@@ -120,6 +119,7 @@ const AffiliateList = () => {
       {
         accessorKey: 'name',
         header: 'Tên',
+        size: 500,
         Cell: ({ row, cell }) => {
           const id = row.original.id;
           return (
@@ -139,62 +139,17 @@ const AffiliateList = () => {
           return processStatus(cell.getValue());
         },
       },
-      {
-        accessorKey: 'birthDate',
-        // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
-        header: 'Ngày sinh ',
-        size: 200,
-        Cell: ({ cell }) => {
-          const date = String(cell.getValue());
-          const toString = new Date(date).toLocaleDateString();
-          return (
-            <Typography>
-              {String(toString) === 'Invalid Date' ? '---' : String(toString)}
-            </Typography>
-          );
-        },
-        Filter: ({ column }) => (
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              onChange={(newValue) => {
-                column.setFilterValue(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  helperText={'Filter Mode: Less Than'}
-                  sx={{ minWidth: '120px' }}
-                  variant="standard"
-                />
-              )}
-              value={column.getFilterValue()}
-            />
-          </LocalizationProvider>
-        ),
-      },
-      {
-        accessorKey: 'facebook',
-        header: 'Link facebook',
-      },
-      {
-        accessorKey: 'email',
-        header: 'Email',
-      },
-      {
-        accessorKey: 'address',
-        header: 'Địa chỉ',
-      },
     ],
-    [],
+    []
   );
 
   const displayTitle = (st: string) => {
     if (st === 'active') {
-      return 'Kích hoạt tài khoản đã chọn ?';
+      return 'Kích hoạt khóa học đã chọn ?';
     } else if (st === 'inactive') {
-      return 'Tạm ngừng tài khoản đã chọn ?';
+      return 'Tạm ngừng khóa học đã chọn ?';
     } else if (st === 'deleted') {
-      return 'Xóa tài khoản đã chọn ?';
+      return 'Xóa khóa học đã chọn ?';
     }
   };
 
@@ -212,7 +167,7 @@ const AffiliateList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách affiliate{' '}
+            Danh sách khóa học{' '}
           </Typography>
           <div>
             <Button
@@ -221,7 +176,7 @@ const AffiliateList = () => {
                 width: '165px',
               }}
             >
-              Thêm affiliate
+              Thêm khóa học
             </Button>
           </div>
         </Box>
@@ -259,20 +214,13 @@ const AffiliateList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết affiliate
+                Chi tiết khóa học
               </MenuItem>,
               <MenuItem
-                key={10}
+                key={1}
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
-                  history.push({
-                    pathname: '/send-email',
-                    state: { 
-                      name: row.original.name,
-                      email: row.original.email 
-                    },
-                  });
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}
               >
@@ -282,7 +230,7 @@ const AffiliateList = () => {
                 Gửi email thông báo
               </MenuItem>,
               <MenuItem
-                key={20}
+                key={2}
                 onClick={() => {
                   closeMenu();
                   handleUpdate();
@@ -295,7 +243,7 @@ const AffiliateList = () => {
                 Cập nhập
               </MenuItem>,
               <MenuItem
-                key={30}
+                key={3}
                 onClick={() => {
                   closeMenu();
                   setSingleSelected([row.original]);
@@ -405,7 +353,7 @@ const AffiliateList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomDialog
+      <CustomCourseDialog
         open={openUpdateDialog}
         onClose={() => {
           setOpenUpdateDialog(false);
@@ -451,7 +399,7 @@ const AffiliateList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomDialog
+      <CustomCourseDialog
         open={singleUpdateDialog}
         onClose={() => {
           setSingleUpdateDialog(false);
@@ -469,4 +417,4 @@ const AffiliateList = () => {
   );
 };
 
-export default AffiliateList;
+export default CourseList;

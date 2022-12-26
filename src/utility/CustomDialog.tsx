@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { list } from 'firebase/storage';
 import { Fragment, useEffect, useState } from 'react';
-import { Student } from '../components/student/StudentList';
+import { Student } from '../components/backend/student/StudentList';
 import StudentService from '../services/StudentService';
 import _ from 'lodash';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';

@@ -11,14 +11,14 @@ import {
   Grid,
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
-import Toolbar from '../../layout/Toolbar';
+import Toolbar from '../../../layout/Toolbar';
 import { Student } from './StudentList';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import StudentService from '../../services/StudentService';
-import { BoxStyle, CellTable } from '../../styles/style';
+import StudentService from '../../../services/StudentService';
+import { BoxStyle, CellTable } from '../../../styles/style';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
-import StudentCourseService from '../../services/StudentCourseService';
+import StudentCourseService from '../../../services/StudentCourseService';
 import Chart from 'react-apexcharts';
 import { create } from 'domain';
 import { ApexOptions } from 'apexcharts';

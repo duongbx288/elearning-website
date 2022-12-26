@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState, useMemo, cloneElement } from 'react';
-import StudentService, { StudentRequest } from '../../services/StudentService';
 import { visuallyHidden } from '@mui/utils';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import type {
@@ -22,8 +21,8 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { LinkStyle, ToolbarStyle } from '../../styles/style';
-import Toolbar from '../../layout/Toolbar';
+import { LinkStyle, ToolbarStyle } from '../../../styles/style';
+import Toolbar from '../../../layout/Toolbar';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -32,19 +31,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { processStatus } from '../../services/helpers/InfoFilterHelpers';
-import CustomDialog from '../../utility/teacher/StatusUpdateDialog';
+import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
+import CustomDialog from '../../../utility/affiliate/StatusUpdateDialog';
 import _ from 'lodash';
 
-import { Teacher } from './type';
-import TeacherService, { TeacherRequest } from '../../services/TeacherService';
+import { Affiliate } from './type';
+import AffiliateService, { AffiliateRequest } from '../../../services/AffiliateService';
 
-type StudentApiResponse = {};
-
-const TeacherList = () => {
+const AffiliateList = () => {
   const history = useHistory();
   // data
-  const [data, setData] = useState<Teacher[]>([]);
+  const [data, setData] = useState<Affiliate[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
@@ -63,12 +60,12 @@ const TeacherList = () => {
   });
 
   // Dialog state
-  const [selected, setSelected] = useState<Teacher[]>([]);
+  const [selected, setSelected] = useState<Affiliate[]>([]);
   const [activateDialog, setActivateDialog] = useState<boolean>(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
 
-  const [singleSelected, setSingleSelected] = useState<Teacher[]>([]);
+  const [singleSelected, setSingleSelected] = useState<Affiliate[]>([]);
   const [singleActivateDialog, setSingleActivateDialog] = useState<boolean>(false);
   const [singleUpdateDialog, setSingleUpdateDialog] = useState<boolean>(false);
 
@@ -78,13 +75,15 @@ const TeacherList = () => {
     init();
   }, [pagination.pageIndex, pagination.pageSize]);
 
+  console.log(selected);
+
   const init = () => {
-    const request: TeacherRequest = {
+    const request: AffiliateRequest = {
       pageNum: pagination.pageIndex,
       pageLimit: pagination.pageSize,
     };
     try {
-      TeacherService.getTeacherPag(request).then((res) => {
+      AffiliateService.getAffiliatePag(request).then((res) => {
         if (res.data.content.length > 0) {
           setData(res.data.content);
           setRowCount(res.data.totalElements);
@@ -103,15 +102,15 @@ const TeacherList = () => {
 
   const handleUpdate = () => {};
 
-  const handleDetailClick = (teacherId: number) => () => {
-    const id = teacherId;
+  const handleDetailClick = (affiliateId: number) => () => {
+    const id = affiliateId;
     history.push({
-      pathname: '/teacher/detail/' + id,
+      pathname: '/affiliate/detail/' + id,
       state: { id: id },
     });
   };
 
-  const columns = useMemo<MRT_ColumnDef<Teacher>[]>(
+  const columns = useMemo<MRT_ColumnDef<Affiliate>[]>(
     () => [
       {
         accessorKey: 'id',
@@ -174,8 +173,8 @@ const TeacherList = () => {
         ),
       },
       {
-        accessorKey: 'city',
-        header: 'Thành phố',
+        accessorKey: 'facebook',
+        header: 'Link facebook',
       },
       {
         accessorKey: 'email',
@@ -185,12 +184,8 @@ const TeacherList = () => {
         accessorKey: 'address',
         header: 'Địa chỉ',
       },
-      {
-        accessorKey: 'title',
-        header: 'Chức danh'
-      },
     ],
-    []
+    [],
   );
 
   const displayTitle = (st: string) => {
@@ -217,7 +212,7 @@ const TeacherList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách giảng viên{' '}
+            Danh sách affiliate{' '}
           </Typography>
           <div>
             <Button
@@ -226,7 +221,7 @@ const TeacherList = () => {
                 width: '165px',
               }}
             >
-              Thêm giáo viên
+              Thêm affiliate
             </Button>
           </div>
         </Box>
@@ -264,10 +259,10 @@ const TeacherList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết giáo viên
+                Chi tiết affiliate
               </MenuItem>,
               <MenuItem
-                key={1}
+                key={10}
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
@@ -287,7 +282,7 @@ const TeacherList = () => {
                 Gửi email thông báo
               </MenuItem>,
               <MenuItem
-                key={2}
+                key={20}
                 onClick={() => {
                   closeMenu();
                   handleUpdate();
@@ -300,7 +295,7 @@ const TeacherList = () => {
                 Cập nhập
               </MenuItem>,
               <MenuItem
-                key={3}
+                key={30}
                 onClick={() => {
                   closeMenu();
                   setSingleSelected([row.original]);
@@ -474,4 +469,4 @@ const TeacherList = () => {
   );
 };
 
-export default TeacherList;
+export default AffiliateList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
-import Toolbar from '../../layout/Toolbar';
+import Toolbar from '../../../layout/Toolbar';
 import {
   Box,
   Chip,
@@ -13,7 +13,7 @@ import {
   TableBody,
   Grid,
 } from '@mui/material';
-import { BoxStyle, CellTable } from '../../styles/style';
+import { BoxStyle, CellTable } from '../../../styles/style';
 import { useLocation, useHistory } from 'react-router-dom';
 const TEMPLATE_ID = 'template_x2egisr';
 const SERVICE_ID = 'service_m1y0zd9';

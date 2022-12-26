@@ -12,7 +12,7 @@ import _ from 'lodash';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useHistory } from 'react-router-dom';
-import { Affiliate } from '../../components/affiliates/type';
+import { Affiliate } from '../../components/backend/affiliates/type';
 import AffiliateService from '../../services/AffiliateService';
 
 interface CustomDialogProps {

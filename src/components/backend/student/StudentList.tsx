@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useMemo, cloneElement } from 'react';
+import StudentService, { StudentRequest } from '../../../services/StudentService';
 import { visuallyHidden } from '@mui/utils';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import type {
@@ -21,8 +22,8 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { LinkStyle, ToolbarStyle } from '../../styles/style';
-import Toolbar from '../../layout/Toolbar';
+import { LinkStyle, ToolbarStyle } from '../../../styles/style';
+import Toolbar from '../../../layout/Toolbar';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,16 +32,27 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { processStatus } from '../../services/helpers/InfoFilterHelpers';
+import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
+import CustomDialog from '../../../utility/CustomDialog';
 import _ from 'lodash';
-import { Course } from './type';
-import CustomCourseDialog from '../../utility/course/StatusUpdateDialog';
-import CourseService, { CourseRequest } from '../../services/CourseService';
 
-const CourseList = () => {
+type StudentApiResponse = {};
+
+export type Student = {
+  id: number;
+  student_code: string;
+  name: string;
+  city?: string;
+  address?: string;
+  email?: string;
+  status?: string;
+  birth_date?: Date;
+};
+
+const StudentList = () => {
   const history = useHistory();
   // data
-  const [data, setData] = useState<Course[]>([]);
+  const [data, setData] = useState<Student[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
@@ -59,12 +71,12 @@ const CourseList = () => {
   });
 
   // Dialog state
-  const [selected, setSelected] = useState<Course[]>([]);
+  const [selected, setSelected] = useState<Student[]>([]);
   const [activateDialog, setActivateDialog] = useState<boolean>(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
 
-  const [singleSelected, setSingleSelected] = useState<Course[]>([]);
+  const [singleSelected, setSingleSelected] = useState<Student[]>([]);
   const [singleActivateDialog, setSingleActivateDialog] = useState<boolean>(false);
   const [singleUpdateDialog, setSingleUpdateDialog] = useState<boolean>(false);
 
@@ -77,12 +89,12 @@ const CourseList = () => {
   console.log(selected);
 
   const init = () => {
-    const request: CourseRequest = {
+    const studentRequest: StudentRequest = {
       pageNum: pagination.pageIndex,
       pageLimit: pagination.pageSize,
     };
     try {
-      CourseService.getAllPag(request).then((res) => {
+      StudentService.getStudentPag(studentRequest).then((res) => {
         if (res.data.content.length > 0) {
           setData(res.data.content);
           setRowCount(res.data.totalElements);
@@ -101,15 +113,15 @@ const CourseList = () => {
 
   const handleUpdate = () => {};
 
-  const handleDetailClick = (courseId: number) => () => {
-    const id = courseId;
+  const handleDetailClick = (studentId: number) => () => {
+    const id = studentId;
     history.push({
-      pathname: '/course/detail/' + id,
+      pathname: '/student/detail/' + id,
       state: { id: id },
     });
   };
 
-  const columns = useMemo<MRT_ColumnDef<Course>[]>(
+  const columns = useMemo<MRT_ColumnDef<Student>[]>(
     () => [
       {
         accessorKey: 'id',
@@ -119,7 +131,6 @@ const CourseList = () => {
       {
         accessorKey: 'name',
         header: 'Tên',
-        size: 500,
         Cell: ({ row, cell }) => {
           const id = row.original.id;
           return (
@@ -139,17 +150,62 @@ const CourseList = () => {
           return processStatus(cell.getValue());
         },
       },
+      {
+        accessorKey: 'birth_date',
+        // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
+        header: 'Ngày sinh ',
+        size: 200,
+        Cell: ({ cell }) => {
+          const date = String(cell.getValue());
+          const toString = new Date(date).toLocaleDateString();
+          return (
+            <Typography>
+              {String(toString) === 'Invalid Date' ? '---' : String(toString)}
+            </Typography>
+          );
+        },
+        Filter: ({ column }) => (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              onChange={(newValue) => {
+                column.setFilterValue(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  helperText={'Filter Mode: Less Than'}
+                  sx={{ minWidth: '120px' }}
+                  variant="standard"
+                />
+              )}
+              value={column.getFilterValue()}
+            />
+          </LocalizationProvider>
+        ),
+      },
+      {
+        accessorKey: 'city',
+        header: 'Thành phố',
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+      },
+      {
+        accessorKey: 'address',
+        header: 'Địa chỉ',
+      },
     ],
     []
   );
 
   const displayTitle = (st: string) => {
     if (st === 'active') {
-      return 'Kích hoạt khóa học đã chọn ?';
+      return 'Kích hoạt tài khoản đã chọn ?';
     } else if (st === 'inactive') {
-      return 'Tạm ngừng khóa học đã chọn ?';
+      return 'Tạm ngừng tài khoản đã chọn ?';
     } else if (st === 'deleted') {
-      return 'Xóa khóa học đã chọn ?';
+      return 'Xóa tài khoản đã chọn ?';
     }
   };
 
@@ -167,7 +223,7 @@ const CourseList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách khóa học{' '}
+            Danh sách học viên{' '}
           </Typography>
           <div>
             <Button
@@ -176,7 +232,7 @@ const CourseList = () => {
                 width: '165px',
               }}
             >
-              Thêm khóa học
+              Thêm học viên
             </Button>
           </div>
         </Box>
@@ -214,13 +270,20 @@ const CourseList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết khóa học
+                Chi tiết học viên
               </MenuItem>,
               <MenuItem
                 key={1}
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
+                  history.push({
+                    pathname: '/send-email',
+                    state: { 
+                      name: row.original.name,
+                      email: row.original.email 
+                    },
+                  });
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}
               >
@@ -353,7 +416,7 @@ const CourseList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomCourseDialog
+      <CustomDialog
         open={openUpdateDialog}
         onClose={() => {
           setOpenUpdateDialog(false);
@@ -399,7 +462,7 @@ const CourseList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomCourseDialog
+      <CustomDialog
         open={singleUpdateDialog}
         onClose={() => {
           setSingleUpdateDialog(false);
@@ -417,4 +480,4 @@ const CourseList = () => {
   );
 };
 
-export default CourseList;
+export default StudentList;

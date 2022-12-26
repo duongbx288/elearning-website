@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useMemo, cloneElement } from 'react';
+import StudentService, { StudentRequest } from '../../../services/StudentService';
 import { visuallyHidden } from '@mui/utils';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import type {
@@ -21,8 +22,8 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { LinkStyle, ToolbarStyle } from '../../styles/style';
-import Toolbar from '../../layout/Toolbar';
+import { LinkStyle, ToolbarStyle } from '../../../styles/style';
+import Toolbar from '../../../layout/Toolbar';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,16 +32,19 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { processStatus } from '../../services/helpers/InfoFilterHelpers';
-import CustomOrderDialog from '../../utility/order/StatusUpdateDialog';
+import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
+import CustomDialog from '../../../utility/teacher/StatusUpdateDialog';
 import _ from 'lodash';
-import { Order } from './type';
-import OrderService, { OrderRequest } from '../../services/OrderService';
 
-const OrderList = () => {
+import { Teacher } from './type';
+import TeacherService, { TeacherRequest } from '../../../services/TeacherService';
+
+type StudentApiResponse = {};
+
+const TeacherList = () => {
   const history = useHistory();
   // data
-  const [data, setData] = useState<Order[]>([]);
+  const [data, setData] = useState<Teacher[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
@@ -59,12 +63,12 @@ const OrderList = () => {
   });
 
   // Dialog state
-  const [selected, setSelected] = useState<Order[]>([]);
+  const [selected, setSelected] = useState<Teacher[]>([]);
   const [activateDialog, setActivateDialog] = useState<boolean>(false);
   const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
   const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false);
 
-  const [singleSelected, setSingleSelected] = useState<Order[]>([]);
+  const [singleSelected, setSingleSelected] = useState<Teacher[]>([]);
   const [singleActivateDialog, setSingleActivateDialog] = useState<boolean>(false);
   const [singleUpdateDialog, setSingleUpdateDialog] = useState<boolean>(false);
 
@@ -74,15 +78,13 @@ const OrderList = () => {
     init();
   }, [pagination.pageIndex, pagination.pageSize]);
 
-  console.log(selected);
-
   const init = () => {
-    const request: OrderRequest = {
+    const request: TeacherRequest = {
       pageNum: pagination.pageIndex,
       pageLimit: pagination.pageSize,
     };
     try {
-      OrderService.getAllPag(request).then((res) => {
+      TeacherService.getTeacherPag(request).then((res) => {
         if (res.data.content.length > 0) {
           setData(res.data.content);
           setRowCount(res.data.totalElements);
@@ -101,33 +103,28 @@ const OrderList = () => {
 
   const handleUpdate = () => {};
 
-  const handleDetailClick = (orderId: number) => () => {
-    const id = orderId;
+  const handleDetailClick = (teacherId: number) => () => {
+    const id = teacherId;
     history.push({
-      pathname: '/order/detail/' + id,
+      pathname: '/teacher/detail/' + id,
       state: { id: id },
     });
   };
 
-  const statusProcess = (status: any) => {
-    if (String(status) === 'complete') {
-      return <Chip color="success" size={'small'} label={'Hoàn thành'} />;
-    } else if (String(status) === 'inactive') {
-      return <Chip color="warning" size={'small'} label={'Tạm ngừng'} />;
-    } else if (String(status) === 'deleted') {
-      return <Chip color="error" size={'small'} label={'Đã xóa'} />;
-    } else return;
-  };
-
-  const columns = useMemo<MRT_ColumnDef<Order>[]>(
+  const columns = useMemo<MRT_ColumnDef<Teacher>[]>(
     () => [
       {
         accessorKey: 'id',
-        header: 'Id đơn hàng',
+        header: 'id',
+        size: 100,
+      },
+      {
+        accessorKey: 'name',
+        header: 'Tên',
         Cell: ({ row, cell }) => {
           const id = row.original.id;
           return (
-            <Tooltip title={'Chi tiết đơn hàng'}>
+            <Tooltip title={'Chi tiết'}>
               <Typography onClick={handleDetailClick(id)} sx={LinkStyle}>
                 {String(cell.getValue())}
               </Typography>
@@ -136,29 +133,17 @@ const OrderList = () => {
         },
       },
       {
-        accessorKey: 'userId',
-        header: 'Id người sử dụng',
-      },
-      {
-        accessorKey: 'affiliateId',
-        header: 'Mã affiliate',
-      },
-      {
-        accessorKey: 'total',
-        header: 'Tổng tiền',
-      },
-      {
         accessorKey: 'status',
         header: 'Trạng thái ',
         size: 200,
         Cell: ({ cell }) => {
-          return statusProcess(cell.getValue());
+          return processStatus(cell.getValue());
         },
       },
       {
-        accessorKey: 'createdDate',
+        accessorKey: 'birthDate',
         // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
-        header: 'Ngày tạo',
+        header: 'Ngày sinh ',
         size: 200,
         Cell: ({ cell }) => {
           const date = String(cell.getValue());
@@ -169,18 +154,52 @@ const OrderList = () => {
             </Typography>
           );
         },
+        Filter: ({ column }) => (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              onChange={(newValue) => {
+                column.setFilterValue(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  helperText={'Filter Mode: Less Than'}
+                  sx={{ minWidth: '120px' }}
+                  variant="standard"
+                />
+              )}
+              value={column.getFilterValue()}
+            />
+          </LocalizationProvider>
+        ),
+      },
+      {
+        accessorKey: 'city',
+        header: 'Thành phố',
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+      },
+      {
+        accessorKey: 'address',
+        header: 'Địa chỉ',
+      },
+      {
+        accessorKey: 'title',
+        header: 'Chức danh'
       },
     ],
     []
   );
 
   const displayTitle = (st: string) => {
-    if (st === 'complete') {
-      return 'Chuyển trạng thái đơn hàng về hoàn tất?';
+    if (st === 'active') {
+      return 'Kích hoạt tài khoản đã chọn ?';
     } else if (st === 'inactive') {
-      return 'Chuyển trạng thái đơn hàng về tạm ngưng?';
+      return 'Tạm ngừng tài khoản đã chọn ?';
     } else if (st === 'deleted') {
-      return 'Chuyển trạng thái đơn hàng thành đã xóa?';
+      return 'Xóa tài khoản đã chọn ?';
     }
   };
 
@@ -198,18 +217,18 @@ const OrderList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách đơn hàng{' '}
+            Danh sách giảng viên{' '}
           </Typography>
-          {/* <div>
+          <div>
             <Button
               variant="contained"
               sx={{
                 width: '165px',
               }}
             >
-              Thêm học viên
+              Thêm giáo viên
             </Button>
-          </div> */}
+          </div>
         </Box>
         <Box sx={{ padding: 2 }}>
           <MaterialReactTable
@@ -245,7 +264,27 @@ const OrderList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết đơn hàng
+                Chi tiết giáo viên
+              </MenuItem>,
+              <MenuItem
+                key={1}
+                onClick={() => {
+                  closeMenu();
+                  console.log('Gui Email');
+                  history.push({
+                    pathname: '/send-email',
+                    state: { 
+                      name: row.original.name,
+                      email: row.original.email 
+                    },
+                  });
+                }}
+                sx={{ m: 0, cursor: 'pointer' }}
+              >
+                <ListItemIcon>
+                  <Send />
+                </ListItemIcon>
+                Gửi email thông báo
               </MenuItem>,
               <MenuItem
                 key={2}
@@ -290,7 +329,7 @@ const OrderList = () => {
                   selected.push(row.original);
                   return;
                 });
-                setUpdateStatus('complete');
+                setUpdateStatus('active');
                 setActivateDialog(true);
               };
               const handleDelete = () => {
@@ -309,7 +348,7 @@ const OrderList = () => {
                     onClick={handleActivate}
                     variant="contained"
                   >
-                    Hoàn thành đơn hàng
+                    Kích hoạt
                   </Button>
                   <Button
                     color="warning"
@@ -317,7 +356,7 @@ const OrderList = () => {
                     onClick={handleDeactivate}
                     variant="contained"
                   >
-                    Tạm dừng đơn
+                    Tạm dừng
                   </Button>
                   <Button
                     color="error"
@@ -325,7 +364,7 @@ const OrderList = () => {
                     onClick={handleDelete}
                     variant="contained"
                   >
-                    Xóa đơn hàng
+                    Xóa
                   </Button>
                 </div>
               );
@@ -371,7 +410,7 @@ const OrderList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomOrderDialog
+      <CustomDialog
         open={openUpdateDialog}
         onClose={() => {
           setOpenUpdateDialog(false);
@@ -417,7 +456,7 @@ const OrderList = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <CustomOrderDialog
+      <CustomDialog
         open={singleUpdateDialog}
         onClose={() => {
           setSingleUpdateDialog(false);
@@ -435,4 +474,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default TeacherList;

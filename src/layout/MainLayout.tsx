@@ -30,18 +30,18 @@ import Reports from '../pages/Report';
 import Navbar from './Navbar';
 
 
-import TeacherList from '../components/teachers/TeacherList';
-import TeacherDetail from '../components/teachers/TeacherDetail';
-import StudentList from '../components/student/StudentList';
-import AffiliateList from '../components/affiliates/AffiliateList';
-import StudentDetail from '../components/student/StudentDetail';
-import StudentUpdate from '../components/student/StudentUpdate';
-import AffiliateDetail from '../components/affiliates/AffiliateDetail';
-import CourseList from '../components/courses/CourseList';
-import CourseDetail from '../components/courses/CourseDetail';
-import OrderDetail from '../components/order/OrderDetail';
-import OrderList from '../components/order/OrderList';
-import ContactUs from '../components/email/SendEmail';
+import TeacherList from '../components/backend/teachers/TeacherList';
+import TeacherDetail from '../components/backend/teachers/TeacherDetail';
+import StudentList from '../components/backend/student/StudentList';
+import AffiliateList from '../components/backend/affiliates/AffiliateList';
+import StudentDetail from '../components/backend/student/StudentDetail';
+import StudentUpdate from '../components/backend/student/StudentUpdate';
+import AffiliateDetail from '../components/backend/affiliates/AffiliateDetail';
+import CourseList from '../components/backend/courses/CourseList';
+import CourseDetail from '../components/backend/courses/CourseDetail';
+import OrderDetail from '../components/backend/order/OrderDetail';
+import OrderList from '../components/backend/order/OrderList';
+import ContactUs from '../components/backend/email/SendEmail';
 const mdTheme = createTheme();
 
 const MainLayout = (props: any) => {

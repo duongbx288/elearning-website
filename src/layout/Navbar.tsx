@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import { mainListItems } from '../components/layout/listItems';
+import { mainListItems } from '../components/backend/layout/listItems';
 import Box from '@mui/material/Box';
 import { logout } from '../auth/authenticationSlice';
 import { useHistory } from 'react-router-dom';

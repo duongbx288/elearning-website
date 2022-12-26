@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { getSession } from './auth/authenticationSlice';
-import Login from './components/auth/Login';
+import Login from './components/backend/auth/Login';
 import MainLayout from './layout/MainLayout';
 import { RootState } from './store/store';
 import PrivateRoute from './auth/private-route';
