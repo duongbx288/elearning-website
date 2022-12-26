@@ -1,16 +1,19 @@
-import React from "react"
-import Home from "../components/MainPage/Home"
-import FlashDeals from "../components/flashDeals/FlashDeals"
-import TopCate from "../components/top/TopCate"
-import NewArrivals from "../components/newarrivals/NewArrivals"
-import Discount from "../components/discount/Discount"
-import Shop from "../components/shops/Shop"
-import Annocument from "../components/annocument/Annocument"
-import Wrapper from "../components/wrapper/Wrapper"
+import React from 'react';
+import Home from '../components/front-end/MainPage/Home';
+import FlashDeals from '../components/front-end/flashDeals/FlashDeals';
+import TopCate from '../components/front-end/top/TopCate';
+import NewArrivals from '../components/front-end/newarrivals/NewArrivals';
+import Discount from '../components/front-end/discount/Discount';
+import Shop from '../components/front-end/shops/Shop';
+import Annocument from '../components/front-end/annocument/Annocument';
+import Wrapper from '../components/front-end/wrapper/Wrapper';
+import Header from '../common/header/Header';
+import Footer from '../common/footer/Footer';
 
 const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
   return (
     <>
+      <Header CartItem={CartItem} />
       <Home CartItem={CartItem} />
       <FlashDeals productItems={productItems} addToCart={addToCart} />
       <TopCate />
@@ -19,8 +22,9 @@ const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
       <Shop shopItems={shopItems} addToCart={addToCart} />
       <Annocument />
       <Wrapper />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Pages
+export default Pages;

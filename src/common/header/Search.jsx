@@ -1,6 +1,6 @@
-import React from "react"
-import logo from "../../components/assets/images/logo.svg"
-import { Link } from "react-router-dom"
+import React from "react";
+import logo from "../../components/front-end/assets/images/logo.svg";
+import { Link } from "react-router-dom";
 
 const Search = ({ CartItem }) => {
   // fixed Header
