@@ -109,91 +109,78 @@ const OrderList = () => {
     });
   };
 
+  const statusProcess = (status: any) => {
+    if (String(status) === 'complete') {
+      return <Chip color="success" size={'small'} label={'Hoàn thành'} />;
+    } else if (String(status) === 'inactive') {
+      return <Chip color="warning" size={'small'} label={'Tạm ngừng'} />;
+    } else if (String(status) === 'deleted') {
+      return <Chip color="error" size={'small'} label={'Đã xóa'} />;
+    } else return;
+  };
+
   const columns = useMemo<MRT_ColumnDef<Order>[]>(
     () => [
       {
         accessorKey: 'id',
-        header: 'id',
-        size: 100,
+        header: 'Id đơn hàng',
+        Cell: ({ row, cell }) => {
+          const id = row.original.id;
+          return (
+            <Tooltip title={'Chi tiết đơn hàng'}>
+              <Typography onClick={handleDetailClick(id)} sx={LinkStyle}>
+                {String(cell.getValue())}
+              </Typography>
+            </Tooltip>
+          );
+        },
       },
-    //   {
-    //     accessorKey: 'name',
-    //     header: 'Tên',
-    //     Cell: ({ row, cell }) => {
-    //       const id = row.original.id;
-    //       return (
-    //         <Tooltip title={'Chi tiết'}>
-    //           <Typography onClick={handleDetailClick(id)} sx={LinkStyle}>
-    //             {String(cell.getValue())}
-    //           </Typography>
-    //         </Tooltip>
-    //       );
-    //     },
-    //   },
+      {
+        accessorKey: 'userId',
+        header: 'Id người sử dụng',
+      },
+      {
+        accessorKey: 'affiliateId',
+        header: 'Mã affiliate',
+      },
+      {
+        accessorKey: 'total',
+        header: 'Tổng tiền',
+      },
       {
         accessorKey: 'status',
         header: 'Trạng thái ',
         size: 200,
         Cell: ({ cell }) => {
-          return processStatus(cell.getValue());
+          return statusProcess(cell.getValue());
         },
       },
-    //   {
-    //     accessorKey: 'birth_date',
-    //     // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
-    //     header: 'Ngày sinh ',
-    //     size: 200,
-    //     Cell: ({ cell }) => {
-    //       const date = String(cell.getValue());
-    //       const toString = new Date(date).toLocaleDateString();
-    //       return (
-    //         <Typography>
-    //           {String(toString) === 'Invalid Date' ? '---' : String(toString)}
-    //         </Typography>
-    //       );
-    //     },
-    //     Filter: ({ column }) => (
-    //       <LocalizationProvider dateAdapter={AdapterDayjs}>
-    //         <DatePicker
-    //           onChange={(newValue) => {
-    //             column.setFilterValue(newValue);
-    //           }}
-    //           renderInput={(params) => (
-    //             <TextField
-    //               {...params}
-    //               helperText={'Filter Mode: Less Than'}
-    //               sx={{ minWidth: '120px' }}
-    //               variant="standard"
-    //             />
-    //           )}
-    //           value={column.getFilterValue()}
-    //         />
-    //       </LocalizationProvider>
-    //     ),
-    //   },
-    //   {
-    //     accessorKey: 'city',
-    //     header: 'Thành phố',
-    //   },
-    //   {
-    //     accessorKey: 'email',
-    //     header: 'Email',
-    //   },
-    //   {
-    //     accessorKey: 'address',
-    //     header: 'Địa chỉ',
-    //   },
+      {
+        accessorKey: 'createdDate',
+        // accessorFn: (row) => row.birth_date ? new Date(row.birth_date) : row.birth_date,
+        header: 'Ngày tạo',
+        size: 200,
+        Cell: ({ cell }) => {
+          const date = String(cell.getValue());
+          const toString = new Date(date).toLocaleDateString();
+          return (
+            <Typography>
+              {String(toString) === 'Invalid Date' ? '---' : String(toString)}
+            </Typography>
+          );
+        },
+      },
     ],
     []
   );
 
   const displayTitle = (st: string) => {
-    if (st === 'active') {
-      return 'Kích hoạt tài khoản đã chọn ?';
+    if (st === 'complete') {
+      return 'Chuyển trạng thái đơn hàng về hoàn tất?';
     } else if (st === 'inactive') {
-      return 'Tạm ngừng tài khoản đã chọn ?';
+      return 'Chuyển trạng thái đơn hàng về tạm ngưng?';
     } else if (st === 'deleted') {
-      return 'Xóa tài khoản đã chọn ?';
+      return 'Chuyển trạng thái đơn hàng thành đã xóa?';
     }
   };
 
@@ -211,9 +198,9 @@ const OrderList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách học viên{' '}
+            Danh sách đơn hàng{' '}
           </Typography>
-          <div>
+          {/* <div>
             <Button
               variant="contained"
               sx={{
@@ -222,7 +209,7 @@ const OrderList = () => {
             >
               Thêm học viên
             </Button>
-          </div>
+          </div> */}
         </Box>
         <Box sx={{ padding: 2 }}>
           <MaterialReactTable
@@ -258,20 +245,7 @@ const OrderList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết học viên giáo viên affiliate đơn hàng
-              </MenuItem>,
-              <MenuItem
-                key={1}
-                onClick={() => {
-                  closeMenu();
-                  console.log('Gui Email');
-                }}
-                sx={{ m: 0, cursor: 'pointer' }}
-              >
-                <ListItemIcon>
-                  <Send />
-                </ListItemIcon>
-                Gửi email thông báo
+                Chi tiết đơn hàng
               </MenuItem>,
               <MenuItem
                 key={2}
@@ -316,7 +290,7 @@ const OrderList = () => {
                   selected.push(row.original);
                   return;
                 });
-                setUpdateStatus('active');
+                setUpdateStatus('complete');
                 setActivateDialog(true);
               };
               const handleDelete = () => {
@@ -335,7 +309,7 @@ const OrderList = () => {
                     onClick={handleActivate}
                     variant="contained"
                   >
-                    Kích hoạt
+                    Hoàn thành đơn hàng
                   </Button>
                   <Button
                     color="warning"
@@ -343,7 +317,7 @@ const OrderList = () => {
                     onClick={handleDeactivate}
                     variant="contained"
                   >
-                    Tạm dừng
+                    Tạm dừng đơn
                   </Button>
                   <Button
                     color="error"
@@ -351,7 +325,7 @@ const OrderList = () => {
                     onClick={handleDelete}
                     variant="contained"
                   >
-                    Xóa
+                    Xóa đơn hàng
                   </Button>
                 </div>
               );

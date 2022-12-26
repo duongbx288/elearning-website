@@ -23,6 +23,21 @@ interface CustomerState {
   id: number;
 }
 
+type Comment = {
+  lessonId?: string;
+  courseId?: string;
+  content?: string;
+  userId?: number;
+  status?: string;
+}
+
+type Rating = {
+  userId?: number;
+  content?: string;
+  status?: string;
+  value?: number;
+}
+
 const CourseDetail = () => {
   const location = useLocation();
   const courseId = location.state as CustomerState;
@@ -30,18 +45,30 @@ const CourseDetail = () => {
 
   const [courseInfo, setCourseInfo] = useState<Course>();
   const [data, setData] = useState<Course[]>([]);
-
+  const [rating, setRating] = useState([]);
+  const [studentCount, setStudentCount] = useState<number>(0);
+  const [studentComplete, setStudentComplete] = useState<number>(0);
   useEffect(() => {
     CourseService.getById(courseId.id).then((response) => {
       if (response.data) {
         console.log(response);
         setCourseInfo(response.data);
       }
-      StudentCourseService.getByStudentId(courseId.id).then((res) => {
-        console.log(res);
-        setData(res.data);
-        return;
+      CourseService.getStudentCount(courseId.id).then((res1) => {
+        if(res1.data){
+          setStudentCount(res1.data);
+        }
       });
+      CourseService.getStudentComplete(courseId.id).then((res2) => {
+        if(res2.data){
+          setStudentComplete(res2.data);
+        }
+      })
+      CourseService.getCommentOfCourse(courseId.id).then((res3) => {
+        if(res3.data){
+          setData(res3.data);
+        }
+      })
     });
   }, []);
 
@@ -73,9 +100,12 @@ const CourseDetail = () => {
     []
   );
 
-  const formatDate = (date: string) => {
-    const toString = new Date(date).toLocaleDateString();
-    return toString;
+  const formatDate = (date: Date | undefined) => {
+    if (typeof date !== 'undefined') {
+      const toString = new Date(date).toLocaleDateString();
+      return toString;
+    } else 
+    return "---";
   };
 
   return (
@@ -86,7 +116,7 @@ const CourseDetail = () => {
           {/* <Image>avatar</Image> */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
             <Typography variant="h6" sx={{ color: 'blue' }}>
-              Thông tin chi tiết về học viên{' '}
+              Thông tin chi tiết về khóa học{' '}
             </Typography>
             <div>
               <Button
@@ -103,26 +133,42 @@ const CourseDetail = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
             <Table sx={{ width: '50%' }}>
               <TableBody>
+              <TableRow>
+                  <TableCell sx={CellTable}>Id giáo viên tạo khóa học: </TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{courseInfo?.teacherId}</b>
+                  </TableCell>
+                </TableRow>
                 <TableRow>
-                  <TableCell sx={CellTable}>Tên học viên: </TableCell>
+                  <TableCell sx={CellTable}>Tên khóa học: </TableCell>
                   <TableCell sx={CellTable}>
                     <b>{courseInfo?.name}</b>
                   </TableCell>
                 </TableRow>
                 <TableRow>
+                  <TableCell sx={CellTable}>Gía khóa học: </TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{courseInfo?.price}</b>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={CellTable}>Thời gian tạo khóa học: </TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{formatDate(courseInfo?.createdDate)}</b>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
                   <TableCell sx={CellTable}>Trạng thái:</TableCell>
                   <TableCell sx={CellTable}>
-                    <b>{courseInfo?.status}</b>
+                    <b>{statusProcess(courseInfo?.status)}</b>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </Box>
           <Box style={BoxStyle}>
-            <Typography>So luong hoc sinh dang ki khoa hoc</Typography>
-            <Typography>So luong hoc sinh da hoan thanh</Typography>
-            <Typography>Danh gia khoa hoc</Typography>
-            <Typography>Binh luan ve khoa hoc</Typography>
+            <Typography>Số lượng học sinh đăng kí khóa học: {studentCount}</Typography>
+            <Typography>Số lượng học sinh hoàn tất khóa học: {studentComplete}</Typography>
           </Box>
         </Box>
 
@@ -135,7 +181,24 @@ const CourseDetail = () => {
               return (
                 <>
                   <Box sx={{ padding: 2 }}>
-                    <Typography>Các khóa học đã mua</Typography>
+                    <Typography>Đánh giá về khóa học</Typography>
+                  </Box>
+                  <Divider />
+                </>
+              );
+            }}
+          />
+        </Box>
+        <Box sx={{ padding: 2 }}>
+          <MaterialReactTable
+            columns={columns}
+            data={data}
+            localization={MRT_Localization_VI}
+            renderTopToolbar={({ table }) => {
+              return (
+                <>
+                  <Box sx={{ padding: 2 }}>
+                    <Typography>Bình luận về khóa học</Typography>
                   </Box>
                   <Divider />
                 </>

@@ -41,7 +41,7 @@ import CourseList from '../components/courses/CourseList';
 import CourseDetail from '../components/courses/CourseDetail';
 import OrderDetail from '../components/order/OrderDetail';
 import OrderList from '../components/order/OrderList';
-
+import ContactUs from '../components/email/SendEmail';
 const mdTheme = createTheme();
 
 const MainLayout = (props: any) => {
@@ -117,6 +117,7 @@ const MainLayout = (props: any) => {
             <Route exact path="/">
               <Redirect to="/student" />
             </Route>
+            <Route exact path="/send-email" component={ContactUs}/>
           </Switch>
         </Box>
       </Box>

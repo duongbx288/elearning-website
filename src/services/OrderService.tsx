@@ -42,6 +42,9 @@ class OrderService {
         return axios.get(`/api/orders/affiliateId=${id}`);
     }
     
+    getOrderItemByOrderId = (id: number) => {
+        return axios.get(`/api/order-item/orderId=${id}`);
+    }
 
 }
 

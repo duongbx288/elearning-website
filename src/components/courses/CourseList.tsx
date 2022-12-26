@@ -119,6 +119,7 @@ const CourseList = () => {
       {
         accessorKey: 'name',
         header: 'Tên',
+        size: 500,
         Cell: ({ row, cell }) => {
           const id = row.original.id;
           return (
@@ -144,11 +145,11 @@ const CourseList = () => {
 
   const displayTitle = (st: string) => {
     if (st === 'active') {
-      return 'Kích hoạt tài khoản đã chọn ?';
+      return 'Kích hoạt khóa học đã chọn ?';
     } else if (st === 'inactive') {
-      return 'Tạm ngừng tài khoản đã chọn ?';
+      return 'Tạm ngừng khóa học đã chọn ?';
     } else if (st === 'deleted') {
-      return 'Xóa tài khoản đã chọn ?';
+      return 'Xóa khóa học đã chọn ?';
     }
   };
 
@@ -166,7 +167,7 @@ const CourseList = () => {
           }}
         >
           <Typography variant="h6" sx={{ color: 'blue' }}>
-            Danh sách học viên{' '}
+            Danh sách khóa học{' '}
           </Typography>
           <div>
             <Button
@@ -175,7 +176,7 @@ const CourseList = () => {
                 width: '165px',
               }}
             >
-              Thêm học viên
+              Thêm khóa học
             </Button>
           </div>
         </Box>
@@ -213,7 +214,7 @@ const CourseList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết học viên giáo viên affiliate đơn hàng
+                Chi tiết khóa học
               </MenuItem>,
               <MenuItem
                 key={1}

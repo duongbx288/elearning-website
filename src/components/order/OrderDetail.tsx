@@ -8,12 +8,13 @@ import {
   Divider,
   Table,
   TableBody,
+  Tooltip
 } from '@mui/material';
 import { useHistory, useLocation } from 'react-router-dom';
 import Toolbar from '../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { BoxStyle, CellTable } from '../../styles/style';
+import { BoxStyle, CellTable, LinkStyle } from '../../styles/style';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import StudentCourseService from '../../services/StudentCourseService';
 import { Order } from './type';
@@ -23,13 +24,20 @@ interface CustomerState {
   id: number;
 }
 
+type OrderItem = {
+    orderId?: number;
+    courseId?: number;
+    initPrice?: number;
+    total?: number;
+}
+
 const OrderDetail = () => {
   const location = useLocation();
   const orderId = location.state as CustomerState;
   const history = useHistory();
 
   const [orderInfo, setOrderInfo] = useState<Order>();
-  const [data, setData] = useState<Order[]>([]);
+  const [data, setData] = useState<OrderItem[]>([]);
 
   useEffect(() => {
     OrderService.getById(orderId.id).then((response) => {
@@ -37,7 +45,7 @@ const OrderDetail = () => {
         console.log(response);
         setOrderInfo(response.data);
       }
-      StudentCourseService.getByStudentId(orderId.id).then((res) => {
+      OrderService.getOrderItemByOrderId(orderId.id).then((res) => {
         console.log(res);
         setData(res.data);
         return;
@@ -45,29 +53,37 @@ const OrderDetail = () => {
     });
   }, []);
 
-  const statusProcess = (status: any) => {
-    if (String(status) === 'active') {
-      return <Chip color="success" size={'small'} label={'Hoạt động'} />;
-    } else if (String(status) === 'inactive') {
-      return <Chip color="warning" size={'small'} label={'Tạm ngừng'} />;
-    } else if (String(status) === 'deleted') {
-      return <Chip color="error" size={'small'} label={'Đã xóa'} />;
-    } else return;
+  const handleDetailClick = (orderId: number | undefined) => () => {
+    const id = orderId;
+    history.push({
+      pathname: '/course/detail/' + id,
+      state: { id: id },
+    });
   };
 
-  const columns = useMemo<MRT_ColumnDef<Order>[]>(
+  const columns = useMemo<MRT_ColumnDef<OrderItem>[]>(
     () => [
       {
         accessorKey: 'courseId',
-        header: 'id',
+        header: 'Id khóa học',
+        Cell: ({ row, cell }) => {
+          const id = row.original.courseId;
+          return (
+            <Tooltip title={'Chi tiết khóa học'}>
+              <Typography onClick={handleDetailClick(id)} sx={LinkStyle}>
+                {String(cell.getValue())}
+              </Typography>
+            </Tooltip>
+          );
+        },
       },
       {
-        accessorKey: 'status',
-        header: 'Trạng thái ',
-        size: 200,
-        Cell: ({ cell }) => {
-          return statusProcess(cell.getValue());
-        },
+        accessorKey: 'orderId',
+        header: 'Id đơn hàng',
+      },
+      {
+        accessorKey: 'total',
+        header: 'Gía khóa học',
       },
     ],
     []
@@ -86,7 +102,7 @@ const OrderDetail = () => {
           {/* <Image>avatar</Image> */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
             <Typography variant="h6" sx={{ color: 'blue' }}>
-              Thông tin chi tiết về học viên{' '}
+              Thông tin về đơn hàng{' '}
             </Typography>
             <div>
               <Button
@@ -103,20 +119,32 @@ const OrderDetail = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
             <Table sx={{ width: '50%' }}>
               <TableBody>
+              <TableRow>
+                  <TableCell sx={CellTable}>Mã người dùng mua đơn:</TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{orderInfo?.userId}</b>
+                  </TableCell>
+                </TableRow>
                 <TableRow>
-                  <TableCell sx={CellTable}>Trạng thái:</TableCell>
+                  <TableCell sx={CellTable}>Tổng tiền đơn hàng:</TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{orderInfo?.total}</b>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={CellTable}>Id người phân phối hỗ trợ đơn hàng</TableCell>
+                  <TableCell sx={CellTable}>
+                    <b>{orderInfo?.affiliateId}</b>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={CellTable}>Trạng thái đơn hàng:</TableCell>
                   <TableCell sx={CellTable}>
                     <b>{orderInfo?.status}</b>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
-          </Box>
-          <Box style={BoxStyle}>
-            <Typography>Khoa hoc da mua</Typography>
-            <Typography>Tong tien da chi</Typography>
-            <Typography>So khoa hoc da hoan thanh</Typography>
-            <Typography>Tong so khoa hoc da mua</Typography>
           </Box>
         </Box>
 

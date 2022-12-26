@@ -53,6 +53,21 @@ class CourseService {
         return axios.get(`/api/course/particular-month/teacher=${teacherId}/month=${month}/year=${year}/limit=${limit}`)
     }
 
+    getStudentCount = (id: number) => {
+        return axios.get(`/api/course/count/${id}`);
+    }
+
+    getStudentComplete = (id: number) => {
+        return axios.get(`/api/course/count-complete/${id}`);
+    }
+
+    getCommentOfCourse = (id: number) => {
+        return axios.get(`/api/comment/course-id=${id}`)
+    }
+
+    getRatingOfCourse = (id: number) => {
+        return axios.get(`/api/course_rating/course-id=${id}`)
+    }
 }
 
 export default new CourseService();

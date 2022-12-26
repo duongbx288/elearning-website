@@ -270,13 +270,20 @@ const StudentList = () => {
                 <ListItemIcon>
                   <AccountCircle />
                 </ListItemIcon>
-                Chi tiết học viên giáo viên affiliate đơn hàng
+                Chi tiết học viên
               </MenuItem>,
               <MenuItem
                 key={1}
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
+                  history.push({
+                    pathname: '/send-email',
+                    state: { 
+                      name: row.original.name,
+                      email: row.original.email 
+                    },
+                  });
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}
               >
