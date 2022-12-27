@@ -63,11 +63,13 @@ const App = (props: AppProps) => {
         <Switch>
           <Route exact path="/login" component={Login}></Route>
           {/* <PrivateRoute exact path="/" component={MainLayout}></PrivateRoute> */}
-          <Route path="/" exact component={MainLayout}></Route>
-          <Route path='/main' exact>
+          <Route path="/admin" component={MainLayout}></Route>
+        </Switch>
+        <Switch>
+          <Route exact path='/main'>
             <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} CartItem={CartItem}/>
           </Route>
-          <Route path='/cart' exact>
+          <Route exact path='/cart' >
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
           </Route>
         </Switch>

@@ -6,13 +6,14 @@ const Navbar = () => {
   const [MobileMenu, setMobileMenu] = useState(false)
   return (
     <>
+    
       <header className='header'>
         <div className='container d_flex'>
           <div className='catgrories d_flex' style={{ cursor: 'pointer' }}>
-            <span class='fa-solid fa-border-all'></span>
-            <h3>
+            <span className='fa-solid fa-border-all'></span>
+            <h4>
               Categories <i className='fa fa-chevron-down'></i>
-            </h3>
+            </h4>
           </div>
 
           <div className='navlink'>

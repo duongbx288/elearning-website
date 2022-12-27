@@ -53,22 +53,22 @@ const MainLayout = (props: any) => {
           }}
         >
           <Switch>
-            <Route exact path="/report" component={Reports} />
-            <Route exact path="/teacher" component={TeacherList} />
-            <Route exact path="/teacher/detail/:id" component={TeacherDetail} />
-            <Route exact path="/student" component={StudentList} />
-            <Route exact path="/student/detail/:id" component={StudentDetail} />
-            <Route exact path="/student/update/:id" component={StudentUpdate} />
-            <Route exact path="/affiliate" component={AffiliateList} />
-            <Route exact path="/affiliate/detail/:id" component={AffiliateDetail} />
-            <Route exact path="/course" component={CourseList} />
-            <Route exact path="/course/detail/:id" component={CourseDetail} />
-            <Route exact path="/order/detail/:id" component={OrderDetail} />
-            <Route exact path="/order" component={OrderList} />
-            <Route exact path="/">
-              <Redirect to="/student" />
+            <Route exact path="/admin/report" component={Reports} />
+            <Route exact path="/admin/teacher" component={TeacherList} />
+            <Route exact path="/admin/teacher/detail/:id" component={TeacherDetail} />
+            <Route exact path="/admin/student" component={StudentList} />
+            <Route exact path="/admin/student/detail/:id" component={StudentDetail} />
+            <Route exact path="/admin/student/update/:id" component={StudentUpdate} />
+            <Route exact path="/admin/affiliate" component={AffiliateList} />
+            <Route exact path="/admin/affiliate/detail/:id" component={AffiliateDetail} />
+            <Route exact path="/admin/course" component={CourseList} />
+            <Route exact path="/admin/course/detail/:id" component={CourseDetail} />
+            <Route exact path="/admin/order/detail/:id" component={OrderDetail} />
+            <Route exact path="/admin/order" component={OrderList} />
+            <Route exact path="/admin/">
+              <Redirect to="/admin/student" />
             </Route>
-            <Route exact path="/send-email" component={ContactUs}/>
+            <Route exact path="/admin/send-email" component={ContactUs}/>
           </Switch>
         </Box>
       </Box>
