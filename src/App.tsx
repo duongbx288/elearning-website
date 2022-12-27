@@ -1,3 +1,5 @@
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -14,6 +16,8 @@ import Data from "./components/front-end/Data";
 import Cart from "./common/Cart/Cart";
 import Footer from "./common/footer/Footer";
 import Sdata from "./components/front-end/shops/Sdata";
+
+import SignIn from './components/front-end/auth/SignIn';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -72,6 +76,7 @@ const App = (props: AppProps) => {
           <Route exact path='/cart' >
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
           </Route>
+          <Route exact path='/sign-in' component={SignIn}/>
         </Switch>
         
       </React.Fragment>

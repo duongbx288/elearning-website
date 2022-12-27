@@ -31,7 +31,7 @@ const Login = (props: LoginProps) => {
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
 
   const { from } = (location.state as any) || {
-    from: { pathname: '/', search: location.search },
+    from: { pathname: '/admin', search: location.search },
   };
 
   const handleSubmit = async (event: any) => {

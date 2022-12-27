@@ -1,5 +1,6 @@
 p,h1,h2,h3,h4,h5,h6{
-    font-family: -apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif;
+    /* font-family: -apple-system,BlinkMacSystemFont,San Francisco,Segoe UI,Roboto,Helvetica Neue,sans-serif; */
+    font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 .overview {
     display: flex;
