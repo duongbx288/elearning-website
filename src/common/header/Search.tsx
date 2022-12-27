@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../components/front-end/assets/images/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../auth/authenticationSlice';
@@ -88,9 +88,11 @@ const Search = ({ CartItem }) => {
                 onClose={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'basic-button',
-                
                 }}
+                sx={{ width: '250px', textOverflow: 'ellipsis' }}
               >
+                <MenuItem disabled
+                >Tên tài khoản: {username.username}</MenuItem>
                 <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
                 <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
@@ -103,7 +105,7 @@ const Search = ({ CartItem }) => {
               </div>
             </div>
           ) : (
-            <div style={{display: 'flex', flexDirection: 'row', justifyItems: 'center', width: '15%'}}>
+            <div style={{display: 'flex', flexDirection: 'row', justifyItems: 'center', width: '20%'}}>
               <Link to="/sign-in">Đăng nhập</Link>
               <Link to="/sign-in">Đăng ký</Link>
             </div>

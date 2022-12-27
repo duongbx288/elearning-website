@@ -18,6 +18,8 @@ import Footer from "./common/footer/Footer";
 import Sdata from "./components/front-end/MainPage/components/shops/Sdata";
 
 import SignIn from './components/front-end/auth/SignIn';
+import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
+import CourseInfo from './components/front-end/Course/CourseInfo';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -75,6 +77,12 @@ const App = (props: AppProps) => {
           </Route>
           <Route exact path='/cart' >
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+          </Route>
+          <Route exact path='/learn'>
+            <LearnCourse CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}/>
+          </Route>
+          <Route exact path='/course-info'>
+            <CourseInfo CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}/>
           </Route>
           <Route exact path='/sign-in' component={SignIn}/>
         </Switch>

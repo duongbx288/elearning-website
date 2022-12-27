@@ -21,7 +21,7 @@
   height: auto;
 }
 .search .width {
-  width: 15%;
+  width: 20%;
 }
 .search-box {
   width: 60%;
@@ -71,7 +71,7 @@
 }
 
 .search a {
-  margin: 0px 10px;
+  margin: 0px 10px 0px 25px;
 }
 
 .search i:hover {
