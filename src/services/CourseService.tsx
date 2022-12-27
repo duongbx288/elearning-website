@@ -18,6 +18,8 @@ export type CourseRequest = {
     month?: number;
     year?: number;
     limit?: number;
+    rating?: number;
+    ratingCount?: number;
 }
 
 class CourseService {
