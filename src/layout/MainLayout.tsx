@@ -25,7 +25,7 @@ import Pages from "../pages/Pages";
 import Data from "../components/front-end/Data";
 import Cart from "../common/Cart/Cart";
 import Footer from "../common/footer/Footer"
-import Sdata from "../components/front-end/shops/Sdata";
+import Sdata from "../components/front-end/MainPage/components/shops/Sdata";
 
 const mdTheme = createTheme();
 
