@@ -8,11 +8,11 @@ const Navbar = () => {
     <>
       <header className='header'>
         <div className='container d_flex'>
-          <div className='catgrories d_flex'>
+          <div className='catgrories d_flex' style={{ cursor: 'pointer' }}>
             <span class='fa-solid fa-border-all'></span>
-            <h4>
+            <h3>
               Categories <i className='fa fa-chevron-down'></i>
-            </h4>
+            </h3>
           </div>
 
           <div className='navlink'>

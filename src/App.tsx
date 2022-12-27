@@ -62,7 +62,7 @@ const App = (props: AppProps) => {
       <React.Fragment>
         <Switch>
           <Route exact path="/login" component={Login}></Route>
-          {/* <PrivateRoute path="/" component={MainLayout}></PrivateRoute> */}
+          {/* <PrivateRoute exact path="/" component={MainLayout}></PrivateRoute> */}
           <Route path="/" exact component={MainLayout}></Route>
           <Route path='/main' exact>
             <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} CartItem={CartItem}/>
