@@ -21,6 +21,8 @@ import SignIn from './components/front-end/auth/SignIn';
 import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
 import CourseInfo from './components/front-end/Course/CourseInfo';
 
+import { CartProvider } from './context/CartContext';
+
 interface AppProps extends PropsFromRedux {}
 
 const App = (props: AppProps) => {
@@ -64,6 +66,7 @@ const App = (props: AppProps) => {
   }
 
   return (
+    <CartProvider>
     <Router>
       <React.Fragment>
         <Switch>
@@ -89,6 +92,7 @@ const App = (props: AppProps) => {
         
       </React.Fragment>
     </Router>
+    </CartProvider>
   );
 };
 

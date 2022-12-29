@@ -40,30 +40,30 @@ const Search = ({ CartItem }) => {
 
   const handleInfo = () => {
     handleClose();
-  }
+  };
 
   const handleLogout = () => {
     handleClose();
     dispatch(logout());
-    localStorage.removeItem('user'); 
-    setUserInfo(false); 
-  }
+    localStorage.removeItem('user');
+    setUserInfo(false);
+  };
 
   const handleSignIn = () => {
     handleClose();
-  }
+  };
 
   const handleGoToLearn = () => {
     handleClose();
-  }
+  };
 
   return (
     <>
       <section className="search">
         <div className="container c_flex">
           <div className="logo width ">
-            <Link to={"/main"}>
-            <img src={logo} alt="" />
+            <Link to={'/main'}>
+              <img src={logo} alt="" />
             </Link>
           </div>
 
@@ -81,7 +81,9 @@ const Search = ({ CartItem }) => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                style={open ? {cursor: 'pointer', color: '#ff014f' } : {cursor: 'pointer'}}
+                style={
+                  open ? { cursor: 'pointer', color: '#ff014f' } : { cursor: 'pointer' }
+                }
               ></i>
               <Menu
                 id="basic-menu"
@@ -93,8 +95,7 @@ const Search = ({ CartItem }) => {
                 }}
                 sx={{ width: '250px', textOverflow: 'ellipsis' }}
               >
-                <MenuItem disabled
-                >Tên tài khoản: {username.username}</MenuItem>
+                <MenuItem disabled>Tên tài khoản: {username.username}</MenuItem>
                 <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
                 <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
@@ -107,9 +108,22 @@ const Search = ({ CartItem }) => {
               </div>
             </div>
           ) : (
-            <div style={{display: 'flex', flexDirection: 'row', justifyItems: 'center', width: '20%'}}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyItems: 'center',
+                width: '20%',
+              }}
+            >
               <Link to="/sign-in">Đăng nhập</Link>
               <Link to="/sign-in">Đăng ký</Link>
+              <div className="cart">
+                <Link to="/cart">
+                  <i className="fa fa-shopping-bag icon-circle"></i>
+                  <span>{CartItem.length === 0 ? '' : CartItem.length}</span>
+                </Link>
+              </div>
             </div>
           )}
         </div>

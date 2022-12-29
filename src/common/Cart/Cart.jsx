@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './style.css';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
+import { CartContext } from '../../context/CartContext';
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  // Stpe: 7   calucate total of items
+
+  const cartContext = useContext(CartContext);
+
+  const [cartData, setCartData] = useState([]);
+
+  useEffect(() => {
+    if (cartContext.cart.length > 0) {
+      setCartData(100);
+      console.log(cartContext.cart);
+    }
+
+  }, []);
+  // Stpe: 7 - calucate total of items
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0);
 
   return (

@@ -8,12 +8,19 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore/lite';
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDK8O2htatEHEHpaQQVCyTytYTepKMM18U',
-  authDomain: 'filestorage-c695c.firebaseapp.com',
-  projectId: 'filestorage-c695c',
-  storageBucket: 'filestorage-c695c.appspot.com',
-  messagingSenderId: '482208730463',
-  appId: '1:482208730463:web:dacf539b9ece7eae837aea',
+
+  apiKey: "AIzaSyChjO3SfJVEfcCX64GTBWMMi1oCS739Qg4",
+
+  authDomain: "try-bs.firebaseapp.com",
+
+  projectId: "try-bs",
+
+  storageBucket: "try-bs.appspot.com",
+
+  messagingSenderId: "181307636992",
+
+  appId: "1:181307636992:web:0faf05fe71109d1c2b07e5"
+
 };
 
 // Initialize Firebase

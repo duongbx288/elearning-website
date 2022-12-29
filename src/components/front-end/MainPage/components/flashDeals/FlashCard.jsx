@@ -85,9 +85,9 @@ const FlashCard = ({ courses, addToCart }) => {
                   >
                     {course.name}
                   </Typography>
-                  <Rating value={course.rating ? course.rating : 0} sx={{ margin: 1 }} />
+                  <Rating value={course.rating ? course.rating : 0} sx={{ margin: 0, fontSize: '15px' }} />
                   <div className="price">
-                    <h4>{course.price} đ </h4>
+                    <h5>{course.price} đ </h5>
                     <button onClick={() => addToCart(course)}>
                       <i className="fa fa-plus"></i>
                     </button>
