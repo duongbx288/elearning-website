@@ -9,20 +9,20 @@ import Annocument from '../components/front-end/MainPage/components/annocument/A
 import Wrapper from '../components/front-end/MainPage/components/wrapper/Wrapper';
 import Header from '../common/header/Header';
 import Footer from '../common/footer/Footer';
+import Data from '../components/front-end/Data';
 
-const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
+const Pages = () => {
+
   return (
     <>
-      <Header CartItem={CartItem} />
-      <Home CartItem={CartItem} />
-      <FlashDeals productItems={productItems} addToCart={addToCart} />
+      <Home />
+      <FlashDeals/>
       <TopCate />
       {/* <NewArrivals />
       <Discount />
       <Shop shopItems={shopItems} addToCart={addToCart} />
       <Annocument /> */}
       <Wrapper />
-      <Footer />
     </>
   );
 };

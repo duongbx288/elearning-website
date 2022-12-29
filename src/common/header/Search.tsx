@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import logo from '../../components/front-end/assets/images/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../auth/authenticationSlice';
+import { CartContext } from '../../context/CartContext';
 
-const Search = ({ CartItem }) => {
+const Search = () => {
+  const cartContext = useContext(CartContext);
+  const cartItem = cartContext.cart ? cartContext.cart : [];
   const history = useHistory();
   const dispatch = useAppDispatch();
   const account = useAppSelector((state) => state.authentication.account);
 
   const [username, setUsername] = useState({ username: account.username });
-  const [userInfo, setUserInfo] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<any>(localStorage.getItem('user'));
+
+
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    if (typeof account.username !== 'undefined') {
-      localStorage.setItem('user', JSON.stringify(username));
-      setUserInfo(true);
-    } else {
-    }
+    // if (typeof account.username !== 'undefined') {
+    //   localStorage.setItem('user', JSON.stringify(username));
+    //   setUserInfo(true);
+    // } else {
+    // }
   }, []);
 
   // fixed Header
@@ -103,7 +108,7 @@ const Search = ({ CartItem }) => {
               <div className="cart">
                 <Link to="/cart">
                   <i className="fa fa-shopping-bag icon-circle"></i>
-                  <span>{CartItem.length === 0 ? '' : CartItem.length}</span>
+                  <span>{cartItem.length === 0 ? '' : cartItem.length}</span>
                 </Link>
               </div>
             </div>
@@ -121,7 +126,7 @@ const Search = ({ CartItem }) => {
               <div className="cart">
                 <Link to="/cart">
                   <i className="fa fa-shopping-bag icon-circle"></i>
-                  <span>{CartItem.length === 0 ? '' : CartItem.length}</span>
+                  <span>{cartItem.length === 0 ? '' : cartItem.length}</span>
                 </Link>
               </div>
             </div>

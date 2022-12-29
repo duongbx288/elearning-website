@@ -3,7 +3,7 @@ import FlashCard from './FlashCard';
 import './style.css';
 import CourseService, { CourseRequest } from '../../../../../services/CourseService';
 
-const FlashDeals = ({ productItems, addToCart }) => {
+const FlashDeals = () => {
   const [courses, setCourses] = useState<CourseRequest[]>([]);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const FlashDeals = ({ productItems, addToCart }) => {
             <i className="fa fa-bolt"></i>
             <h4>Tìm kiếm nhanh</h4>
           </div>
-          <FlashCard courses={courses} addToCart={addToCart} />
+          <FlashCard courses={courses} />
         </div>
       </section>
     </>

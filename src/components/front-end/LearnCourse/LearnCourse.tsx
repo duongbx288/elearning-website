@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../../../common/header/Header';
 import Footer from '../../../common/footer/Footer';
 
-const LearnCourse = ({ CartItem, addToCart, decreaseQty }) => {
+const LearnCourse = () => {
   return (
     <>
-      <Header CartItem={CartItem} />
+      <Header />
 
       <Footer />
     </>

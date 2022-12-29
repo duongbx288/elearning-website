@@ -4,34 +4,34 @@ import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import { CartContext } from '../../context/CartContext';
 
-const Cart = ({ CartItem, addToCart, decreaseQty }) => {
+const Cart = () => {
 
   const cartContext = useContext(CartContext);
-
-  const [cartData, setCartData] = useState([]);
+  const cart = cartContext.cart? cartContext.cart : [];
+  const addToCart = cartContext.addToCart;
+  const removeItem = cartContext.removeItem;
+  const [cartData, setCartData] = useState(cart);
 
   useEffect(() => {
-    if (cartContext.cart.length > 0) {
-      setCartData(100);
+    if (typeof cartContext.cart !== 'undefined' && cartContext.cart.length > 0) {
+      setCartData(cartContext.cart);
       console.log(cartContext.cart);
     }
-
   }, []);
-  // Stpe: 7 - calucate total of items
-  const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0);
+
+  const totalPrice = cartData.reduce((price, item) => price +  item.price, 0);
 
   return (
     <>
-      <Header CartItem={CartItem} />
       <section className="cart-items">
         <div className="container d_flex">
           <div className="cart-details">
-            {CartItem.length === 0 && (
+            {cartData.length === 0 && (
               <h1 className="no-items product">No Items are add in Cart</h1>
             )}
 
-            {CartItem.map((item) => {
-              const productQty = item.price * item.qty;
+            {cartData.map((item) => {
+              const productQty = item.price;
 
               return (
                 <div className="cart-list product d_flex" key={item.id}>
@@ -58,7 +58,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                       <button className="incCart" onClick={() => addToCart(item)}>
                         <i className="fa-solid fa-plus"></i>
                       </button>
-                      <button className="desCart" onClick={() => decreaseQty(item)}>
+                      <button className="desCart" onClick={() => removeItem(item)}>
                         <i className="fa-solid fa-minus"></i>
                       </button>
                     </div>
@@ -79,7 +79,6 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

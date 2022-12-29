@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -6,6 +6,8 @@ import Rating from '@mui/material/Rating';
 import { useHistory } from 'react-router-dom';
 import { Divider, Typography } from '@mui/material';
 import './style.css';
+import { CartContext } from '../../../../../context/CartContext';
+
 const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
@@ -32,7 +34,8 @@ const SamplePrevArrow = (props) => {
     </div>
   );
 };
-const FlashCard = ({ courses, addToCart }) => {
+const FlashCard = ({ courses }) => {
+  const cartContext = useContext(CartContext);
   const history = useHistory();
   const [count, setCount] = useState(0);
   const increment = () => {
@@ -88,7 +91,7 @@ const FlashCard = ({ courses, addToCart }) => {
                   <Rating value={course.rating ? course.rating : 0} sx={{ margin: 0, fontSize: '15px' }} />
                   <div className="price">
                     <h5>{course.price} đ </h5>
-                    <button onClick={() => addToCart(course)}>
+                    <button onClick={() => cartContext.addToCart(course)}>
                       <i className="fa fa-plus"></i>
                     </button>
                   </div>

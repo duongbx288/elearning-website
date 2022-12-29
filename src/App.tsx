@@ -1,5 +1,5 @@
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -10,18 +10,21 @@ import MainLayout from './layout/MainLayout';
 import { RootState } from './store/store';
 import PrivateRoute from './auth/private-route';
 
-import Header from "./common/header/Header";
-import Pages from "./pages/Pages";
-import Data from "./components/front-end/Data";
-import Cart from "./common/Cart/Cart";
-import Footer from "./common/footer/Footer";
-import Sdata from "./components/front-end/MainPage/components/shops/Sdata";
+import ClientMainLayout from './layout/ClientMainLayout';
+
+import Header from './common/header/Header';
+import Pages from './pages/Pages';
+import Data from './components/front-end/Data';
+import Cart from './common/Cart/Cart';
+import Footer from './common/footer/Footer';
+import Sdata from './components/front-end/MainPage/components/shops/Sdata';
 
 import SignIn from './components/front-end/auth/SignIn';
 import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
 import CourseInfo from './components/front-end/Course/CourseInfo';
 
 import { CartProvider } from './context/CartContext';
+import { CourseProvider } from './context/CourseBoughtContext';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -32,66 +35,21 @@ const App = (props: AppProps) => {
     getSession();
   }, []);
 
-  const { productItems } = Data
-  const { shopItems } = Sdata
-
-  //Step 2 :
-  const [CartItem, setCartItem] = useState<any>([]);
-
-  //Step 4 :
-  const addToCart = (product) => {
-    const productExit = CartItem.find((item) => item.id === product.id)
-
-    if (productExit) {
-      setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty + 1 } : item)))
-    } else {
-      setCartItem([...CartItem, { ...product, qty: 1 }])
-    }
-  }
-
-  // Stpe: 6
-  const decreaseQty = (product) => {
-    // if hamro product alredy cart xa bhane  find garna help garxa
-    const productExit = CartItem.find((item) => item.id === product.id)
-
-    // if product is exit and its qty is 1 then we will run a fun  setCartItem
-    // inside  setCartItem we will run filter to check if item.id is match to product.id
-    // if the item.id is doesnt match to product.id then that items are display in cart
-    // else
-    if (productExit.qty === 1) {
-      setCartItem(CartItem.filter((item) => item.id !== product.id))
-    } else {
-      setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty - 1 } : item)))
-    }
-  }
-
   return (
     <CartProvider>
-    <Router>
-      <React.Fragment>
-        <Switch>
-          <Route exact path="/login" component={Login}></Route>
-          {/* <PrivateRoute exact path="/" component={MainLayout}></PrivateRoute> */}
-          <Route path="/admin" component={MainLayout}></Route>
-        </Switch>
-        <Switch>
-          <Route exact path='/main'>
-            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} CartItem={CartItem}/>
-          </Route>
-          <Route exact path='/cart' >
-            <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
-          </Route>
-          <Route exact path='/learn'>
-            <LearnCourse CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}/>
-          </Route>
-          <Route exact path='/course-info'>
-            <CourseInfo CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty}/>
-          </Route>
-          <Route exact path='/sign-in' component={SignIn}/>
-        </Switch>
-        
-      </React.Fragment>
-    </Router>
+      <CourseProvider>
+        <Router>
+          <React.Fragment>
+            <Switch>
+              <Route exact path="/login" component={Login}></Route>
+              <Route exact path="/sign-in" component={SignIn} />
+              {/* <PrivateRoute exact path="/" component={MainLayout}></PrivateRoute> */}
+              <Route path="/admin" component={MainLayout}></Route>
+            </Switch>
+            <ClientMainLayout />
+          </React.Fragment>
+        </Router>
+      </CourseProvider>
     </CartProvider>
   );
 };

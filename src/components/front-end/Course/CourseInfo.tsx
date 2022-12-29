@@ -11,7 +11,7 @@ interface CustomerState {
   id: number;
 }
 
-const CourseInfo = ({ CartItem, addToCart, decreaseQty }) => {
+const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
   const history = useHistory();
@@ -29,7 +29,6 @@ const CourseInfo = ({ CartItem, addToCart, decreaseQty }) => {
 
   return (
     <>
-      <Header CartItem={CartItem} />
       <Container sx={{ padding: 'auto', background: 'rgb(243, 243, 243)' }}>
         <Grid container sx={{margin: 1}}>
           <Grid item sm={8} margin={2}>
@@ -60,7 +59,6 @@ const CourseInfo = ({ CartItem, addToCart, decreaseQty }) => {
         </Grid>
 
       </Container>
-      <Footer />
     </>
   );
 };

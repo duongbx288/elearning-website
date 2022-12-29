@@ -3,34 +3,35 @@ import React, { useContext, useState } from 'react';
 export const CartContext = React.createContext<any>(null);
 
 export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState<any>([]);
 
-    const [cart, setCart] = useState<any>([]);
+  const setInfo = (info: any) => {
+    setCart(info);
+  };
 
-    const setInfo = (info : any) => {
-        setCart(info);
-    }
+  // Kiem tra xem khoa hoc da co trong gio hang hay khong
+  const checkExistItem = (product: any) => {
+    const existProduct = cart.find((item) => item.id === product.id);
+    if (existProduct) return true;
+    else return false;
+  };
 
-    // Kiem tra xem khoa hoc da co trong gio hang hay khong
-    const checkExistItem = (product: any) => {
-        const existProduct = cart.find((item) => item.id === product.id);
-        if (existProduct) return false;
-        else return true;
-    }
+  // Them khoa hoc vao gio hang
+  const addToCart = (product: any) => {
+    if (checkExistItem(product)) {
+    } else setCart([...cart, { ...product }]);
+    return;
+  };
 
-    // Them khoa hoc vao gio hang
-    const addToCart = (product: any) => {
-        setCart([...cart, { ...product}]);
-    }
+  const removeItem = (product: any) => {
+    if (checkExistItem(product)) {
+      setCart(cart.filter((item) => item.id !== product.id));
+    } else return;
+  };
 
-    console.log(cart);
+  const test = 10;
+  // value duoc dung de truyen di thong tin
+  const cartInfo = { cart, setInfo, test, addToCart, checkExistItem, removeItem };
 
-    const test = 10;
-    // value duoc dung de truyen di thong tin
-    const cartInfo ={cart, setInfo, test};
-
-    return (
-        <CartContext.Provider value={{cartInfo}}>
-            {children}
-        </CartContext.Provider>  
-    )
-}
+  return <CartContext.Provider value={{ cartInfo }}>{children}</CartContext.Provider>;
+};
