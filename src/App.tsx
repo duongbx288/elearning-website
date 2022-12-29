@@ -12,16 +12,7 @@ import PrivateRoute from './auth/private-route';
 
 import ClientMainLayout from './layout/ClientMainLayout';
 
-import Header from './components/front-end/header/Header';
-import Pages from './pages/Pages';
-import Data from './components/front-end/Data';
-import Cart from './components/front-end/Cart/Cart';
-import Footer from './components/front-end/footer/Footer';
-import Sdata from './components/front-end/MainPage/components/shops/Sdata';
-
 import SignIn from './components/front-end/auth/SignIn';
-import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
-import CourseInfo from './components/front-end/Course/CourseInfo';
 
 import { CartProvider } from './context/CartContext';
 import { CourseProvider } from './context/CourseBoughtContext';
