@@ -7,8 +7,8 @@ import Discount from '../components/front-end/MainPage/components/discount/Disco
 import Shop from '../components/front-end/MainPage/components/shops/Shop';
 import Annocument from '../components/front-end/MainPage/components/annocument/Annocument';
 import Wrapper from '../components/front-end/MainPage/components/wrapper/Wrapper';
-import Header from '../common/header/Header';
-import Footer from '../common/footer/Footer';
+import Header from '../components/front-end/header/Header';
+import Footer from '../components/front-end/footer/Footer';
 import Data from '../components/front-end/Data';
 
 const Pages = () => {

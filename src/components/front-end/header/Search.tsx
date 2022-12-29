@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
-import logo from '../../components/front-end/assets/images/logo.svg';
+import logo from '../assets/images/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { logout } from '../../auth/authenticationSlice';
-import { CartContext } from '../../context/CartContext';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { logout } from '../../../auth/authenticationSlice';
+import { CartContext } from '../../../context/CartContext';
 
 const Search = () => {
   const cartContext = useContext(CartContext);

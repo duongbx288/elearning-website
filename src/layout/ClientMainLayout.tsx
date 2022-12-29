@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Header from '../common/header/Header';
-import Footer from '../common/footer/Footer';
+import Header from '../components/front-end/header/Header';
+import Footer from '../components/front-end/footer/Footer';
 import Pages from '../pages/Pages';
-import Cart from '../common/Cart/Cart';
+import Cart from '../components/front-end/Cart/Cart';
 import CourseInfo from '../components/front-end/Course/CourseInfo';
 import LearnCourse from '../components/front-end/LearnCourse/LearnCourse';
 

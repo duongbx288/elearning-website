@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../../common/header/Header';
-import Footer from '../../../common/footer/Footer';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import CourseService, { CourseRequest } from '../../../services/CourseService';
 import { useLocation, useHistory } from 'react-router-dom';
 import './style.css';

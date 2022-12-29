@@ -20,11 +20,11 @@ import OrderDetail from '../components/backend/order/OrderDetail';
 import OrderList from '../components/backend/order/OrderList';
 import ContactUs from '../components/backend/email/SendEmail';
 
-import Header from "../common/header/Header";
+import Header from "../components/front-end/header/Header";
 import Pages from "../pages/Pages";
 import Data from "../components/front-end/Data";
-import Cart from "../common/Cart/Cart";
-import Footer from "../common/footer/Footer"
+import Cart from "../components/front-end/Cart/Cart";
+import Footer from "../components/front-end/footer/Footer"
 import Sdata from "../components/front-end/MainPage/components/shops/Sdata";
 
 const mdTheme = createTheme();
