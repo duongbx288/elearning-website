@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CourseService, { CourseRequest } from '../../../services/CourseService';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './style.css';
 import { Button, Card, CardActions, CardContent, Container, Grid, Icon, Typography } from '@mui/material';
 import { Star } from '@mui/icons-material';
@@ -12,7 +12,7 @@ interface CustomerState {
 const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [courseInfo, setCourseInfo] = useState<CourseRequest>();
 

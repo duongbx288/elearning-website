@@ -9,7 +9,7 @@ import {
   Table,
   TableBody,
 } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
@@ -41,7 +41,7 @@ type Rating = {
 const CourseDetail = () => {
   const location = useLocation();
   const courseId = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [courseInfo, setCourseInfo] = useState<Course>();
   const [data, setData] = useState<Course[]>([]);

@@ -10,7 +10,7 @@ import {
   TableBody,
   Grid,
 } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
@@ -39,7 +39,7 @@ type Course = {
 const AffiliateDetail = () => {
   const location = useLocation();
   const affiliateId = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [affiliateInfo, setAffiliateInfo] = useState<Affiliate>();
   const [data, setData] = useState<Order[]>([]);

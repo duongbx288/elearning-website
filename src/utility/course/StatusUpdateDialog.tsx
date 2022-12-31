@@ -11,7 +11,7 @@ import {
   import _ from 'lodash';
   import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
   import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-  import { useHistory } from 'react-router-dom';
+  import { useNavigate } from 'react-router-dom';
   import { Course } from '../../components/backend/courses/type';
   import CourseService from '../../services/CourseService';
 
@@ -53,7 +53,7 @@ import {
   }
   
   const CustomCourseDialog = (props: CustomDialogProps) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { open, onClose, isLoading, setLoading, listEntities, status } = props;
     const [listSuccess, setListSuccess] = useState<Course[]>([]);
     const [listFailed, setListFailed] = useState<{ course: Course; error: string }[]>(

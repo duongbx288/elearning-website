@@ -30,7 +30,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
 import CustomDialog from '../../../utility/affiliate/StatusUpdateDialog';
 import _ from 'lodash';
@@ -39,7 +39,7 @@ import { Affiliate } from './type';
 import AffiliateService, { AffiliateRequest } from '../../../services/AffiliateService';
 
 const AffiliateList = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   // data
   const [data, setData] = useState<Affiliate[]>([]);
   const [isError, setIsError] = useState(false);
@@ -104,10 +104,7 @@ const AffiliateList = () => {
 
   const handleDetailClick = (affiliateId: number) => () => {
     const id = affiliateId;
-    history.push({
-      pathname: '/affiliate/detail/' + id,
-      state: { id: id },
-    });
+    navigate('/affiliate/detail/' + id, { state: { id: id } });
   };
 
   const columns = useMemo<MRT_ColumnDef<Affiliate>[]>(
@@ -185,7 +182,7 @@ const AffiliateList = () => {
         header: 'Địa chỉ',
       },
     ],
-    [],
+    []
   );
 
   const displayTitle = (st: string) => {
@@ -266,11 +263,10 @@ const AffiliateList = () => {
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
-                  history.push({
-                    pathname: '/send-email',
-                    state: { 
+                  navigate('/send-email', {
+                    state: {
                       name: row.original.name,
-                      email: row.original.email 
+                      email: row.original.email,
                     },
                   });
                 }}

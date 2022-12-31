@@ -30,7 +30,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
 import CustomOrderDialog from '../../../utility/order/StatusUpdateDialog';
 import _ from 'lodash';
@@ -38,7 +38,7 @@ import { Order } from './type';
 import OrderService, { OrderRequest } from '../../../services/OrderService';
 
 const OrderList = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   // data
   const [data, setData] = useState<Order[]>([]);
   const [isError, setIsError] = useState(false);
@@ -51,8 +51,8 @@ const OrderList = () => {
 
   // table state
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [sorting, setSorting] = useState<SortingState>([]);
+  // const [globalFilter, setGlobalFilter] = useState('');
+  // const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -103,10 +103,7 @@ const OrderList = () => {
 
   const handleDetailClick = (orderId: number) => () => {
     const id = orderId;
-    history.push({
-      pathname: '/order/detail/' + id,
-      state: { id: id },
-    });
+    navigate('/order/detail/' + id, {state: { id: id }});
   };
 
   const statusProcess = (status: any) => {

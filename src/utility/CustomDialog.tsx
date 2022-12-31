@@ -13,7 +13,7 @@ import StudentService from '../services/StudentService';
 import _ from 'lodash';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface CustomDialogProps {
   open: boolean;
@@ -53,7 +53,7 @@ function getMessageError(e: any) {
 }
 
 const CustomDialog = (props: CustomDialogProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { open, onClose, isLoading, setLoading, listEntities, status } = props;
   const [listSuccess, setListSuccess] = useState<Student[]>([]);
   const [listFailed, setListFailed] = useState<{ student: Student; error: string }[]>([]);

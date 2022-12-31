@@ -11,7 +11,7 @@ import { Fragment, useEffect, useState } from 'react';
 import _ from 'lodash';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Affiliate } from '../../components/backend/affiliates/type';
 import AffiliateService from '../../services/AffiliateService';
 
@@ -53,7 +53,7 @@ function getMessageError(e: any) {
 }
 
 const CustomDialog = (props: CustomDialogProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { open, onClose, isLoading, setLoading, listEntities, status } = props;
   const [listSuccess, setListSuccess] = useState<Affiliate[]>([]);
   const [listFailed, setListFailed] = useState<{ affiliate: Affiliate; error: string }[]>(

@@ -1,38 +1,28 @@
 import { Button, Container, FormControl, Grid, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useContext } from 'react';
-import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { login } from '../../../auth/authenticationSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import '../../../styles/auth/Login.css';
 
-import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-interface LoginProps extends RouteComponentProps<any> {}
 
 const theme = createTheme();
 
-const Login = (props: LoginProps) => {
-  const { location } = props;
+const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
 
-  const { from } = (location.state as any) || {
-    from: { pathname: '/admin', search: location.search },
-  };
+  // const { from } = (location.state as any) || {
+  //   from: { pathname: '/admin', search: location.search },
+  // };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -40,8 +30,7 @@ const Login = (props: LoginProps) => {
     setLoading(true);
     const result = await dispatch(login(username, password));
     if (result?.payload?.data) {
-      
-      history.push(from);
+      navigate('/admin');
     } else {
       console.log(result);
     }
@@ -156,7 +145,7 @@ const Login = (props: LoginProps) => {
       </Container>
     </div>
   ) : (
-    <Redirect to={from} />
+    <Navigate to={'/admin'} replace/>
   );
 };
 

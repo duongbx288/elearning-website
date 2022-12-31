@@ -10,7 +10,7 @@ import {
   TableBody,
   Tooltip
 } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
@@ -34,7 +34,7 @@ type OrderItem = {
 const OrderDetail = () => {
   const location = useLocation();
   const orderId = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [orderInfo, setOrderInfo] = useState<Order>();
   const [data, setData] = useState<OrderItem[]>([]);
@@ -55,10 +55,7 @@ const OrderDetail = () => {
 
   const handleDetailClick = (orderId: number | undefined) => () => {
     const id = orderId;
-    history.push({
-      pathname: '/course/detail/' + id,
-      state: { id: id },
-    });
+    navigate('/course/detail/' + id, {state: { id: id }})
   };
 
   const columns = useMemo<MRT_ColumnDef<OrderItem>[]>(

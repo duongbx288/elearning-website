@@ -14,7 +14,7 @@ import {
   Grid,
 } from '@mui/material';
 import { BoxStyle, CellTable } from '../../../styles/style';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 const TEMPLATE_ID = 'template_x2egisr';
 const SERVICE_ID = 'service_m1y0zd9';
 const USER_ID = 'HwutxUOM5JtksfCs4'; // public api key
@@ -27,7 +27,7 @@ interface CustomState {
 const ContactUs = () => {
   const location = useLocation();
   const info = location.state as CustomState;
-  const history = useHistory();
+  const navigate = useNavigate();
   function sendEmail(e) {
     e.preventDefault(); //This is important, i'm not sure why, but the email won't send without it
 

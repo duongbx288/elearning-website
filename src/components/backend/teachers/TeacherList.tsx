@@ -1,6 +1,4 @@
 import React, { FC, useEffect, useState, useMemo, cloneElement } from 'react';
-import StudentService, { StudentRequest } from '../../../services/StudentService';
-import { visuallyHidden } from '@mui/utils';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import type {
   ColumnFiltersState,
@@ -15,8 +13,6 @@ import {
   MenuItem,
   Typography,
   TextField,
-  Menu,
-  Chip,
   Tooltip,
   Dialog,
   DialogContent,
@@ -24,14 +20,13 @@ import {
 } from '@mui/material';
 import { LinkStyle, ToolbarStyle } from '../../../styles/style';
 import Toolbar from '../../../layout/Toolbar';
-import { GridActionsCellItem } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
 import CustomDialog from '../../../utility/teacher/StatusUpdateDialog';
 import _ from 'lodash';
@@ -39,10 +34,8 @@ import _ from 'lodash';
 import { Teacher } from './type';
 import TeacherService, { TeacherRequest } from '../../../services/TeacherService';
 
-type StudentApiResponse = {};
-
 const TeacherList = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   // data
   const [data, setData] = useState<Teacher[]>([]);
   const [isError, setIsError] = useState(false);
@@ -55,8 +48,8 @@ const TeacherList = () => {
 
   // table state
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [sorting, setSorting] = useState<SortingState>([]);
+  // const [globalFilter, setGlobalFilter] = useState('');
+  // const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -105,10 +98,7 @@ const TeacherList = () => {
 
   const handleDetailClick = (teacherId: number) => () => {
     const id = teacherId;
-    history.push({
-      pathname: '/teacher/detail/' + id,
-      state: { id: id },
-    });
+    navigate('/teacher/detail/' + id, { state: { id: id } });
   };
 
   const columns = useMemo<MRT_ColumnDef<Teacher>[]>(
@@ -187,7 +177,7 @@ const TeacherList = () => {
       },
       {
         accessorKey: 'title',
-        header: 'Chức danh'
+        header: 'Chức danh',
       },
     ],
     []
@@ -271,12 +261,11 @@ const TeacherList = () => {
                 onClick={() => {
                   closeMenu();
                   console.log('Gui Email');
-                  history.push({
-                    pathname: '/send-email',
-                    state: { 
+                  navigate('/send-email', {
+                    state: {
                       name: row.original.name,
-                      email: row.original.email 
-                    },
+                      email: row.original.email,
+                    }
                   });
                 }}
                 sx={{ m: 0, cursor: 'pointer' }}

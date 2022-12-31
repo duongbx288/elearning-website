@@ -12,7 +12,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '../../../layout/Toolbar';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
@@ -43,7 +43,7 @@ export type Course = {
 const TeacherDetail = () => {
   const location = useLocation();
   const teacherId = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [teacherInfo, setTeacherInfo] = useState<Teacher>();
   const [data, setData] = useState<Course[]>([]);
@@ -323,7 +323,7 @@ const TeacherDetail = () => {
                       width: '165px',
                     }}
                     // onClick={() =>
-                    //   history.push({
+                    //   navigate({
                     //     pathname: '/teacher/update/' + websiteInfo.id,
                     //     state: { detail: websiteInfo },
                     //   })

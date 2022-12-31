@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import logo from '../assets/images/logo.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -10,7 +10,7 @@ import { CartContext } from '../../../context/CartContext';
 const Search = () => {
   const cartContext = useContext(CartContext).cartInfo;
   const cartItem = cartContext.cart ? cartContext.cart : [];
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const account = useAppSelector((state) => {
     console.log(state);
@@ -129,6 +129,7 @@ const Search = () => {
             </div>
           )}
         </div>
+        <Button onClick={handleLogout}>hasdfds</Button>
       </section>
     </>
   );

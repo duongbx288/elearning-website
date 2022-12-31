@@ -2,13 +2,13 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { getSession } from './auth/authenticationSlice';
 import Login from './components/backend/auth/Login';
 import MainLayout from './layout/MainLayout';
 import { RootState } from './store/store';
-import PrivateRoute from './auth/private-route';
+// import PrivateRoute from './auth/private-route';
 
 import ClientMainLayout from './layout/ClientMainLayout';
 
@@ -16,6 +16,14 @@ import SignIn from './components/front-end/auth/SignIn';
 
 import { CartProvider } from './context/CartContext';
 import { CourseProvider } from './context/CourseBoughtContext';
+import { RequireAuth } from './auth/RequireAuth';
+import Pages from './pages/Pages';
+import Cart from './components/front-end/Cart/Cart';
+import CourseInfo from './components/front-end/Course/CourseInfo';
+import Footer from './components/front-end/footer/Footer';
+import Header from './components/front-end/header/Header';
+import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
+import StudentList from './components/backend/student/StudentList';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -31,12 +39,19 @@ const App = (props: AppProps) => {
       <CourseProvider>
         <Router>
           <React.Fragment>
-            <Switch>
-              <Route exact path="/login" component={Login}></Route>
-              <Route exact path="/sign-in" component={SignIn} />
-              {/* <PrivateRoute exact path="/" component={MainLayout}></PrivateRoute> */}
-              <Route path="/admin" component={MainLayout}></Route>
-            </Switch>
+            <Routes>
+              <Route path='/login' element={<Login />}></Route>
+              <Route path='/sign-in' element={<SignIn />} />
+              {/* <Route
+                path="/"
+                element={
+                  <RequireAuth redirectTo={'/login'}>
+                    <MainLayout/>
+                  </RequireAuth>
+                }
+              ></Route> */}
+            </Routes>
+            <MainLayout/>
             <ClientMainLayout />
           </React.Fragment>
         </Router>

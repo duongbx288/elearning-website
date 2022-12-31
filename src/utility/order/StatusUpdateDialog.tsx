@@ -11,7 +11,7 @@ import {
   import _ from 'lodash';
   import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
   import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-  import { useHistory } from 'react-router-dom';
+  import { useNavigate } from 'react-router-dom';
   import { Order } from '../../components/backend/order/type';
   import OrderService from '../../services/OrderService';
   
@@ -53,7 +53,7 @@ import {
   }
 
   const CustomOrderDialog = (props: CustomDialogProps) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { open, onClose, isLoading, setLoading, listEntities, status } = props;
     const [listSuccess, setListSuccess] = useState<Order[]>([]);
     const [listFailed, setListFailed] = useState<{ order: Order; error: string }[]>(

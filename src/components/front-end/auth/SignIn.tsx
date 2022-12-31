@@ -13,17 +13,15 @@ import {
   MDBRow,
   MDBCol,
 } from 'mdb-react-ui-kit';
-import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import './SignIn.css';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { login } from '../../../auth/authenticationSlice';
 
-interface SignInProps extends RouteComponentProps<any> {}
 
-const SignIn = (props: SignInProps) => {
-  const { location } = props;
+const SignIn = () => {
   const [justifyActive, setJustifyActive] = useState('tab1');
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
 
@@ -37,9 +35,9 @@ const SignIn = (props: SignInProps) => {
   const [newPassword, setNewPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const { from } = (location.state as any) || {
-    from: { pathname: '/main', search: location.search },
-  };
+  // const { from } = (location.state as any) || {
+  //   from: { pathname: '/main', search: location.search },
+  // };
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -52,7 +50,7 @@ const SignIn = (props: SignInProps) => {
   const handleSubmit = async (event: any) => {
     const result = await dispatch(login(username, password));
     if (result?.payload?.data) {
-      history.push(from);
+      navigate('/main');
     } else {
       console.log(result);
     }
@@ -264,7 +262,7 @@ const SignIn = (props: SignInProps) => {
       </MDBContainer>
     </>
   ) : (
-    <Redirect to={from} />
+    <Navigate to={'/main'} replace/>
   );
 };
 

@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import Reports from '../pages/Report';
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 
 import TeacherList from '../components/backend/teachers/TeacherList';
@@ -22,50 +21,51 @@ import ContactUs from '../components/backend/email/SendEmail';
 
 const mdTheme = createTheme();
 
-const MainLayout = (props: any) => {
-
+const InitLayout = () => {
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
+    <>
+      <ThemeProvider theme={mdTheme}>
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
 
-        {/*navbar*/}  
-        <Navbar />
-
-        {/* main content here */}
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Switch>
-            <Route exact path="/admin/report" component={Reports} />
-            <Route exact path="/admin/teacher" component={TeacherList} />
-            <Route exact path="/admin/teacher/detail/:id" component={TeacherDetail} />
-            <Route exact path="/admin/student" component={StudentList} />
-            <Route exact path="/admin/student/detail/:id" component={StudentDetail} />
-            <Route exact path="/admin/student/update/:id" component={StudentUpdate} />
-            <Route exact path="/admin/affiliate" component={AffiliateList} />
-            <Route exact path="/admin/affiliate/detail/:id" component={AffiliateDetail} />
-            <Route exact path="/admin/course" component={CourseList} />
-            <Route exact path="/admin/course/detail/:id" component={CourseDetail} />
-            <Route exact path="/admin/order/detail/:id" component={OrderDetail} />
-            <Route exact path="/admin/order" component={OrderList} />
-            <Route exact path="/admin/">
-              <Redirect to="/admin/student" />
-            </Route>
-            <Route exact path="/admin/send-email" component={ContactUs}/>
-          </Switch>
+          <Navbar />
+          <Box
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
+            }}
+          >
+            <Outlet />
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+    </>
+  );
+};
+
+const MainLayout = (props: any) => {
+  return (
+    <Routes>
+      <Route path="/admin" element={<InitLayout />}>
+        <Route path="/admin/teacher" element={<TeacherList />} />
+        <Route path="/admin/teacher/detail/:id" element={<TeacherDetail />} />
+        <Route path="/admin/student" element={<StudentList />} />
+        <Route path="/admin/student/detail/:id" element={<StudentDetail />} />
+        <Route path="/admin/student/update/:id" element={<StudentUpdate />} />
+        <Route path="/admin/affiliate" element={<AffiliateList />} />
+        <Route path="/admin/affiliate/detail/:id" element={<AffiliateDetail />} />
+        <Route path="/admin/course" element={<CourseList />} />
+        <Route path="/admin/course/detail/:id" element={<CourseDetail />} />
+        <Route path="/admin/order/detail/:id" element={<OrderDetail />} />
+        <Route path="/admin/order" element={<OrderList />} />
+        <Route path="/admin/send-email" element={<ContactUs />} />
+      </Route>
+    </Routes>
   );
 };
 

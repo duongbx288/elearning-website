@@ -7,7 +7,7 @@ import List from '@mui/material/List';
 import { mainListItems } from '../components/backend/layout/listItems';
 import Box from '@mui/material/Box';
 import { logout } from '../auth/authenticationSlice';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
@@ -45,7 +45,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 interface NavbarProps {}
 
 const Navbar = (props: NavbarProps) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const account = useAppSelector((state) => state.authentication.account);
   const windowSize = window.innerWidth;
@@ -72,7 +72,7 @@ const Navbar = (props: NavbarProps) => {
     setAnchorEl(event.currentTarget);
   };
   const handleGoHome = () => {
-    history.push('/');
+    navigate('/');
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -81,7 +81,7 @@ const Navbar = (props: NavbarProps) => {
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     dispatch(logout());
     localStorage.removeItem('user');
-    history.push('/login');
+    navigate('/login');
   };
 
   const toggleDrawer = () => {

@@ -13,13 +13,13 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { ToolbarStyle } from '../styles/style';
 import { logout } from '../auth/authenticationSlice';
 
 const ToolbarAccount = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const account = useAppSelector((state) => state.authentication.account);
@@ -43,7 +43,7 @@ const ToolbarAccount = () => {
   const handleLogout = (e: React.MouseEvent<HTMLElement>) => {
     dispatch(logout());
     localStorage.removeItem('user');
-    history.push('/login');
+    navigate('/login');
   };
 
   const handleClose = () => {

@@ -10,7 +10,7 @@ import {
   TableBody,
   Grid,
 } from '@mui/material';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toolbar from '../../../layout/Toolbar';
 import { Student } from './StudentList';
 import React, { FC, useEffect, useMemo, useState } from 'react';
@@ -20,7 +20,6 @@ import { BoxStyle, CellTable } from '../../../styles/style';
 import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import StudentCourseService from '../../../services/StudentCourseService';
 import Chart from 'react-apexcharts';
-import { create } from 'domain';
 import { ApexOptions } from 'apexcharts';
 
 interface CustomerState {
@@ -42,7 +41,7 @@ type Course = {
 const StudentDetail = () => {
   const location = useLocation();
   const studentId = location.state as CustomerState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [studentInfo, setStudentInfo] = useState<Student>();
   const [data, setData] = useState<Course[]>([]);

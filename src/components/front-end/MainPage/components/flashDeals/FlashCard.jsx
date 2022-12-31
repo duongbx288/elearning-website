@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Rating from '@mui/material/Rating';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Divider, Typography } from '@mui/material';
 import './style.css';
 import { CartContext } from '../../../../../context/CartContext';
@@ -37,7 +37,7 @@ const SamplePrevArrow = (props) => {
 const FlashCard = ({ courses }) => {
   const cartContext = useContext(CartContext).cartInfo;
   
-  const history = useHistory();
+  const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const increment = () => {
     setCount(count + 1);
@@ -58,7 +58,7 @@ const FlashCard = ({ courses }) => {
   }
 
   const handleCourse = (id) => () => {
-    history.push({
+    navigate({
       pathname: '/course-info',
       state: { id: id },
     });

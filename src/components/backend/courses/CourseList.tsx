@@ -30,7 +30,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AccountCircle, Send } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { processStatus } from '../../../services/helpers/InfoFilterHelpers';
 import _ from 'lodash';
 import { Course } from './type';
@@ -38,7 +38,7 @@ import CustomCourseDialog from '../../../utility/course/StatusUpdateDialog';
 import CourseService, { CourseRequest } from '../../../services/CourseService';
 
 const CourseList = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   // data
   const [data, setData] = useState<Course[]>([]);
   const [isError, setIsError] = useState(false);
@@ -103,10 +103,7 @@ const CourseList = () => {
 
   const handleDetailClick = (courseId: number) => () => {
     const id = courseId;
-    history.push({
-      pathname: '/course/detail/' + id,
-      state: { id: id },
-    });
+    navigate('/course/detail/' + id, {state: { id: id }});
   };
 
   const columns = useMemo<MRT_ColumnDef<Course>[]>(
