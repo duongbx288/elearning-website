@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
-import { Navigate, Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
 import Navbar from './Navbar';
 
 import TeacherList from '../components/backend/teachers/TeacherList';
@@ -64,6 +64,7 @@ const MainLayout = (props: any) => {
         <Route path="/admin/order/detail/:id" element={<OrderDetail />} />
         <Route path="/admin/order" element={<OrderList />} />
         <Route path="/admin/send-email" element={<ContactUs />} />
+        <Route path="/admin/" element={<Navigate to={'/admin'} />} />
       </Route>
     </Routes>
   );

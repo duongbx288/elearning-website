@@ -3,9 +3,10 @@ import logo from '../assets/images/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { logout } from '../../../auth/authenticationSlice';
-import { CartContext } from '../../../context/CartContext';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { logout } from '../../../../auth/authenticationSlice';
+import { CartContext } from '../../../../context/CartContext';
+import UserService from '../../../../services/UserService';
 
 const Search = () => {
   const cartContext = useContext(CartContext).cartInfo;
@@ -16,16 +17,22 @@ const Search = () => {
     console.log(state);
     return state.authentication.account});
 
-  const [username, setUsername] = useState({ username: account.username });
-  const [userInfo, setUserInfo] = useState<any>(account.username);
+  const [username, setUsername] = useState<string>('');
+  const [userInfo, setUserInfo] = useState();
 
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    setUserInfo(account.username);
-  }, []);
+    setUsername(account.username);
+    if (account.username != null && typeof account.username != 'undefined') {
+      UserService.getUserInfoByUsername(account.username).then((res) => {
+        setUserInfo(res.data);
+        console.log(res.data);
+      })
+    }
+  }, [account]);
 
   // fixed Header
   window.addEventListener('scroll', function () {
@@ -48,7 +55,7 @@ const Search = () => {
     handleClose();
     dispatch(logout());
     localStorage.removeItem('user');
-    setUserInfo(false);
+    setUsername('');
   };
 
   const handleSignIn = () => {
@@ -58,6 +65,7 @@ const Search = () => {
   const handleGoToLearn = () => {
     handleClose();
   };
+
 
   return (
     <>
@@ -75,7 +83,7 @@ const Search = () => {
             <span>All Category</span>
           </div>
 
-          {userInfo ? (
+          {(typeof username !== 'undefined' && username.length > 0) ? (
             <div className="icon f_flex width">
               <i
                 className="fa fa-user icon-circle"
@@ -97,7 +105,7 @@ const Search = () => {
                 }}
                 sx={{ width: '250px', textOverflow: 'ellipsis' }}
               >
-                <MenuItem disabled>Tên tài khoản: {username.username}</MenuItem>
+                <MenuItem disabled>Tên tài khoản: {username}</MenuItem>
                 <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
                 <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>

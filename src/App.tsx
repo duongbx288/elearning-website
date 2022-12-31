@@ -17,13 +17,6 @@ import SignIn from './components/front-end/auth/SignIn';
 import { CartProvider } from './context/CartContext';
 import { CourseProvider } from './context/CourseBoughtContext';
 import { RequireAuth } from './auth/RequireAuth';
-import Pages from './pages/Pages';
-import Cart from './components/front-end/Cart/Cart';
-import CourseInfo from './components/front-end/Course/CourseInfo';
-import Footer from './components/front-end/footer/Footer';
-import Header from './components/front-end/header/Header';
-import LearnCourse from './components/front-end/LearnCourse/LearnCourse';
-import StudentList from './components/backend/student/StudentList';
 
 interface AppProps extends PropsFromRedux {}
 

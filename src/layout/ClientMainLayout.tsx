@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Routes, Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
 import Header from '../components/front-end/header/Header';
 import Footer from '../components/front-end/footer/Footer';
 import Pages from '../pages/Pages';
@@ -26,6 +26,7 @@ const ClientMainLayout = () => {
           <Route path="cart" element={<Cart />}></Route>
           <Route path="learn" element={<LearnCourse />}></Route>
           <Route path="course-info" element={<CourseInfo />}></Route>
+          <Route path="" element={<Navigate to="main"/>}/>
         </Route>
       </Routes>
     </>
