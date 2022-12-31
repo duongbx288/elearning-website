@@ -4,7 +4,7 @@ import { CartContext } from '../../../context/CartContext';
 
 const Cart = () => {
 
-  const cartContext = useContext(CartContext);
+  const cartContext = useContext(CartContext).cartInfo;
   const cart = cartContext.cart? cartContext.cart : [];
   const addToCart = cartContext.addToCart;
   const removeItem = cartContext.removeItem;

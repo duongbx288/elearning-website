@@ -35,7 +35,8 @@ const SamplePrevArrow = (props) => {
   );
 };
 const FlashCard = ({ courses }) => {
-  const cartContext = useContext(CartContext);
+  const cartContext = useContext(CartContext).cartInfo;
+  
   const history = useHistory();
   const [count, setCount] = useState(0);
   const increment = () => {
@@ -50,6 +51,11 @@ const FlashCard = ({ courses }) => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
+  const addToCart = (item) => {
+    cartContext.addToCart(item);
+    return;
+  }
 
   const handleCourse = (id) => () => {
     history.push({
@@ -91,7 +97,7 @@ const FlashCard = ({ courses }) => {
                   <Rating value={course.rating ? course.rating : 0} sx={{ margin: 0, fontSize: '15px' }} />
                   <div className="price">
                     <h5>{course.price} đ </h5>
-                    <button onClick={() => cartContext.addToCart(course)}>
+                    <button onClick={() => addToCart(course)}>
                       <i className="fa fa-plus"></i>
                     </button>
                   </div>

@@ -5,6 +5,8 @@ export const CartContext = React.createContext<any>(null);
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState<any>([]);
 
+  console.log(cart);
+
   const setInfo = (info: any) => {
     setCart(info);
   };
@@ -12,6 +14,8 @@ export const CartProvider = ({ children }) => {
   // Kiem tra xem khoa hoc da co trong gio hang hay khong
   const checkExistItem = (product: any) => {
     const existProduct = cart.find((item) => item.id === product.id);
+    console.log(product);
+    console.log(existProduct);
     if (existProduct) return true;
     else return false;
   };
@@ -29,9 +33,14 @@ export const CartProvider = ({ children }) => {
     } else return;
   };
 
+  const removeAll = () => {
+    setCart([]);
+  }
+
+
   const test = 10;
   // value duoc dung de truyen di thong tin
-  const cartInfo = { cart, setInfo, test, addToCart, checkExistItem, removeItem };
+  const cartInfo = { cart, setInfo, test, addToCart, checkExistItem, removeItem, removeAll };
 
   return <CartContext.Provider value={{ cartInfo }}>{children}</CartContext.Provider>;
 };

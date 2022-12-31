@@ -8,26 +8,23 @@ import { logout } from '../../../auth/authenticationSlice';
 import { CartContext } from '../../../context/CartContext';
 
 const Search = () => {
-  const cartContext = useContext(CartContext);
+  const cartContext = useContext(CartContext).cartInfo;
   const cartItem = cartContext.cart ? cartContext.cart : [];
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const account = useAppSelector((state) => state.authentication.account);
+  const account = useAppSelector((state) => {
+    console.log(state);
+    return state.authentication.account});
 
   const [username, setUsername] = useState({ username: account.username });
-  const [userInfo, setUserInfo] = useState<any>(localStorage.getItem('user'));
-
+  const [userInfo, setUserInfo] = useState<any>(account.username);
 
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    // if (typeof account.username !== 'undefined') {
-    //   localStorage.setItem('user', JSON.stringify(username));
-    //   setUserInfo(true);
-    // } else {
-    // }
+    setUserInfo(account.username);
   }, []);
 
   // fixed Header
@@ -78,7 +75,7 @@ const Search = () => {
             <span>All Category</span>
           </div>
 
-          {userInfo !== false ? (
+          {userInfo ? (
             <div className="icon f_flex width">
               <i
                 className="fa fa-user icon-circle"
@@ -108,7 +105,7 @@ const Search = () => {
               <div className="cart">
                 <Link to="/cart">
                   <i className="fa fa-shopping-bag icon-circle"></i>
-                  <span>{cartItem.length === 0 ? '' : cartItem.length}</span>
+                  {cartItem.length === 0 ? <></> : <span>{cartItem.length}</span>}
                 </Link>
               </div>
             </div>
@@ -126,7 +123,7 @@ const Search = () => {
               <div className="cart">
                 <Link to="/cart">
                   <i className="fa fa-shopping-bag icon-circle"></i>
-                  <span>{cartItem.length === 0 ? '' : cartItem.length}</span>
+                  {cartItem.length === 0 ? <></> : <span>{cartItem.length}</span>}
                 </Link>
               </div>
             </div>
