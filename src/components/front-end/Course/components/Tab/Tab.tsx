@@ -7,6 +7,7 @@ import CourseIntroduction from './components/CourseIntroduction';
 import CourseCurriculum from './components/CourseCurriculum';
 import TeacherInfo from './components/TeacherInfo';
 import CourseRating from './components/CourseRating';
+import { useEffect } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,12 +42,24 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs(courseId: number) {
+interface TabProps {
+  courseId: number;
+  teacherId?: number | null | undefined;
+  introduction: string | null | undefined;
+  description: string | null | undefined;
+}
+
+const BasicTabs: React.FC<TabProps> = ({teacherId, courseId, introduction, description}: TabProps) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  console.log(courseId);
+  useEffect(() => {
+    console.log(courseId);
+  }, []);
 
   return (
     <Box sx={{ width: '100%', background: '#fff' }}>
@@ -62,17 +75,19 @@ export default function BasicTabs(courseId: number) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <CourseIntroduction/>
+        <CourseIntroduction courseId={courseId} introduction={introduction} description={description}/>
         </TabPanel>
       <TabPanel value={value} index={1}>
         <CourseCurriculum courseId={courseId}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TeacherInfo/>
+        <TeacherInfo teacherId={teacherId}/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <CourseRating/>
+        <CourseRating courseId={courseId}/>
       </TabPanel>
     </Box>
   );
 }
+
+export default BasicTabs;

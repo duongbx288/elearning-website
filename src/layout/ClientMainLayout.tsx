@@ -25,7 +25,7 @@ const ClientMainLayout = () => {
           <Route path="main" element={<Pages />} />
           <Route path="cart" element={<Cart />}></Route>
           <Route path="learn" element={<LearnCourse />}></Route>
-          <Route path="course-info" element={<CourseInfo />}></Route>
+          <Route path="course-info/:id" element={<CourseInfo />}></Route>
           <Route path="" element={<Navigate to="main"/>}/>
         </Route>
       </Routes>

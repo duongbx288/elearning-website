@@ -13,6 +13,19 @@ export type LessonRequest = {
     lessonNumber?: string;
 }
 
+export type Lesson = {
+    id: number;
+    pageNum?: number;
+    pageLimit?: number;
+    courseId?: number;
+    name?: string;
+    videoLink?: string;
+    content?: string;
+    introduction?: string;
+    status?: string;
+    lessonNumber: string;
+}
+
 class LessonService {
     getAllPag = (request: LessonRequest) => {
         return axios.get(`/api/lesson/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)

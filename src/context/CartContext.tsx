@@ -5,19 +5,17 @@ export const CartContext = React.createContext<any>(null);
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState<any>([]);
 
-  console.log(cart);
-
   const setInfo = (info: any) => {
     setCart(info);
   };
 
   // Kiem tra xem khoa hoc da co trong gio hang hay khong
   const checkExistItem = (product: any) => {
-    const existProduct = cart.find((item) => item.id === product.id);
-    console.log(product);
-    console.log(existProduct);
-    if (existProduct) return true;
-    else return false;
+    if (product) {
+      const existProduct = cart.find((item) => item.id === product.id);
+      if (existProduct) return true;
+      else return false;
+    } else return false;
   };
 
   // Them khoa hoc vao gio hang
@@ -35,12 +33,19 @@ export const CartProvider = ({ children }) => {
 
   const removeAll = () => {
     setCart([]);
-  }
-
+  };
 
   const test = 10;
   // value duoc dung de truyen di thong tin
-  const cartInfo = { cart, setInfo, test, addToCart, checkExistItem, removeItem, removeAll };
+  const cartInfo = {
+    cart,
+    setInfo,
+    test,
+    addToCart,
+    checkExistItem,
+    removeItem,
+    removeAll,
+  };
 
   return <CartContext.Provider value={{ cartInfo }}>{children}</CartContext.Provider>;
 };

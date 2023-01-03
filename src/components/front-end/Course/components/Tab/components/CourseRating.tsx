@@ -3,7 +3,12 @@ export type Info = {
     info: string
 }
 
-const CourseRating = () => {
+interface CourseInfo {
+    courseId: number;
+}
+
+
+const CourseRating: React.FC<CourseInfo> = ({courseId}: CourseInfo) => {
     return (
         <></>
     )

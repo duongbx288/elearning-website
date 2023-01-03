@@ -32,6 +32,7 @@ export type CourseRequest = {
     limit?: number | null;
     rating?: number | null;
     ratingCount?: number | null;
+    link?: string | null;
 }
 
 class CourseService {

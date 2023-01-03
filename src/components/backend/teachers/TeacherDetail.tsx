@@ -322,12 +322,6 @@ const TeacherDetail = () => {
                     sx={{
                       width: '165px',
                     }}
-                    // onClick={() =>
-                    //   navigate({
-                    //     pathname: '/teacher/update/' + websiteInfo.id,
-                    //     state: { detail: websiteInfo },
-                    //   })
-                    // }
                   >
                     Sửa thông tin
                   </Button>

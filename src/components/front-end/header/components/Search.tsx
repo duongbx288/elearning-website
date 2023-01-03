@@ -14,8 +14,8 @@ const Search = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const account = useAppSelector((state) => {
-    console.log(state);
-    return state.authentication.account});
+    return state.authentication.account;
+  });
 
   const [username, setUsername] = useState<string>('');
   const [userInfo, setUserInfo] = useState();
@@ -29,8 +29,7 @@ const Search = () => {
     if (account.username != null && typeof account.username != 'undefined') {
       UserService.getUserInfoByUsername(account.username).then((res) => {
         setUserInfo(res.data);
-        console.log(res.data);
-      })
+      });
     }
   }, [account]);
 
@@ -66,7 +65,6 @@ const Search = () => {
     handleClose();
   };
 
-
   return (
     <>
       <section className="search">
@@ -83,7 +81,7 @@ const Search = () => {
             <span>All Category</span>
           </div>
 
-          {(typeof username !== 'undefined' && username.length > 0) ? (
+          {typeof username !== 'undefined' && username.length > 0 ? (
             <div className="icon f_flex width">
               <i
                 className="fa fa-user icon-circle"
