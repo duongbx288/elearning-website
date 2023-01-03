@@ -30,8 +30,8 @@ class LessonService {
         return axios.put(`/api/lesson/update`, request);
     }
 
-    getByCourseId = (request: LessonRequest) => {
-        return axios.get(`/api/lesson/courseId=${request.courseId}`);
+    getByCourseId = (courseId: number) => {
+        return axios.get(`/api/lesson/courseId=${courseId}`);
     }
 
     getById = (request: LessonRequest) => {

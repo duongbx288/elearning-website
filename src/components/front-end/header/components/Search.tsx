@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import logo from '../assets/images/logo.svg';
+import logo from '../../assets/images/logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Button, Menu, MenuItem } from '@mui/material';
 import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit';
@@ -137,7 +137,6 @@ const Search = () => {
             </div>
           )}
         </div>
-        <Button onClick={handleLogout}>hasdfds</Button>
       </section>
     </>
   );

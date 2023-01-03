@@ -1,25 +1,37 @@
 import axios from 'axios';
+import { CommentResponse } from './CommentService';
+import { RatingResponse } from './RatingService';
+
+export type CourseResponse = {
+    course: CourseRequest;
+    studentCount?: number | null;
+    studentComplete?: number | null;
+    comments?: CommentResponse[] | null;
+    ratings?: RatingResponse[] | null;
+}
 
 export type CourseRequest = {
     id?: number;
-    pageNum?: number;
-    pageLimit?: number;
-    teacherId?: number;
-    name?: string;
-    description?: string;
-    introduction?: string;
-    price?: string;
-    status?: string;
-    createdAt?: Date;
-    lastModifiedAt?: Date;
-    createdBy?: string;
-    lastModifiedBy?: string;
-    boughtCount?: number;
-    month?: number;
-    year?: number;
-    limit?: number;
-    rating?: number;
-    ratingCount?: number;
+    pageNum?: number | null;
+    typeId?: number | null;
+    pageLimit?: number | null;
+    teacherId?: number | null;
+    teacherName?: string | null;
+    name?: string | null;
+    description?: string | null;
+    introduction?: string | null;
+    price?: string | null;
+    status?: string | null;
+    createdAt?: Date | null;
+    lastModifiedAt?: Date | null;
+    createdBy?: string | null;
+    lastModifiedBy?: string | null;
+    boughtCount?: number | null;
+    month?: number | null;
+    year?: number | null;
+    limit?: number | null;
+    rating?: number | null;
+    ratingCount?: number | null;
 }
 
 class CourseService {
@@ -41,6 +53,10 @@ class CourseService {
 
     getById = (id: number) => {
         return axios.get(`/api/course/${id}`);
+    }
+
+    getCourseInfo = (id: number) => {
+        return axios.get(`/api/course/course-info/${id}`);
     }
 
     getSoldByTeacherId = (id: number, limit: number) => {
