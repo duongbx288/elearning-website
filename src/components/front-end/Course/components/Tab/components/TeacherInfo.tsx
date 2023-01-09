@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography } from '@mui/material';
+import { Avatar, Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import TeacherService, {
   TeacherResponse,
@@ -21,6 +21,7 @@ interface TeacherProps {
 const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
   const navigate = useNavigate();
   const [teacherInfo, setTeacherInfo] = useState<TeacherResponse>();
+  const [expand, setExpand] = useState<boolean>(false);
 
   useEffect(() => {
     if (teacherId) {
@@ -35,25 +36,75 @@ const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
 
   const handleTeacher = () => {};
 
+  const handleExpandClose = () => {
+    setExpand(false);
+    return;
+  };
+
+  const handleExpandOpen = () => {
+    setExpand(true);
+    return;
+  };
+
+  const getDescription = (description: any) => {
+    if (description && description.length > 0) {
+      if (expand)
+        return (
+          <>
+            <Typography sx={{ marginBottom: 1 }}>{teacherInfo?.description}</Typography>
+            <Button variant="outlined" onClick={handleExpandClose}>
+              Thu nhỏ
+            </Button>
+          </>
+        );
+      else
+        return (
+          <>
+            <Typography
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: '2',
+                WebkitBoxOrient: 'vertical',
+                marginBottom: 1,
+              }}
+            >
+              {teacherInfo?.description}
+            </Typography>
+            <Button variant="outlined" onClick={handleExpandOpen}>
+              Xem thêm
+            </Button>
+          </>
+        );
+    }
+  };
+
   return (
     <>
+      <Typography variant="h5" sx={{ marginBottom: 2 }}>
+        Thông tin giảng viên
+      </Typography>
       <Grid container>
-        <Grid item xs={4}>
+        <Grid item marginRight={2}>
           {typeof teacherInfo !== 'undefined' && teacherInfo?.avatar ? (
             <Avatar
-              {...stringAvatar(teacherInfo?.name)}
-              sx={{ marginRight: '5px', cursor: 'pointer' }}
-              alt={'Avatar'}
+              sx={{ marginRight: '5px', width: 80, height: 80, border: '1px solid' }}
+              src={teacherInfo?.avatar}
             ></Avatar>
           ) : (
-            <Avatar src={teacherInfo?.avatar}></Avatar>
+            <Avatar
+              {...stringAvatar(teacherInfo?.name)}
+              sx={{ marginRight: '5px', cursor: 'pointer', width: 72, height: 72 }}
+              alt={'Avatar'}
+            ></Avatar>
           )}
         </Grid>
-        <Grid item xs={8}>
-          <Typography>{teacherInfo?.id}</Typography>
-          <Typography>{teacherInfo?.name}</Typography>
-          <Typography>{teacherInfo?.id}</Typography>
-          <Typography>{teacherInfo?.id}</Typography>
+        <Grid item xs={10}>
+          <Typography variant="h6">{teacherInfo?.name}</Typography>
+          <Typography sx={{ fontStyle: 'italic', marginBottom: '2px' }}>{teacherInfo?.title}</Typography>
+          <Typography>{`${teacherInfo?.name} là ai?`}</Typography>
+          {getDescription(teacherInfo?.description)}
         </Grid>
       </Grid>
     </>

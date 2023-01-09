@@ -14,6 +14,11 @@ export type TeacherResponse = {
     name?: string;
     avatar?: string;
     birthdate?: Date | string;
+    title?: string;
+    description?: string;
+    phoneNumber?: string;
+    city?: string;
+    status?: string;
 }
 
 class TeacherService {
