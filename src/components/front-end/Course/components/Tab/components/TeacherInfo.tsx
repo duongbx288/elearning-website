@@ -51,6 +51,7 @@ const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
       if (expand)
         return (
           <>
+            <Typography>{`${teacherInfo?.name} là ai?`}</Typography>
             <Typography sx={{ marginBottom: 1 }}>{teacherInfo?.description}</Typography>
             <Button variant="outlined" onClick={handleExpandClose}>
               Thu nhỏ
@@ -60,6 +61,7 @@ const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
       else
         return (
           <>
+            <Typography>{`${teacherInfo?.name} là ai?`}</Typography>
             <Typography
               sx={{
                 overflow: 'hidden',
@@ -77,6 +79,8 @@ const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
             </Button>
           </>
         );
+    } else {
+      return (<Typography>Chưa có thông tin về giáo viên</Typography>)
     }
   };
 
@@ -102,8 +106,9 @@ const TeacherInfo: React.FC<TeacherProps> = ({ teacherId }: TeacherProps) => {
         </Grid>
         <Grid item xs={10}>
           <Typography variant="h6">{teacherInfo?.name}</Typography>
-          <Typography sx={{ fontStyle: 'italic', marginBottom: '2px' }}>{teacherInfo?.title}</Typography>
-          <Typography>{`${teacherInfo?.name} là ai?`}</Typography>
+          <Typography sx={{ fontStyle: 'italic', marginBottom: '2px' }}>
+            {teacherInfo?.title}
+          </Typography>
           {getDescription(teacherInfo?.description)}
         </Grid>
       </Grid>

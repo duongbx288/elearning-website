@@ -60,7 +60,7 @@ const BasicTabs: React.FC<TabProps> = ({teacherId, courseId, introduction, descr
   }, []);
 
   return (
-    <Box sx={{ width: '100%', background: '#fff' }}>
+    <Box sx={{ width: '100%', background: '#fff', minHeight: '300px' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
         variant="scrollable"

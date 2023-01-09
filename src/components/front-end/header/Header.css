@@ -111,6 +111,7 @@ header ul li {
 }
 
 header ul li:hover {
+  cursor: pointer;
   color: #ff014f;
   background-color: #f6f9fc;
 }

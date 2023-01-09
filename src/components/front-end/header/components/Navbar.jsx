@@ -1,8 +1,9 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Navbar = () => {
   // Toogle Menu
+  const navigate = useNavigate();
   const [MobileMenu, setMobileMenu] = useState(false)
   return (
     <>
@@ -19,22 +20,13 @@ const Navbar = () => {
           <div className='navlink'>
             <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
               {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
-              <li>
+              <li onClick={() => navigate('/main')}>
                 <Link to='/main'>Trang chủ</Link>
               </li>
-              <li>
+              <li onClick={() => navigate('/course')}>
                 <Link to='/course'>Khóa học</Link>
               </li>
-              {/* <li>
-                <Link to='/user'>user account</Link>
-              </li>
-              <li>
-                <Link to='/vendor'>vendor account</Link>
-              </li>
-              <li>
-                <Link to='/track'>track my order</Link>
-              </li> */}
-              <li>
+              <li onClick={() => navigate('/contact')}>
                 <Link to='/contact'>Liên hệ</Link>
               </li>
             </ul>

@@ -3,11 +3,14 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
   List,
-  ListItem,
-  ListItemText,
   Typography,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
@@ -15,8 +18,9 @@ import LessonService, {
   Lesson,
   LessonInfo,
 } from '../../../../../../services/LessonService';
-import { LessonRequest } from '../../../../../../services/LessonService';
 import { ExpandMore } from '@mui/icons-material';
+import ReactPlayer from 'react-player';
+
 export type Info = {
   info: string;
 };
@@ -27,6 +31,9 @@ interface CourseInfo {
 
 const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
   const [lessonList, setLessonList] = useState<Lesson[]>([]);
+
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [vidLink, setVidLink] = useState<string>('');
 
   useEffect(() => {
     LessonService.getByCourseId(courseId).then((res) => {
@@ -50,6 +57,18 @@ const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
     });
   }, [lessonList]);
 
+  const handleOpen = (link: string | undefined) => {
+    if (link) {
+      setVidLink(link);
+      setOpenDialog(true);
+    } else return;
+  };
+
+  const handleClose = () => {
+    setVidLink('');
+    setOpenDialog(false);
+  };
+
   const lessonInfoList = (lessonInfoList: LessonInfo[]) => {
     return lessonInfoList.map((item) => (
       <Box
@@ -67,8 +86,12 @@ const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
           </Grid>
           <Grid item xs={6}>
             {item.locked === 0 && item.videoLink != null ? (
-              <Typography onClick={() => {}} sx={{ cursor: 'pointer' }}>
-                {item.videoLink ? item.videoLink : '---'}
+              <Typography
+                onClick={() => handleOpen(item.videoLink)}
+                sx={{ cursor: 'pointer' }}
+                color='blueviolet'
+              >
+                {item.videoLink ? 'Học thử' : '---'}
               </Typography>
             ) : (
               <Typography></Typography>
@@ -108,6 +131,17 @@ const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
           </Accordion>
         );
       })}
+      <Dialog open={openDialog} fullWidth maxWidth={'md'} onClose={handleClose}>
+        <DialogTitle>Video</DialogTitle>
+        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <ReactPlayer 
+            controls
+          url={vidLink}></ReactPlayer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Thoát</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
