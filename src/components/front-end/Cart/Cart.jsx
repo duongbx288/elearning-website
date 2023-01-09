@@ -1,23 +1,48 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './style.css';
 import { CartContext } from '../../../context/CartContext';
+import { Button, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import { useAppSelector } from '../../../store/hooks';
+import UserService, { UserInfo } from '../../../../services/UserService';
 
 const Cart = () => {
 
+  // Gio hang
   const cartContext = useContext(CartContext).cartInfo;
   const cart = cartContext.cart? cartContext.cart : [];
-  const addToCart = cartContext.addToCart;
   const removeItem = cartContext.removeItem;
   const [cartData, setCartData] = useState(cart);
+
+  const [username, setUsername] = useState('');
+  // const [userInfo, setUserInfo] = useState<UserInfo>();
+  const account = useAppSelector((state) => {
+    return state.authentication.account;
+  });
+
+
+  useEffect(() => {
+    document.title='Giỏ hàng';
+    
+  }, []);
 
   useEffect(() => {
     if (typeof cartContext.cart !== 'undefined' && cartContext.cart.length > 0) {
       setCartData(cartContext.cart);
       console.log(cartContext.cart);
     }
-  }, []);
+  }, [cartData]);
 
   const totalPrice = cartData.reduce((price, item) => price +  item.price, 0);
+
+  const remove = (item: any) => {
+    const exist = cartData.find((item) => item.id === item.id);
+    if (exist) setCartData(cartData.filter((product) => product.id !== item.id)); 
+  };
+
+  const handlePurchase = () => {
+    return;
+  }
 
   return (
     <>
@@ -25,7 +50,7 @@ const Cart = () => {
         <div className="container d_flex">
           <div className="cart-details">
             {cartData.length === 0 && (
-              <h1 className="no-items product">No Items are add in Cart</h1>
+              <h1 className="no-items product">Không có khóa học nào trong giỏ hàng</h1>
             )}
 
             {cartData.map((item) => {
@@ -33,19 +58,21 @@ const Cart = () => {
 
               return (
                 <div className="cart-list product d_flex" key={item.id}>
-                  <div className="img">
+                  <div className="img" style={{ margin: '5px'}}>
                     <img src={item.cover} alt="" />
                   </div>
                   <div className="cart-details">
-                    <h3>{item.name}</h3>
+                    <h3>Khóa học: {item.name}</h3>
                     <h4>
-                      ${item.price}.00 * {item.qty}
-                      <span>${productQty}.00</span>
+                      Gía tiền: {item.price}đ
                     </h4>
                   </div>
                   <div className="cart-items-function">
                     <div className="removeCart">
-                      <button className="removeCart">
+                      <button className="removeCart" onClick={() => {
+                        remove(item);
+                        removeItem(item)
+                      }}>
                         <i className="fa-solid fa-xmark"></i>
                       </button>
                     </div>
@@ -53,10 +80,9 @@ const Cart = () => {
                     product ko qty lai inc ra des garne
                     */}
                     <div className="cartControl d_flex">
-                      <button className="incCart" onClick={() => addToCart(item)}>
-                        <i className="fa-solid fa-plus"></i>
-                      </button>
-                      <button className="desCart" onClick={() => removeItem(item)}>
+                      <button className="desCart" onClick={() => {
+                        remove(item);
+                        removeItem(item)}}>
                         <i className="fa-solid fa-minus"></i>
                       </button>
                     </div>
@@ -68,12 +94,14 @@ const Cart = () => {
             })}
           </div>
 
-          <div className="cart-total product">
-            <h2>Cart Summary</h2>
-            <div className=" d_flex">
-              <h4>Total Price :</h4>
-              <h3>${totalPrice}.00</h3>
-            </div>
+          <div className="cart-total product" style={{minHeight: '150px'}}>
+            <h2>Tổng tiền</h2>
+            <Box>
+              <Typography sx={{ marginBottom: 1}}>{totalPrice}đ</Typography>
+              <Button fullWidth variant='outlined'
+                onClick={handlePurchase}
+              >Thanh toán</Button>
+            </Box>
           </div>
         </div>
       </section>

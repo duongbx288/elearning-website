@@ -6,7 +6,7 @@ import { MDBDropdown, MDBDropdownItem, MDBDropdownMenu } from 'mdb-react-ui-kit'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { logout } from '../../../../auth/authenticationSlice';
 import { CartContext } from '../../../../context/CartContext';
-import UserService from '../../../../services/UserService';
+import UserService, { UserInfo } from '../../../../services/UserService';
 
 const Search = () => {
   const cartContext = useContext(CartContext).cartInfo;
@@ -18,7 +18,7 @@ const Search = () => {
   });
 
   const [username, setUsername] = useState<string>('');
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState<UserInfo>();
 
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,6 +29,7 @@ const Search = () => {
     if (account.username != null && typeof account.username != 'undefined') {
       UserService.getUserInfoByUsername(account.username).then((res) => {
         setUserInfo(res.data);
+        console.log(res.data);
       });
     }
   }, [account]);
@@ -46,23 +47,28 @@ const Search = () => {
     setAnchorEl(null);
   };
 
-  const handleInfo = () => {
-    handleClose();
-  };
-
   const handleLogout = () => {
     handleClose();
     dispatch(logout());
     localStorage.removeItem('user');
     setUsername('');
-  };
-
-  const handleSignIn = () => {
-    handleClose();
+    if (window.location.href.includes("student-course") || window.location.href.includes("study-course")){
+      navigate('/main');
+    }
   };
 
   const handleGoToLearn = () => {
     handleClose();
+    navigate('/student-course/' + userInfo?.studentId, {
+      state: { id: userInfo?.studentId },
+    });
+  };
+
+  const handleInfo = () => {
+    handleClose();
+    navigate('/student-info/' + userInfo?.studentId, {
+      state: { id: userInfo?.studentId },
+    });
   };
 
   return (

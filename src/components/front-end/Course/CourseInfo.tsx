@@ -94,7 +94,7 @@ const CourseInfo = () => {
           </Grid>
         </Grid>
       </Container>
-      <Typography>Similar Course ?</Typography>
+      <Typography>Similar Course</Typography>
       <Typography>Khóa học từ giáo viên</Typography>
     </>
   );
