@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 
 export type Info = {
   info?: string;
@@ -15,12 +15,18 @@ const CourseIntroduction: React.FC<CourseInfo> = ({
   description,
   introduction,
 }: CourseInfo) => {
+  const trymore = '';
+
   return (
     <>
-      
-      <Typography variant="body2">{introduction}</Typography>
-      <Typography variant="body2">{description}</Typography>
-
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="body1">{introduction}</Typography>
+        </Grid>
+      </Grid>
+      <Box>
+        <Typography variant="body2">{description}</Typography>
+      </Box>
     </>
   );
 };

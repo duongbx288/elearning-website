@@ -6,6 +6,9 @@ import Pages from '../pages/Pages';
 import Cart from '../components/front-end/Cart/Cart';
 import CourseInfo from '../components/front-end/Course/CourseInfo';
 import LearnCourse from '../components/front-end/LearnCourse/LearnCourse';
+import StudentInfo from '../components/front-end/Student/StudentInfo';
+import StudentCourse from '../components/front-end/Student/StudentCourse';
+import StudyCourse from '../components/front-end/Student/StudyCourse';
 
 const HeaderFooter = () => {
   return (
@@ -27,6 +30,9 @@ const ClientMainLayout = () => {
           <Route path="learn" element={<LearnCourse />}></Route>
           <Route path="course-info/:id" element={<CourseInfo />}></Route>
           <Route path="" element={<Navigate to="main"/>}/>
+          <Route path="student-info/:id" element={<StudentInfo/>}></Route>
+          <Route path="student-course/:id" element={<StudentCourse/>}></Route>
+          <Route path="study-course/course=:id/student=:id" element={<StudyCourse/>}></Route>
         </Route>
       </Routes>
     </>

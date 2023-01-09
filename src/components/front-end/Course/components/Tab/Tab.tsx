@@ -44,7 +44,7 @@ function a11yProps(index: number) {
 
 interface TabProps {
   courseId: number;
-  teacherId?: number | null | undefined;
+  teacherId: number;
   introduction: string | null | undefined;
   description: string | null | undefined;
 }
@@ -56,9 +56,7 @@ const BasicTabs: React.FC<TabProps> = ({teacherId, courseId, introduction, descr
     setValue(newValue);
   };
 
-  console.log(courseId);
   useEffect(() => {
-    console.log(courseId);
   }, []);
 
   return (

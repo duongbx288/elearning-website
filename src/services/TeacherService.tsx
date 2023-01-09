@@ -8,6 +8,14 @@ export type TeacherRequest = {
     name?: string;
 }
 
+export type TeacherResponse = {
+    id?: number;
+    teacherCode?: string;
+    name?: string;
+    avatar?: string;
+    birthdate?: Date | string;
+}
+
 class TeacherService {
 
     getAllTeacher = () => {

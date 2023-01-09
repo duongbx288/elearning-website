@@ -21,6 +21,7 @@ const CourseInfo = () => {
 
   const [courseInfo, setCourseInfo] = useState<CourseResponse>();
   const [courseId, setCourseId] = useState<number>(0);
+  const [teacherId, setTeacherId] = useState<number>(0);
 
   useEffect(() => {
     if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
@@ -32,10 +33,15 @@ const CourseInfo = () => {
       CourseService.getCourseInfo(course.id).then((res) => {
         if (res.data) {
           setCourseInfo(res.data);
+          console.log(res.data);
         }
       });
     }
   }, []);
+
+  useEffect(() => {
+    setTeacherId(courseInfo?.course.teacherId ? courseInfo.course.teacherId : 0);
+  }, [courseInfo]);
 
   const courseTitleProps = {
     courseId: courseInfo?.course?.id,
@@ -58,7 +64,7 @@ const CourseInfo = () => {
           <Grid item sm={12} margin={1}>
             <CourseTitle info={courseTitleProps} />
           </Grid>
-          <Grid container sm={12} margin={2} sx={{ mt: 0 }}>
+          <Grid container item sm={12} margin={2} sx={{ mt: 0 }}>
             <Grid item sm={8} padding={2}>
               <div className="ratio ratio-16x9 video">
                 {courseInfo?.course.link ? (
@@ -81,7 +87,7 @@ const CourseInfo = () => {
           <Grid item sm={8} margin={2}>
             <BasicTabs
               courseId={courseId}
-              teacherId={courseInfo?.course.teacherId}
+              teacherId={teacherId}
               introduction={courseInfo?.course.introduction}
               description={courseInfo?.course.description}
             />

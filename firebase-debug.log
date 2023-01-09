@@ -1,0 +1,25 @@
+[debug] [2023-01-05T07:47:50.108Z] ----------------------------------------------------------------------
+[debug] [2023-01-05T07:47:50.112Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\dell\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-01-05T07:47:50.113Z] CLI Version:   11.19.0
+[debug] [2023-01-05T07:47:50.113Z] Platform:      win32
+[debug] [2023-01-05T07:47:50.113Z] Node Version:  v16.13.0
+[debug] [2023-01-05T07:47:50.115Z] Time:          Thu Jan 05 2023 14:47:50 GMT+0700 (Indochina Time)
+[debug] [2023-01-05T07:47:50.116Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-05T07:47:50.305Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-05T07:47:50.306Z] > authorizing via signed-in user (duongbx183901@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\dell\Desktop\REAL_main\DATN\web_prj1
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+

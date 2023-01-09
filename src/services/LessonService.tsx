@@ -24,6 +24,20 @@ export type Lesson = {
     introduction?: string;
     status?: string;
     lessonNumber: string;
+    lessonInfos?: LessonInfo[];
+}
+
+export type LessonInfo = {
+    id: number;
+    name?: string;
+    lessonId?: string;
+    introduction?: string;
+    content?: string;
+    startNumber: string;
+    createdAt?: Date;
+    lastModifiedAt?: Date;
+    videoLink?: string;
+    locked: number;
 }
 
 class LessonService {
