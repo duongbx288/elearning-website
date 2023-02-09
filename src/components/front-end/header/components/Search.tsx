@@ -18,26 +18,22 @@ const Search = () => {
   });
 
   const [username, setUsername] = useState<string>('');
-  const [userInfo, setUserInfo] = useState<UserInfo>();
+  const [userInfo, setUserInfo] = useState<any>({});
 
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
+  console.log(userInfo);
   useEffect(() => {
     setUsername(account.username);
-    if (account.username != null && typeof account.username != 'undefined') {
-      UserService.getUserInfoByUsername(account.username).then((res) => {
-        setUserInfo(res.data);
-        console.log(res.data);
-      });
-    }
+    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    if (info) setUserInfo(info);
   }, [account]);
 
   // fixed Header
   window.addEventListener('scroll', function () {
     const search = document.querySelector('.search');
-    if (search !== null) search.classList.toggle('active', window.scrollY > 100);
+    if (search !== null) search.classList.toggle('active', window.scrollY > 120);
   });
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,9 +46,11 @@ const Search = () => {
   const handleLogout = () => {
     handleClose();
     dispatch(logout());
-    localStorage.removeItem('user');
     setUsername('');
-    if (window.location.href.includes("student-course") || window.location.href.includes("study-course")){
+    if (
+      window.location.href.includes('student-course') ||
+      window.location.href.includes('study-course')
+    ) {
       navigate('/main');
     }
   };
@@ -69,6 +67,14 @@ const Search = () => {
     navigate('/student-info/' + userInfo?.studentId, {
       state: { id: userInfo?.studentId },
     });
+  };
+
+  const handleGoToAffiliate = () => {
+    handleClose();
+  };
+
+  const handleGoToTeacher = () => {
+    handleClose();
   };
 
   return (
@@ -109,9 +115,27 @@ const Search = () => {
                 }}
                 sx={{ width: '250px', textOverflow: 'ellipsis' }}
               >
-                <MenuItem disabled>Tên tài khoản: {username}</MenuItem>
-                <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
-                <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
+                <MenuItem aria-readonly>Tên tài khoản: {username}</MenuItem>
+                {/* {userInfo.studentId ? (
+                  <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
+                ) : (
+                  <></>
+                )}
+                {userInfo.studentId ? (
+                  <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
+                ) : (
+                  <></>
+                )}
+                {userInfo.teacherId ? (
+                  <MenuItem onClick={handleGoToTeacher}>Giáo viên</MenuItem>
+                ) : (
+                  <></>
+                )}
+                {userInfo.affiliateId ? (
+                  <MenuItem onClick={handleGoToAffiliate}>Nhân viên tiếp thị</MenuItem>
+                ) : (
+                  <></>
+                )} */}
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>
               <div className="cart">
