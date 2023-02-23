@@ -16,6 +16,11 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  CardActionArea,
 } from '@mui/material';
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip placement={'auto'} {...props} classes={{ popper: className }} />
@@ -127,7 +132,7 @@ const TopCart = ({ courses }) => {
                   </>
                 }
               >
-                <div className="box product" key={course.id}>
+                {/* <div className="box product" key={course.id}>
                   <div className="nametop d_flex">
                     <span className="tleft">{course.name}</span>
                     <span className="tright">{course.studentCount}</span>
@@ -135,7 +140,26 @@ const TopCart = ({ courses }) => {
                   <div className="img">
                     <img src={course.cover} alt="" />
                   </div>
-                </div>
+                </div> */}
+                <Card>
+                  <CardActionArea>
+                    <CardMedia></CardMedia>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        Lizard
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        Lizards are a widespread group of squamate reptiles, with over
+                        6,000 species, ranging across all continents except Antarctica
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                    </Button>
+                  </CardActions>
+                </Card>
               </HtmlTooltip>
             </>
           );

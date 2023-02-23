@@ -127,28 +127,37 @@ const LoginMenu = () => {
     </Menu>
   );
 
+  const styles = {
+    button: {
+        width: 64, height: 64,
+        padding: 0
+    },
+    icon: {
+        fontSize:40,
+        color:'#fffff'
+    },
+    tooltip: {
+        marginLeft:7
+    }
+};
+
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
       {typeof username !== 'undefined' && username.length > 0 ? (
         <>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-            <Badge badgeContent={17} color="error">
+          <IconButton sx={{ margin: 0.5}} size="large" aria-label="" color="inherit">
+            <Badge badgeContent={0} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
           <IconButton
             size="large"
-            edge="end"
             aria-label="account of current user"
             aria-controls={menuId}
             aria-haspopup="true"
             onClick={handleProfileMenuOpen}
             color="inherit"
+            sx={{ margin: 1}}
           >
             <AccountCircle />
           </IconButton>
@@ -177,7 +186,7 @@ const LoginMenu = () => {
           </Button>
         </>
       )}
-      <IconButton size="large" onClick={() => navigate('/cart')} color="inherit">
+      <IconButton edge="end" size="large" onClick={() => navigate('/cart')} color="inherit">
         <Badge badgeContent={cartItem.length} color="error">
           <ShoppingCartOutlinedIcon />
         </Badge>
