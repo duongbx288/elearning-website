@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
 import Header from '../components/front-end/header/Header';
 import Footer from '../components/front-end/footer/Footer';
-import Pages from '../pages/Pages';
+import Pages from '../components/front-end/MainPage/Pages';
 import Cart from '../components/front-end/Cart/Cart';
 import CourseInfo from '../components/front-end/Course/CourseInfo';
 import StudentInfo from '../components/front-end/Student/StudentInfo';
