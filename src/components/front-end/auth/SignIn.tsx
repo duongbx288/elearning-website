@@ -70,10 +70,19 @@ const SignIn = () => {
           console.log('df');
         }, 3000);
       } else {
-        setError('');
-        setOpen(true);
+        console.log(res.data);
+        newLogin(newUsername, newPassword);
       }
     })
+  }
+
+  const newLogin = async (username: string, password: string) => {
+    const result = await dispatch(login(username, password));
+    if (result?.payload?.data) {
+      navigate('/main');
+    } else {
+      console.log(result);
+    }
   }
 
   const handleSubmit = async (event: any) => {

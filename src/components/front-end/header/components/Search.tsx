@@ -126,7 +126,7 @@ const Search = () => {
               </Menu>
               <div className="cart">
                 <Link to="/cart">
-                  <i className="fa fa-shopping-bag icon-circle"></i>
+                  <i className="fa fa-shopping-cart icon-circle"></i>
                   {cartItem.length === 0 ? <></> : <span>{cartItem.length}</span>}
                 </Link>
               </div>

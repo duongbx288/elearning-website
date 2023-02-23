@@ -25,7 +25,7 @@ const FlashDeals = () => {
         <div className="container">
           <div className="heading f_flex">
             <i className="fa fa-bolt"></i>
-            <h4>Tìm kiếm nhanh</h4>
+            <h4>Khóa học mới</h4>
           </div>
           <FlashCard courses={courses} />
         </div>

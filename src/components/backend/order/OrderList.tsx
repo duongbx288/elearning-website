@@ -103,7 +103,7 @@ const OrderList = () => {
 
   const handleDetailClick = (orderId: number) => () => {
     const id = orderId;
-    navigate('/order/detail/' + id, {state: { id: id }});
+    navigate('admin/order/detail/' + id, {state: { id: id }});
   };
 
   const statusProcess = (status: any) => {

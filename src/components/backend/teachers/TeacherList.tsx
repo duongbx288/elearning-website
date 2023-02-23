@@ -98,7 +98,7 @@ const TeacherList = () => {
 
   const handleDetailClick = (teacherId: number) => () => {
     const id = teacherId;
-    navigate('/teacher/detail/' + id, { state: { id: id } });
+    navigate('detail/' + id, { state: { id: id } });
   };
 
   const columns = useMemo<MRT_ColumnDef<Teacher>[]>(

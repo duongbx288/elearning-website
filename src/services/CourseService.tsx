@@ -40,6 +40,10 @@ class CourseService {
         return axios.get(`/api/course/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)
     }
 
+    getTopCourse = () => {
+        return axios.get(`/api/course/top-course`)
+    }
+
     updateCourseStatus = (request: CourseRequest) => {
         return axios.put(`/api/course/update-status`, request);
     }

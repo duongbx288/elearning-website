@@ -1,8 +1,26 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import CourseService, { CourseRequest } from "../../../../../services/CourseService";
 import "./style.css"
 import TopCart from "./TopCart"
 
 const TopCate = () => {
+
+  const [courses, setCourses] = useState<CourseRequest[]>([]);
+  
+  useEffect(() => {
+    const request: CourseRequest = {
+      pageNum: 0,
+      pageLimit: 5,
+    };
+    CourseService.getTopCourse().then((res) => {
+      console.log(res);
+      if (res.data){
+        setCourses(res.data);
+      }
+    })
+    
+  }, [])
+
   return (
     <>
       <section className='TopCate background'>
@@ -17,7 +35,7 @@ const TopCate = () => {
               <i className='fa-solid fa-caret-right'></i>
             </div>
           </div>
-          <TopCart />
+          <TopCart courses={courses}/>
         </div>
       </section>
     </>

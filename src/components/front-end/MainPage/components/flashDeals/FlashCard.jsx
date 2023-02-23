@@ -128,6 +128,7 @@ const FlashCard = ({ courses }) => {
                           WebkitLineClamp: '8',
                           WebkitBoxOrient: 'vertical',
                           marginBottom: '1',
+                          whiteSpace: 'pre-line'
                         }}
                       >
                         {course.introduction}

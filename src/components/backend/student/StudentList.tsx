@@ -109,7 +109,7 @@ const StudentList = () => {
 
   const handleDetailClick = (studentId: number) => () => {
     const id = studentId;
-    navigate('/student/detail/' + id, { state: { id: id } });
+    navigate('detail/' + id, { state: { id: id } });
   };
 
   const columns = useMemo<MRT_ColumnDef<Student>[]>(

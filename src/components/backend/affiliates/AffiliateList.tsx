@@ -104,7 +104,7 @@ const AffiliateList = () => {
 
   const handleDetailClick = (affiliateId: number) => () => {
     const id = affiliateId;
-    navigate('/affiliate/detail/' + id, { state: { id: id } });
+    navigate('detail/' + id, { state: { id: id } });
   };
 
   const columns = useMemo<MRT_ColumnDef<Affiliate>[]>(

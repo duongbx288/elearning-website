@@ -3,7 +3,7 @@ import CourseService, {
   CourseRequest,
   CourseResponse,
 } from '../../../services/CourseService';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import './style.css';
 import { Container, Grid, Icon, Typography } from '@mui/material';
 import { Star } from '@mui/icons-material';
@@ -18,9 +18,13 @@ const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
   const navigate = useNavigate();
+  const { id } = useParams();
+  
+  const [loading, setLoading] = useState<boolean>(true);
 
+  
   const [courseInfo, setCourseInfo] = useState<CourseResponse>();
-  const [courseId, setCourseId] = useState<number>(0);
+  const [courseId, setCourseId] = useState<number>(Number(id));
   const [teacherId, setTeacherId] = useState<number>(0);
 
   useEffect(() => {
@@ -29,7 +33,16 @@ const CourseInfo = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (course !== null && typeof course !== 'undefined') {
+    console.log(id);
+    console.log(course);
+    if (id !== null && typeof id === 'string') {
+      CourseService.getCourseInfo(Number(id)).then((res) => {
+        if (res.data) {
+          setCourseInfo(res.data);
+          console.log(res.data);
+        }
+      });
+    } else if (course !== null && typeof course !== 'undefined') {
       CourseService.getCourseInfo(course.id).then((res) => {
         if (res.data) {
           setCourseInfo(res.data);
@@ -37,10 +50,11 @@ const CourseInfo = () => {
         }
       });
     }
-  }, []);
+  }, [course, id]);
 
   useEffect(() => {
     setTeacherId(courseInfo?.course.teacherId ? courseInfo.course.teacherId : 0);
+    setLoading(false);
   }, [courseInfo]);
 
   const courseTitleProps = {
@@ -57,7 +71,7 @@ const CourseInfo = () => {
 
   const purchaseCardProps = {};
 
-  return (
+  return !loading ? (
     <>
       <Container sx={{ padding: 'auto', background: 'rgb(243, 243, 243)' }}>
         <Grid container sx={{ margin: 1 }}>
@@ -97,7 +111,7 @@ const CourseInfo = () => {
       <Typography>Similar Course</Typography>
       <Typography>Khóa học từ giáo viên</Typography>
     </>
-  );
+  ) : <></>;
 };
 
 export default CourseInfo;
