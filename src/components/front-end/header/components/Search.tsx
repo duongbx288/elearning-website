@@ -23,11 +23,13 @@ const Search = () => {
   // Menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  console.log(userInfo);
   useEffect(() => {
+    console.log(account);
     setUsername(account.username);
     let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
-    if (info) setUserInfo(info);
+    if (info) {
+      setUserInfo(JSON.parse(info));
+    }
   }, [account]);
 
   // fixed Header
@@ -116,26 +118,10 @@ const Search = () => {
                 sx={{ width: '250px', textOverflow: 'ellipsis' }}
               >
                 <MenuItem aria-readonly>Tên tài khoản: {username}</MenuItem>
-                {/* {userInfo.studentId ? (
-                  <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
-                ) : (
-                  <></>
-                )}
-                {userInfo.studentId ? (
-                  <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
-                ) : (
-                  <></>
-                )}
-                {userInfo.teacherId ? (
-                  <MenuItem onClick={handleGoToTeacher}>Giáo viên</MenuItem>
-                ) : (
-                  <></>
-                )}
-                {userInfo.affiliateId ? (
-                  <MenuItem onClick={handleGoToAffiliate}>Nhân viên tiếp thị</MenuItem>
-                ) : (
-                  <></>
-                )} */}
+                {userInfo.studentId !== 0 ? <MenuItem onClick={handleInfo}>Thông tin</MenuItem>: <Box></Box>}
+                {userInfo.studentId !== 0 ? <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>: <Box></Box>}
+                {userInfo.affiliateId !== 0 ? <MenuItem onClick={handleGoToAffiliate}>Affiliate</MenuItem> : <Box></Box>}
+                {userInfo.teacherId !== 0 ? <MenuItem onClick={handleGoToTeacher}>Giáo viên</MenuItem> : <Box></Box>}
                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
               </Menu>
               <div className="cart">
@@ -158,7 +144,7 @@ const Search = () => {
               <Link to="/sign-in">Đăng ký</Link>
               <div className="cart">
                 <Link to="/cart">
-                  <i className="fa fa-shopping-bag icon-circle"></i>
+                  <i className="fa fa-shopping-cart icon-circle"></i>
                   {cartItem.length === 0 ? <></> : <span>{cartItem.length}</span>}
                 </Link>
               </div>

@@ -34,31 +34,31 @@ const listIcon = {
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton component={Link} to="/teacher" sx={itemStyle}>
+    <ListItemButton component={Link} to="/admin/teacher" sx={itemStyle}>
       <ListItemIcon sx={listIcon}>
         <AccountCircle sx={{ color: 'white' }} />
       </ListItemIcon>
       <ListItemText disableTypography primary="Danh sách giáo viên" sx={text} />
     </ListItemButton>
-    <ListItemButton component={Link} to="/student" sx={itemStyle}>
+    <ListItemButton component={Link} to="/admin/student" sx={itemStyle}>
       <ListItemIcon sx={listIcon}>
         <Person sx={{ color: 'white' }} />
       </ListItemIcon>
       <ListItemText disableTypography primary="Danh sách học viên" sx={text} />
     </ListItemButton>
-    <ListItemButton component={Link} to="/affiliate" sx={itemStyle}>
+    <ListItemButton component={Link} to="/admin/affiliate" sx={itemStyle}>
       <ListItemIcon sx={listIcon}>
         <RecordVoiceOverIcon sx={{ color: 'white' }} />
       </ListItemIcon>
       <ListItemText disableTypography primary="Danh sách affiliate" sx={text} />
     </ListItemButton>
-    <ListItemButton component={Link} to="/order" sx={itemStyle}>
+    <ListItemButton component={Link} to="/admin/order" sx={itemStyle}>
       <ListItemIcon sx={listIcon}>
         <ViewCarouselIcon sx={{ color: 'white' }} />
       </ListItemIcon>
       <ListItemText disableTypography primary="Danh sách đơn hàng" sx={text} />
     </ListItemButton>
-    <ListItemButton component={Link} to="/course" sx={itemStyle}>
+    <ListItemButton component={Link} to="/admin/course" sx={itemStyle}>
       <ListItemIcon sx={listIcon}>
         <ViewCarouselIcon sx={{ color: 'white' }} />
       </ListItemIcon>

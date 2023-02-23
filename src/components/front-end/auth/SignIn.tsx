@@ -17,13 +17,21 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import './SignIn.css';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { login } from '../../../auth/authenticationSlice';
-
+import { Dialog, DialogActions, DialogContent, Typography } from '@mui/material';
+import UserService from '../../../services/UserService';
 
 const SignIn = () => {
   const [justifyActive, setJustifyActive] = useState('tab1');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
+  console.log(isAuthenticated);
+  // loading state
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+
+  // dialog
+  const [open, setOpen] = useState<boolean>(false);
 
   // Login state
   const [username, setUsername] = useState<string>('');
@@ -33,7 +41,8 @@ const SignIn = () => {
   // Register state
   const [newUsername, setNewUsername] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [newEmail, setNewEmail] = useState<string>('');
+  const [newName, setNewName] = useState<string>('');
 
   // const { from } = (location.state as any) || {
   //   from: { pathname: '/main', search: location.search },
@@ -43,9 +52,29 @@ const SignIn = () => {
     if (value === justifyActive) {
       return;
     }
-
     setJustifyActive(value);
   };
+
+  const handleSignUp = async (event: any) => {
+    const info = {
+      username: newUsername,
+      password: newPassword,
+      email: newEmail,
+      name: newName
+    }
+    UserService.saveUserInfo(info).then((res) => {
+      if(typeof res === 'undefined'){
+        return;
+      } else if (res.data === '') {
+        setTimeout(function () {
+          console.log('df');
+        }, 3000);
+      } else {
+        setError('');
+        setOpen(true);
+      }
+    })
+  }
 
   const handleSubmit = async (event: any) => {
     const result = await dispatch(login(username, password));
@@ -75,7 +104,7 @@ const SignIn = () => {
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
               className="img-fluid"
-              alt="Sample image"
+              alt="Sample"
             />
           </MDBCol>
           <MDBCol col="4" md="6">
@@ -236,14 +265,41 @@ const SignIn = () => {
                   <p className="text-center mt-3">or:</p>
                 </div>
 
-                <MDBInput wrapperClass="mb-4" label="Name" id="form1" type="text" />
-                <MDBInput wrapperClass="mb-4" label="Username" id="form1" type="text" />
-                <MDBInput wrapperClass="mb-4" label="Email" id="form1" type="email" />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Name"
+                  id="form1"
+                  type="text"
+                  onChange={(e) => {
+                    setNewName(e.target.value);
+                  }}
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Username"
+                  id="form1"
+                  type="text"
+                  onChange={(e) => {
+                    setNewUsername(e.target.value);
+                  }}
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Email"
+                  id="form1"
+                  type="email"
+                  onChange={(e) => {
+                    setNewEmail(e.target.value);
+                  }}
+                />
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
                   id="form1"
                   type="password"
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                  }}
                 />
 
                 <div className="d-flex justify-content-center mb-4">
@@ -254,15 +310,24 @@ const SignIn = () => {
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+                <MDBBtn className="mb-4 w-100" onClick={handleSignUp}>Sign up</MDBBtn>
               </MDBTabsPane>
             </MDBTabsContent>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <DialogContent>
+          <Typography>{`Error ${error}`}</Typography>
+        </DialogContent>
+        <DialogActions></DialogActions>
+      </Dialog>
     </>
   ) : (
-    <Navigate to={'/main'} replace/>
+    <Navigate to={'/main'} replace />
   );
 };
 

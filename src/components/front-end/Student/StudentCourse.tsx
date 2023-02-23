@@ -34,13 +34,25 @@ const StudentCourse = () => {
     if (student != null && typeof student !== 'undefined') setStudentId(student.id);
   }, [student]);
 
-  useEffect(() => {
+  const getStudentData = (studentId : number) => {
     StudentCourseService.getByStudentId(studentId).then((res) => {
       if (res.data) {
         setCourses(res.data);
         console.log(res.data);
       }
     });
+  }
+
+  useEffect(() => {
+    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    if (info) {
+      let info1 = JSON.parse(info);
+      if (info1.studentId && info1.studentId != null && typeof info1.studentId === "number") {
+        getStudentData(info1.studentId);    
+      }
+    } else {
+      getStudentData(studentId);
+    }
   }, [studentId]);
 
   const renderCourseList = (courseList: StudentCourseType[]) => {

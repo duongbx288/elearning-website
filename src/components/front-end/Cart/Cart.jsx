@@ -4,7 +4,7 @@ import { CartContext } from '../../../context/CartContext';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useAppSelector } from '../../../store/hooks';
-import UserService, { UserInfo } from '../../../../services/UserService';
+// import UserService, { UserInfo } from '../../../../services/UserService';
 
 const Cart = () => {
 

@@ -21,7 +21,7 @@ import ContactUs from '../components/backend/email/SendEmail';
 
 const mdTheme = createTheme();
 
-const InitLayout = () => {
+export const InitLayout = () => {
   return (
     <>
       <ThemeProvider theme={mdTheme}>
@@ -64,7 +64,7 @@ const MainLayout = (props: any) => {
         <Route path="/admin/order/detail/:id" element={<OrderDetail />} />
         <Route path="/admin/order" element={<OrderList />} />
         <Route path="/admin/send-email" element={<ContactUs />} />
-        <Route path="/admin/" element={<Navigate to={'/admin'} />} />
+        {/* <Route path="/admin/" element={<Navigate to={'admin/teacher'} />} /> */}
       </Route>
     </Routes>
   );

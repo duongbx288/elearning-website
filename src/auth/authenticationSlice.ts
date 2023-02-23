@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import UserService, { UserInfo } from '../services/UserService';
 import { AppThunk } from '../store/store';
 
 const AUTH_TOKEN_KEY = 'authenticationToken';
@@ -37,23 +38,46 @@ export const authenticate = createAsyncThunk(
   async (auth: IAuthParams) => axios.post<any>('api/login', auth)
 );
 
-export const login =
-  (username: string, password: string, rememberMe?: boolean) => async (dispatch) => {
+const getUserInfo = async (username: string) => {
+  let userInfo = {} as UserInfo;
+  if (username && username.length > 0) {
+    await UserService.getUserInfoByUsername(username).then((res) => {
+      console.log(res);
+      if (res.data) {
+        userInfo = res.data;   
+        console.log(userInfo);   
+      }
+    });
+  }
+
+  return userInfo;
+};
+
+export const login = 
+(username: string, password: string, rememberMe?: boolean) => async (dispatch) => {
     const result = await dispatch(authenticate({ username, password, rememberMe }));
     const response = result.payload as AxiosResponse;
+    const user = result.meta.arg.username;
+    const userInfo = getUserInfo(username);
     const bearerToken = response?.data?.accessToken;
     if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
       const jwt = bearerToken.slice(7, bearerToken.length);
       if (rememberMe) {
         localStorage.setItem(AUTH_TOKEN_KEY, jwt);
+        localStorage.setItem('user-info', JSON.stringify((await userInfo)));
       } else {
         sessionStorage.setItem(AUTH_TOKEN_KEY, jwt);
+        console.log(userInfo);
+        sessionStorage.setItem('user-info', JSON.stringify((await userInfo)));
       }
     }
     return dispatch(getSession());
   };
 
 export const clearAuthToken = () => {
+  localStorage.removeItem('user');
+  localStorage.removeItem('user-info');
+  sessionStorage.removeItem('user-info');
   if (localStorage.getItem(AUTH_TOKEN_KEY)) {
     localStorage.removeItem(AUTH_TOKEN_KEY);
   }
