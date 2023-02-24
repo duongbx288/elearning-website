@@ -4,7 +4,7 @@ import Search from './components/Search';
 import Navbar from './components/Navbar';
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import SearchBar from './components/components/SearchBar';
-import LoginMenu from './components/LoginMenu';
+import LoginMenu from './components/components/LoginMenu';
 import { useNavigate } from 'react-router-dom';
 import Categories from './components/components/Categories';
 

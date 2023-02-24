@@ -12,9 +12,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../../../../context/CartContext';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { logout } from '../../../../auth/authenticationSlice';
+import { CartContext } from '../../../../../context/CartContext';
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
+import { logout } from '../../../../../auth/authenticationSlice';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 

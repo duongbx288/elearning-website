@@ -7,10 +7,10 @@ const Home = () => {
   return (
     <>
       <section className='home'>
-        <div className='container d_flex'>
+        {/* <div className='container d_flex'>
           <Categories />
           <SliderHome />
-        </div>
+        </div> */}
       </section>
     </>
   )
