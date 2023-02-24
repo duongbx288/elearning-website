@@ -6,6 +6,11 @@ export type TypeRequest = {
     cateImg?: string;
 }
 
+export type TypeResponse = {
+    id: number;
+    name: string;
+}
+
 class TypeService {
 
     getAllType = () => {

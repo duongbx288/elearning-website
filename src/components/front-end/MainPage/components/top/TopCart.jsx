@@ -47,7 +47,7 @@ const TopCart = ({ courses }) => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
   };
@@ -77,10 +77,17 @@ const TopCart = ({ courses }) => {
     navigate('/course-info/' + id, { state: { id: id } });
   };
 
+  var cardStyle = {
+    display: 'block',
+    height: '400px',
+  };
+
+  // Use 'course' or 'Tdata'
+
   return (
     <>
       <Slider {...settings}>
-        {courses.map((course) => {
+        {Tdata.map((course) => {
           return (
             <>
               <HtmlTooltip
@@ -94,7 +101,7 @@ const TopCart = ({ courses }) => {
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           display: '-webkit-box',
-                          WebkitLineClamp: '8',
+                          WebkitLineClamp: '6',
                           WebkitBoxOrient: 'vertical',
                           marginBottom: '1',
                           whiteSpace: 'pre-line',
@@ -141,23 +148,47 @@ const TopCart = ({ courses }) => {
                     <img src={course.cover} alt="" />
                   </div>
                 </div> */}
-                <Card>
+                <Card sx={{ margin: 2, padding: 1 }}>
                   <CardActionArea>
-                    <CardMedia></CardMedia>
+                    <CardMedia
+                      component="img"
+                      height="170"
+                      image={course.cover}
+                      alt={course.name}
+                      sx={{
+                        objectFit: 'contain',
+                        minHeight: '170px',
+                        maxHeight: '170px',
+                      }}
+                    />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Lizard
+                      <Typography noWrap variant="h6">
+                        {course.name}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over
-                        6,000 species, ranging across all continents except Antarctica
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          display: '-webkit-box',
+                          WebkitLineClamp: '2',
+                          WebkitBoxOrient: 'vertical',
+                          marginBottom: '1',
+                          whiteSpace: 'pre-line',
+                        }}
+                      >
+                        {course.description}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
+                  <CardActions display={'flex'} sx={{ justifyContent: 'space-between' }}>
                     <Button size="small" color="primary">
                       Share
                     </Button>
+                    <Typography sx={{ marginRight: 2}}>
+                      {course.price} đ
+                    </Typography>
                   </CardActions>
                 </Card>
               </HtmlTooltip>

@@ -6,6 +6,7 @@ import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import SearchBar from './components/components/SearchBar';
 import LoginMenu from './components/LoginMenu';
 import { useNavigate } from 'react-router-dom';
+import Categories from './components/components/Categories';
 
 const Header = () => {
 
@@ -13,28 +14,27 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="sticky"
+      <AppBar position="sticky" color="default"
       >
         <Toolbar
           sx={{margin: 1}}
         >
-          
           <Typography
-            variant="h3"
+            variant="h2"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, cursor: "pointer" }}
+            sx={{ display: { xs: 'none', sm: 'block' }, cursor: "pointer", marginRight: 3 }}
             onClick={() => navigate('/main')}
           >
             MUI
           </Typography>
+          <Categories/>
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
           <LoginMenu/>
         </Toolbar>
       </AppBar>
-      {/* <Search /> */}
-      {/* <Navbar /> */}
+      <Navbar />
     </>
   );
 };
