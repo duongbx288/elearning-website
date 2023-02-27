@@ -10,29 +10,24 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StudentCourse from './components/StudentCourse';
 import StudentService, {StudentResponse} from '../../../services/StudentService';
 import InfoTab from './components/InfoTab';
+import ExploreTab from './components/ExploreTab';
 
 const StudentPage = () => {
 
   const navigate = useNavigate();
   const { id } = useParams();
+  const student = {} as StudentResponse;
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const [studentId, setStudentId] = useState<number>(Number(id));
-  const [studentInfo, setStudentInfo] = useState<StudentResponse>();
+  const [studentInfo, setStudentInfo] = useState<StudentResponse>(student);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     console.log('student', id);
     if (id !== null && typeof id === 'string') {
       StudentService.getStudentById(Number(id)).then((res) => {
-        if(res.data){
-          console.log(res.data);
-          setStudentInfo(res.data);
-        }
-      });
-    } else if (studentId != null && typeof studentId !== 'undefined') {
-      StudentService.getStudentById(studentId).then((res) => {
         if(res.data){
           console.log(res.data);
           setStudentInfo(res.data);
@@ -64,10 +59,10 @@ const StudentPage = () => {
             <StudentCourse id={id}/>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <InfoTab id={id}/>
+            <InfoTab id={id} studentInfo={studentInfo}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <ExploreTab id={id} studentInfo={studentInfo}/>
           </TabPanel>
         </Box>
       </Box>

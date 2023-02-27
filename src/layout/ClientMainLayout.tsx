@@ -8,9 +8,10 @@ import CourseInfo from '../components/front-end/Course/CourseInfo';
 import StudentInfo from '../components/front-end/Student/StudentInfo';
 import StudentCourse from '../components/front-end/Student/components/StudentCourse';
 import StudyCourse from '../components/front-end/Student/StudyCourse';
-import AffiliateInfo from '../components/front-end/Affiliate/AffiliateInfo';
+import AffiliateInfo from '../components/front-end/Affiliate/components/AffiliateInfo';
 import CourseList from '../components/front-end/Course/CourseList';
 import StudentPage from '../components/front-end/Student/StudentPage';
+import AffiliatePage from '../components/front-end/Affiliate/AffiliatePage';
 
 const HeaderFooter = () => {
   return (
@@ -36,7 +37,7 @@ const ClientMainLayout = () => {
           <Route path="student-page/:id" element={<StudentPage/>}></Route>
           {/* <Route path="student-course/:id" element={<StudentCourse/>}></Route> */}
           <Route path="study-course/course=:id/student=:id" element={<StudyCourse/>}></Route>
-          <Route path="affiliate-info/affiliate=:id" element={<AffiliateInfo/>}></Route>
+          <Route path="affiliate-page/affiliate=:id" element={<AffiliatePage/>}></Route>
         </Route>
       </Routes>
     </>

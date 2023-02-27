@@ -62,13 +62,6 @@ const LoginMenu = () => {
     });
   };
 
-  const handleInfo = () => {
-    handleClose();
-    navigate('/student-info/' + userInfo?.studentId, {
-      state: { id: userInfo?.studentId },
-    });
-  };
-
   const handleGoToAffiliate = () => {
     handleClose();
   };

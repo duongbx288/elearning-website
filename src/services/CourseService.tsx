@@ -91,6 +91,10 @@ class CourseService {
     getRatingOfCourse = (id: number) => {
         return axios.get(`/api/course_rating/course-id=${id}`)
     }
+
+    getRatingOfCoursePag = (id: number, pageNum: number) => {
+        return axios.get(`/api/course_rating/pag/course-id=${id}/pageNum=${pageNum}`);
+    }
 }
 
 export default new CourseService();

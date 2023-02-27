@@ -12,7 +12,7 @@ export type StudentResponse = {
     id: number;
     studentCode: string;
     name?: string;
-    birth_date?: Date;
+    birthDate?: Date;
     email?: string;
     address?: string;
     city?: string;
