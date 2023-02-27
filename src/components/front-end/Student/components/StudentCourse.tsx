@@ -46,15 +46,6 @@ const StudentCourse = ({ id }) => {
     if (id !== null && typeof id !== 'undefined') {
       getStudentData(studentId);
     }
-    //   if (
-    //     info1.studentId &&
-    //     info1.studentId != null &&
-    //     typeof info1.studentId === 'number'
-    //   ) {
-    //     getStudentData(info1.studentId);
-    //   }
-    // } else {
-    //   getStudentData(studentId);
     // }
   }, [studentId]);
 
