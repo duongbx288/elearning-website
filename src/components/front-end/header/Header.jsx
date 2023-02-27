@@ -1,6 +1,5 @@
 import React from 'react';
 // import './Header.css';
-import Search from './components/Search';
 import Navbar from './components/Navbar';
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import SearchBar from './components/components/SearchBar';
