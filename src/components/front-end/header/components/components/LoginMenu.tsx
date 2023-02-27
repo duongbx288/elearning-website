@@ -57,7 +57,7 @@ const LoginMenu = () => {
 
   const handleGoToLearn = () => {
     handleClose();
-    navigate('/student-course/' + userInfo?.studentId, {
+    navigate('/student-page/' + userInfo?.studentId, {
       state: { id: userInfo?.studentId },
     });
   };
@@ -103,11 +103,11 @@ const LoginMenu = () => {
       onClose={handleClose}
     >
       <MenuItem aria-readonly>Tên tài khoản: {username}</MenuItem>
-      {userInfo.studentId !== 0 ? (
+      {/* {userInfo.studentId !== 0 ? (
         <MenuItem onClick={handleInfo}>Thông tin</MenuItem>
       ) : (
         <Box></Box>
-      )}
+      )} */}
       {userInfo.studentId !== 0 ? (
         <MenuItem onClick={handleGoToLearn}>Vào học</MenuItem>
       ) : (

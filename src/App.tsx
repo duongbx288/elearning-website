@@ -32,7 +32,7 @@ import TeacherList from './components/backend/teachers/TeacherList';
 import { Pages } from '@mui/icons-material';
 import Cart from './components/front-end/Cart/Cart';
 import CourseInfo from './components/front-end/Course/CourseInfo';
-import StudentCourse from './components/front-end/Student/StudentCourse';
+import StudentCourse from './components/front-end/Student/components/StudentCourse';
 import StudentInfo from './components/front-end/Student/StudentInfo';
 import StudyCourse from './components/front-end/Student/StudyCourse';
 

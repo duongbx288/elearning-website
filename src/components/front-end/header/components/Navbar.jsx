@@ -36,7 +36,7 @@ const Navbar = () => {
                     color: '#0d6efd',
                   },
                 }}
-                onClick={() => navigate('/course')}
+                onClick={() => navigate('/course-list')}
               >
                 Khóa học
               </Typography>

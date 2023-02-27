@@ -8,6 +8,19 @@ export type StudentRequest = {
     name?: string;
 }
 
+export type StudentResponse = {
+    id: number;
+    studentCode: string;
+    name?: string;
+    birth_date?: Date;
+    email?: string;
+    address?: string;
+    city?: string;
+    gender?: string;
+    avatar?: string;
+    status?: string;
+}
+
 class StudentService {
 
     getAllStudent = () => {

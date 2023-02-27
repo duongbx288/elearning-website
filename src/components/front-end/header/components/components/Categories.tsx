@@ -11,6 +11,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TypeService, { TypeResponse } from '../../../../../services/TypeService';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -53,6 +54,7 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 export default function Categories() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState<TypeResponse[]>([]);
 
   //Menu
@@ -76,8 +78,9 @@ export default function Categories() {
     setAnchorEl(null);
   };
 
-  const handleCategory = (item: any) => {
-    console.log(item);
+  const handleCategory = (id: number) => {
+    console.log(id);
+    navigate('/' + id, {state: {id: id}});
   };
 
   return (
@@ -93,7 +96,7 @@ export default function Categories() {
         endIcon={<KeyboardArrowDownIcon />}
         color="inherit"
       >
-        Options
+        Categories
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -113,14 +116,17 @@ export default function Categories() {
       >
         {category.map((item) => {
           return (
-            <><MenuItem onClick={handleCategory} disableRipple>
-                  <Typography variant="inherit" noWrap>
-                      {item.name}
-                  </Typography>
-              </MenuItem><Divider sx={{ my: 0.5 }} /></>
+            <>
+              <MenuItem onClick={() => handleCategory(item.id)} disableRipple>
+                <Typography variant="inherit" noWrap>
+                  {item.name}
+                </Typography>
+              </MenuItem>
+              <Divider sx={{ my: 0.5 }} />
+            </>
           );
         })}
-        <MenuItem onClick={handleClose} disableRipple>
+        {/* <MenuItem onClick={handleClose} disableRipple>
           <EditIcon />
           Edit
         </MenuItem>
@@ -132,7 +138,7 @@ export default function Categories() {
         <MenuItem onClick={handleClose} disableRipple>
           <ArchiveIcon />
           Archive
-        </MenuItem>
+        </MenuItem> */}
       </StyledMenu>
     </div>
   );
