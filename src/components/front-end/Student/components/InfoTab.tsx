@@ -9,9 +9,7 @@ const InfoTab = ({ id, studentInfo }) => {
   const [info, setInfo] = useState<StudentResponse>(studentInfo);
   const [sId, setSId] = useState<number>(Number(id));
 
-  const handleClick = () => {
-
-  }
+  const handleClick = () => {};
 
   return (
     <Box>
@@ -25,24 +23,16 @@ const InfoTab = ({ id, studentInfo }) => {
             sx={{ border: '1px solid black', borderRadius: '5px', padding: 2, margin: 3 }}
           >
             <Box padding={3}></Box>
-            {info.avatar && info.avatar !== null ? (
-              <Avatar
-                alt={''}
-                src={info.avatar}
-                sx={{ height: '200px', width: '200px', mb: 2 }}
-              ></Avatar>
-            ) : (
-              <Avatar
-                {...stringAvatar(info.name)}
-                sx={{ height: '200px', width: '200px', mb: 2 }}
-              ></Avatar>
-            )}
+            <Avatar
+              alt={''}
+              {...stringAvatar(info.name)}
+              src={info.avatar}
+              sx={{ height: '200px', width: '200px', mb: 2 }}
+            ></Avatar>
             <Typography variant="h5">{info.name}</Typography>
-            <Button
-                onClick={handleClick}
-                variant={"outlined"}
-                sx={{ mt: 1}}
-            >Cập nhập thông tin</Button>
+            <Button onClick={handleClick} variant={'outlined'} sx={{ mt: 1 }}>
+              Cập nhập thông tin
+            </Button>
             <Box padding={6}></Box>
           </Box>
         </Grid>
@@ -51,7 +41,7 @@ const InfoTab = ({ id, studentInfo }) => {
             sx={{ border: '1px solid black', borderRadius: '5px', padding: 2, margin: 3 }}
           >
             <Typography variant="h4">Thông tin học viên</Typography>
-            <Divider sx={{ marginBottom: 2, marginTop: 1}}/>
+            <Divider sx={{ marginBottom: 2, marginTop: 1 }} />
 
             <Typography> Mã học viên: {info.studentCode}</Typography>
 

@@ -29,7 +29,6 @@ const StudentPage = () => {
     if (id !== null && typeof id === 'string') {
       StudentService.getStudentById(Number(id)).then((res) => {
         if(res.data){
-          console.log(res.data);
           setStudentInfo(res.data);
         }
       });

@@ -7,6 +7,20 @@ export type AffiliateRequest = {
     pageLimit?: number;
     name?: string
 }
+
+export type AffiliateResponse = {
+    id: number;
+    affiliateCode?: string;
+    name?: string;
+    birthDate?: Date;
+    avatar?: string;
+    address?: string;
+    phoneNumber?: string;
+    facebook?: string;
+    email?: string;
+    status?: string;
+}
+
 class AffiliateService {
 
     getAffiliateById = (id: number) => {
