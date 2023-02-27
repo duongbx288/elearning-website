@@ -22,18 +22,14 @@ interface CustomState {
 }
 
 const StudentCourse = ({ id }) => {
-  const location = useLocation();
-  const student = location.state as CustomState;
+  // const location = useLocation();
+  // const student = location.state as CustomState;
   const navigate = useNavigate();
 
   const [courses, setCourses] = useState<StudentCourseType[]>([]);
   const [favoriteList, setFavoriteList] = useState<StudentCourseType[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [studentId, setStudentId] = useState<number>(id);
-
-  useEffect(() => {
-    if (student != null && typeof student !== 'undefined') setStudentId(student.id);
-  }, [student]);
 
   const getStudentData = (studentId: number) => {
     StudentCourseService.getByStudentId(studentId).then((res) => {
@@ -45,19 +41,21 @@ const StudentCourse = ({ id }) => {
   };
 
   useEffect(() => {
-    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
-    if (info) {
-      let info1 = JSON.parse(info);
-      if (
-        info1.studentId &&
-        info1.studentId != null &&
-        typeof info1.studentId === 'number'
-      ) {
-        getStudentData(info1.studentId);
-      }
-    } else {
+    // let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    // let info1 = JSON.parse(info);
+    if (id !== null && typeof id !== 'undefined') {
       getStudentData(studentId);
     }
+    //   if (
+    //     info1.studentId &&
+    //     info1.studentId != null &&
+    //     typeof info1.studentId === 'number'
+    //   ) {
+    //     getStudentData(info1.studentId);
+    //   }
+    // } else {
+    //   getStudentData(studentId);
+    // }
   }, [studentId]);
 
   const renderCourseList = (courseList: StudentCourseType[]) => {
@@ -66,7 +64,7 @@ const StudentCourse = ({ id }) => {
         <Grid container>
           {courseList.map((course) => {
             return (
-              <Grid item xs={3}>
+              <Grid item xs={3} key={course.courseId}>
                 <Card sx={{ margin: 2 }}>
                   <CardHeader
                     sx={{

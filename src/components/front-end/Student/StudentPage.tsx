@@ -9,6 +9,7 @@ import TabPanel from '../../../utility/Tab/TabPanel';
 import { useNavigate, useParams } from 'react-router-dom';
 import StudentCourse from './components/StudentCourse';
 import StudentService, {StudentResponse} from '../../../services/StudentService';
+import InfoTab from './components/InfoTab';
 
 const StudentPage = () => {
 
@@ -63,7 +64,7 @@ const StudentPage = () => {
             <StudentCourse id={id}/>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            <InfoTab id={id}/>
           </TabPanel>
           <TabPanel value={value} index={2}>
             Item Three

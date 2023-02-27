@@ -80,7 +80,7 @@ export default function Categories() {
 
   const handleCategory = (id: number) => {
     console.log(id);
-    navigate('/' + id, {state: {id: id}});
+    navigate('/' + id, { state: { id: id } });
   };
 
   return (
@@ -107,38 +107,23 @@ export default function Categories() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: 48 * 4.5,
-            width: '20ch',
-          },
-        }}
+        // PaperProps={{
+        //   style: {
+        //     maxHeight: 48 * 4.5,
+        //     width: '20ch',
+        //   },
+        // }}
       >
         {category.map((item) => {
           return (
-            <>
-              <MenuItem onClick={() => handleCategory(item.id)} disableRipple>
-                <Typography variant="inherit" noWrap>
-                  {item.name}
-                </Typography>
-              </MenuItem>
+            <MenuItem key={item.id} onClick={() => handleCategory(item.id)} disableRipple>
+              <Typography variant="inherit" noWrap key={item.id}>
+                {item.name}
+              </Typography>
               <Divider sx={{ my: 0.5 }} />
-            </>
+            </MenuItem>
           );
         })}
-        {/* <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon />
-          Duplicate
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          Archive
-        </MenuItem> */}
       </StyledMenu>
     </div>
   );
