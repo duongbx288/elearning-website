@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import TypeService from "../../../services/TypeService";
+import TypeService from "../../../../services/TypeService";
 
 const Categories = () => {
 
