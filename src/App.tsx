@@ -10,7 +10,7 @@ import MainLayout, { InitLayout } from './layout/MainLayout';
 import { RootState } from './store/store';
 // import PrivateRoute from './auth/private-route';
 
-import ClientMainLayout from './layout/ClientMainLayout';
+import ClientMainLayout, { HeaderFooter } from './layout/ClientMainLayout';
 
 import SignIn from './components/front-end/auth/SignIn';
 
@@ -35,6 +35,9 @@ import CourseInfo from './components/front-end/Course/CourseInfo';
 import StudentCourse from './components/front-end/Student/components/StudentCourse';
 import StudentInfo from './components/front-end/Student/StudentInfo';
 import StudyCourse from './components/front-end/Student/StudyCourse';
+import AffiliatePage from './components/front-end/Affiliate/AffiliatePage';
+import MainPage from './components/front-end/MainPage/MainPage';
+import StudentPage from './components/front-end/Student/StudentPage';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -75,22 +78,26 @@ const App = (props: AppProps) => {
                 <Route path="/admin/order" element={<OrderList />} />
                 <Route path="/admin/send-email" element={<ContactUs />} />
                 <Route path="/admin/" element={<Navigate to={'admin/teacher'} />} />
-              </Route>
-              <Route path="/" element={<HeaderFooter />}>
-                <Route path="main" element={<Pages />} />
+              </Route> */}
+              {/* <Route path="/" element={<HeaderFooter />}>
+                <Route path="main" element={<MainPage />} />
                 <Route path="cart" element={<Cart />}></Route>
+                <Route path="course-list" element={<CourseList />}></Route>
                 <Route path="course-info/:id" element={<CourseInfo />}></Route>
-                <Route path="" element={<Navigate to="main" />} />
                 <Route path="student-info/:id" element={<StudentInfo />}></Route>
-                <Route path="student-course/:id" element={<StudentCourse />}></Route>
+                <Route path="student-page/:id" element={<StudentPage />}></Route>
                 <Route
                   path="study-course/course=:id/student=:id"
                   element={<StudyCourse />}
                 ></Route>
+                <Route
+                  path="affiliate-page/affiliate:id"
+                  element={<AffiliatePage />}
+                ></Route>
               </Route> */}
             </Routes>
             <ClientMainLayout />
-            <MainLayout/>
+            <MainLayout />
           </React.Fragment>
         </Router>
       </CourseProvider>

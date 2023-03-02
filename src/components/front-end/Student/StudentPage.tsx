@@ -11,6 +11,9 @@ import StudentCourse from './components/StudentCourse';
 import StudentService, {StudentResponse} from '../../../services/StudentService';
 import InfoTab from './components/InfoTab';
 import ExploreTab from './components/ExploreTab';
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
+import PersonIcon from '@mui/icons-material/Person';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 const StudentPage = () => {
 
@@ -42,17 +45,17 @@ const StudentPage = () => {
   };
 
   return (
-    <Box display={'flex'} alignItems={'center'} flexDirection='column'>
+    <Box display={'flex'} alignItems={'center'} sx={{bgcolor: '#f6f9fc'}} flexDirection='column'>
       <Box sx={{width: '80%', bgcolor: '#2a004d', padding: 2}}>
         <Typography variant="h4" sx={{ color: 'white'}}>Học viên: {studentInfo?.name}</Typography>
         <Box sx={{ p: 3, mt: 1 }} />
       </Box>
-      <Box sx={{ width: '80%' }}>
+      <Box sx={{ width: '80%', bgColor: '#ffffff' }}>
         <Box>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Course" {...a11yProps(0)} />
-          <Tab label="Info" {...a11yProps(1)} />
-          <Tab label="Explore" {...a11yProps(2)} />
+          <Tab label="Khóa học" icon={<LocalLibraryIcon/>} iconPosition="start" {...a11yProps(0)} />
+          <Tab label="Thông tin" icon={<PersonIcon/>} iconPosition="start" {...a11yProps(1)} />
+          <Tab label="Khám phá" icon={<ManageSearchIcon/>} iconPosition="start" {...a11yProps(2)} />
         </Tabs>
           <TabPanel value={value} index={0}>
             <StudentCourse id={id}/>

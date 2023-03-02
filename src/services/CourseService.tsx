@@ -35,9 +35,27 @@ export type CourseRequest = {
     link?: string | null;
 }
 
+export type CourseCriteria = {
+    limit?: number;
+    page?: number;
+    typeId?: string;
+    name?: string;
+    rating?: number;
+    maxPrice?: number;
+    minPrice?: number;
+    createdDate?: string;
+    hotSeller?: boolean;
+}
+
 class CourseService {
     getAllPag = (request: CourseRequest) => {
         return axios.get(`/api/course/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)
+    }
+
+    findCourses = (criteria: CourseCriteria) => {
+        return axios.get(`/api/course/info/search/`, 
+        {params: criteria},
+        );
     }
 
     getTopCourse = () => {

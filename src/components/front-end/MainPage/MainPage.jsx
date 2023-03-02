@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import Home from './Home';
+import Home from './components/Home';
 import FlashDeals from './components/flashDeals/FlashDeals';
 import TopCate from './components/top/TopCate';
 import Wrapper from './components/wrapper/Wrapper';
 
-const Pages = () => {
+const MainPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -22,4 +22,4 @@ const Pages = () => {
   );
 };
 
-export default Pages;
+export default MainPage;

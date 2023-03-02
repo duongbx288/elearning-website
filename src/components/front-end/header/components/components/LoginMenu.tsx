@@ -64,6 +64,9 @@ const LoginMenu = () => {
 
   const handleGoToAffiliate = () => {
     handleClose();
+    navigate('/affiliate-page/' + userInfo?.affiliateId, {
+      state: { id: userInfo?.affiliateId },
+    })
   };
 
   const handleGoToTeacher = () => {

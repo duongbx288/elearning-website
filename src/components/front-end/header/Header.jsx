@@ -19,13 +19,13 @@ const Header = () => {
           sx={{margin: 1}}
         >
           <Typography
-            variant="h2"
+            variant="h3"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' }, cursor: "pointer", marginRight: 3 }}
             onClick={() => navigate('/main')}
           >
-            MUI
+            ELEARN
           </Typography>
           <Categories/>
           <SearchBar />

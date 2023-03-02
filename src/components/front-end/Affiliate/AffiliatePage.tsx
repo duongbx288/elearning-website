@@ -1,12 +1,13 @@
-import { Box, Typography, Tabs, Tab } from '@mui/material';
+import { Box, Typography, Tabs, Tab, Divider } from '@mui/material';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AffiliateService, { AffiliateResponse } from '../../../services/AffiliateService';
 import TabPanel from '../../../utility/Tab/TabPanel';
-import ExploreTab from '../Student/components/ExploreTab';
-import InfoTab from '../Student/components/InfoTab';
-import StudentCourse from '../Student/components/StudentCourse';
+import GetLinkTab from './components/getLink/GetLinkTab';
+import AddLinkIcon from '@mui/icons-material/AddLink';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const AffiliatePage = () => {
   const navigate = useNavigate();
@@ -37,24 +38,25 @@ const AffiliatePage = () => {
   };
 
   return (
-    <Box display={'flex'} alignItems={'center'} flexDirection="column">
+    <Box display={'flex'} alignItems={'center'} sx={{bgcolor: '#f6f9fc'}} flexDirection="column">
       <Box sx={{ width: '80%', bgcolor: '#2a004d', padding: 2 }}>
         <Typography variant="h4" sx={{ color: 'white' }}>
           Cộng tác viên: {info?.name}
         </Typography>
         <Box sx={{ p: 3, mt: 1 }} />
       </Box>
-      <Box sx={{ width: '80%' }}>
+      <Box sx={{ width: '80%', bgcolor: '#ffffff' }}>
         <Box>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Course" {...a11yProps(0)} />
-            <Tab label="Info" {...a11yProps(1)} />
-            <Tab label="Explore" {...a11yProps(2)} />
+            <Tab label="Lấy link" icon={<AddLinkIcon/>} iconPosition="start" {...a11yProps(0)} />
+            <Tab label="Đơn hàng" icon={<CreditCardIcon/>} iconPosition="start" {...a11yProps(1)} />
+            <Tab label="Thu nhập" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(2)} />
           </Tabs>
-          {/* <TabPanel value={value} index={0}>
-            <StudentCourse id={id} />
+          <Divider/>
+          <TabPanel value={value} index={0}>
+            <GetLinkTab id={id} info={info}/>
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          {/* <TabPanel value={value} index={1}>
             <InfoTab id={id} info={info} />
           </TabPanel>
           <TabPanel value={value} index={2}>

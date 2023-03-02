@@ -96,7 +96,7 @@ export default function Categories() {
         endIcon={<KeyboardArrowDownIcon />}
         color="inherit"
       >
-        Categories
+        Khám phá
       </Button>
       <StyledMenu
         id="demo-customized-menu"
