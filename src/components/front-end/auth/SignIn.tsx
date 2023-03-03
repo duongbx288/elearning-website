@@ -127,7 +127,7 @@ const SignIn = () => {
                   onClick={() => handleJustifyClick('tab1')}
                   active={justifyActive === 'tab1'}
                 >
-                  Login
+                  Đăng nhập
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
@@ -135,7 +135,7 @@ const SignIn = () => {
                   onClick={() => handleJustifyClick('tab2')}
                   active={justifyActive === 'tab2'}
                 >
-                  Register
+                  Đăng ký
                 </MDBTabsLink>
               </MDBTabsItem>
             </MDBTabs>
@@ -143,7 +143,7 @@ const SignIn = () => {
             <MDBTabsContent>
               <MDBTabsPane show={justifyActive === 'tab1'}>
                 <div className="text-center mb-3">
-                  <p>Sign in with:</p>
+                  <p>Đăng nhập với:</p>
 
                   <div
                     className="d-flex justify-content-between mx-auto"
@@ -191,7 +191,7 @@ const SignIn = () => {
 
                 <MDBInput
                   wrapperClass="mb-4"
-                  label="Email address"
+                  label="Username hoặc email"
                   id="form1"
                   type="email"
                   onChange={(e) => {
@@ -200,7 +200,7 @@ const SignIn = () => {
                 />
                 <MDBInput
                   wrapperClass="mb-4"
-                  label="Password"
+                  label="Mật khẩu"
                   id="form2"
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -215,20 +215,20 @@ const SignIn = () => {
                     id="flexCheckDefault"
                     label="Remember me"
                   />
-                  <a href="!#">Forgot password?</a>
+                  <a href="!#">Quên mật khẩu?</a>
                 </div>
 
                 <MDBBtn className="mb-4 w-100" onClick={handleSubmit}>
-                  Sign in
+                  Đăng nhập
                 </MDBBtn>
                 <p className="text-center">
-                  Not a member? <a href="#!">Register</a>
+                  Chưa là thành viên hệ thống? <a href="#!">Đăng ký</a>
                 </p>
               </MDBTabsPane>
 
               <MDBTabsPane show={justifyActive === 'tab2'}>
                 <div className="text-center mb-3">
-                  <p>Sign un with:</p>
+                  <p>Đăng ký với:</p>
 
                   <div
                     className="d-flex justify-content-between mx-auto"
@@ -276,7 +276,7 @@ const SignIn = () => {
 
                 <MDBInput
                   wrapperClass="mb-4"
-                  label="Name"
+                  label="Tên"
                   id="form1"
                   type="text"
                   onChange={(e) => {
@@ -303,7 +303,7 @@ const SignIn = () => {
                 />
                 <MDBInput
                   wrapperClass="mb-4"
-                  label="Password"
+                  label="Mật khẩu"
                   id="form1"
                   type="password"
                   onChange={(e) => {
@@ -315,11 +315,11 @@ const SignIn = () => {
                   <MDBCheckbox
                     name="flexCheck"
                     id="flexCheckDefault"
-                    label="I have read and agree to the terms"
+                    label="Tôi đã đọc và đồng ý với các điều khoản của hệ thống"
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100" onClick={handleSignUp}>Sign up</MDBBtn>
+                <MDBBtn className="mb-4 w-100" onClick={handleSignUp}>Đăng ký</MDBBtn>
               </MDBTabsPane>
             </MDBTabsContent>
           </MDBCol>

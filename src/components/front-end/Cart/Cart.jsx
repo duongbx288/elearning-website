@@ -7,10 +7,9 @@ import { useAppSelector } from '../../../store/hooks';
 // import UserService, { UserInfo } from '../../../../services/UserService';
 
 const Cart = () => {
-
   // Gio hang
   const cartContext = useContext(CartContext).cartInfo;
-  const cart = cartContext.cart? cartContext.cart : [];
+  const cart = cartContext.cart ? cartContext.cart : [];
   const removeItem = cartContext.removeItem;
   const [cartData, setCartData] = useState(cart);
 
@@ -20,10 +19,8 @@ const Cart = () => {
     return state.authentication.account;
   });
 
-
   useEffect(() => {
-    document.title='Giỏ hàng';
-    
+    document.title = 'Giỏ hàng';
   }, []);
 
   useEffect(() => {
@@ -33,22 +30,25 @@ const Cart = () => {
     }
   }, [cartData]);
 
-  const totalPrice = cartData.reduce((price, item) => price +  item.price, 0);
+  const totalPrice = cartData.reduce((price, item) => price + item.price, 0);
 
   const remove = (item: any) => {
     const exist = cartData.find((item) => item.id === item.id);
-    if (exist) setCartData(cartData.filter((product) => product.id !== item.id)); 
+    if (exist) setCartData(cartData.filter((product) => product.id !== item.id));
   };
 
   const handlePurchase = () => {
     return;
-  }
+  };
 
   return (
     <>
       <section className="cart-items">
         <div className="container d_flex">
           <div className="cart-details">
+            <div>
+              <Typography variant="h5">Giỏ hàng</Typography>
+            </div>
             {cartData.length === 0 && (
               <h1 className="no-items product">Không có khóa học nào trong giỏ hàng</h1>
             )}
@@ -58,21 +58,22 @@ const Cart = () => {
 
               return (
                 <div className="cart-list product d_flex" key={item.id}>
-                  <div className="img" style={{ margin: '5px'}}>
+                  <div className="img" style={{ margin: '5px' }}>
                     <img src={item.cover} alt="" />
                   </div>
                   <div className="cart-details">
                     <h3>Khóa học: {item.name}</h3>
-                    <h4>
-                      Gía tiền: {item.price}đ
-                    </h4>
+                    <h4>Gía tiền: {item.price}đ</h4>
                   </div>
                   <div className="cart-items-function">
                     <div className="removeCart">
-                      <button className="removeCart" onClick={() => {
-                        remove(item);
-                        removeItem(item)
-                      }}>
+                      <button
+                        className="removeCart"
+                        onClick={() => {
+                          remove(item);
+                          removeItem(item);
+                        }}
+                      >
                         <i className="fa-solid fa-xmark"></i>
                       </button>
                     </div>
@@ -80,9 +81,13 @@ const Cart = () => {
                     product ko qty lai inc ra des garne
                     */}
                     <div className="cartControl d_flex">
-                      <button className="desCart" onClick={() => {
-                        remove(item);
-                        removeItem(item)}}>
+                      <button
+                        className="desCart"
+                        onClick={() => {
+                          remove(item);
+                          removeItem(item);
+                        }}
+                      >
                         <i className="fa-solid fa-minus"></i>
                       </button>
                     </div>
@@ -94,13 +99,15 @@ const Cart = () => {
             })}
           </div>
 
-          <div className="cart-total product" style={{minHeight: '150px'}}>
+          <div className="cart-total product" style={{ minHeight: '160px' }}>
             <h2>Tổng tiền</h2>
             <Box>
-              <Typography sx={{ marginBottom: 1}}>{totalPrice}đ</Typography>
-              <Button fullWidth variant='outlined'
-                onClick={handlePurchase}
-              >Thanh toán</Button>
+              <Typography sx={{ marginBottom: 1, fontSize: '20px' }}>
+                {totalPrice}đ
+              </Typography>
+              <Button fullWidth variant="outlined" onClick={handlePurchase} sx={{ marginBottom: 2}}>
+                Thanh toán
+              </Button>
             </Box>
           </div>
         </div>

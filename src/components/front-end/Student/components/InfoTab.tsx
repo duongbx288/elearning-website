@@ -27,7 +27,7 @@ const InfoTab = ({ id, studentInfo }) => {
               alt={''}
               {...stringAvatar(info.name)}
               src={info.avatar}
-              sx={{ height: '200px', width: '200px', mb: 2 }}
+              sx={{ height: '170px', width: '170px', mb: 2 }}
             ></Avatar>
             <Typography variant="h5">{info.name}</Typography>
             <Button onClick={handleClick} variant={'outlined'} sx={{ mt: 1 }}>
@@ -43,17 +43,26 @@ const InfoTab = ({ id, studentInfo }) => {
             <Typography variant="h4">Thông tin học viên</Typography>
             <Divider sx={{ marginBottom: 2, marginTop: 1 }} />
 
-            <Typography> Mã học viên: {info.studentCode}</Typography>
+            <Typography sx={{fontSize: '18px'}}> Mã học viên: {info.studentCode}</Typography>
 
-            <Typography> Ngày sinh: </Typography>
+            <Typography sx={{fontSize: '18px'}}> Ngày sinh:  ---</Typography>
 
-            <Typography> Email: {info.email}</Typography>
+            <Typography sx={{fontSize: '18px'}}> Email: {info.email}</Typography>
 
-            <Typography>Địa chỉ: {info.address}</Typography>
+            <Typography sx={{fontSize: '18px'}}>Địa chỉ: {info.address}</Typography>
 
-            <Typography>Thành phố: {info.city}</Typography>
+            <Typography sx={{fontSize: '18px'}}>Thành phố: {info.city}</Typography>
 
-            <Typography>Trạng thái: {info.status}</Typography>
+            {/* <Typography sx={{fontSize: '18px'}}>Trạng thái: {info.status}</Typography> */}
+          </Box>
+          <Box
+          sx={{ border: '1px solid black', borderRadius: '5px', padding: 2, margin: 3 }}
+          >
+          <Typography variant="h5">Thống kê thông tin học</Typography>
+          <Divider sx={{ marginBottom: 2, marginTop: 1 }} />
+          
+          <Typography sx={{fontSize: '18px'}}> Số khóa học đã mua: ---</Typography>
+          <Typography sx={{fontSize: '18px'}}> Số khóa học đã hoàn thành: ---</Typography>
           </Box>
         </Grid>
       </Grid>

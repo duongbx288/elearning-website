@@ -27,10 +27,10 @@ const Home = () => {
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
-        // autoplay={{
-        //   delay: 3000,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
         loop={true}
         spaceBetween={30}
         slidesPerView={1}
