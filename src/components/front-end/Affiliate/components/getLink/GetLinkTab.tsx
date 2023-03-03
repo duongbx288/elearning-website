@@ -6,6 +6,7 @@ import { purple, blue } from '@mui/material/colors';
 import { useState } from 'react';
 import { AffiliateResponse } from '../../../../../services/AffiliateService';
 import CreateCoupon from './CreateCoupon';
+import FindCourses from './FindCourses';
 
 const GetLinkTab = ({ id, info }) => {
   const [affiliateId, setAffiliateId] = useState<number>(id);
@@ -41,6 +42,7 @@ const GetLinkTab = ({ id, info }) => {
         </Typography>
       </Box> 
       <CreateCoupon id={id}/>
+      <FindCourses id={id}/>
     </Box>
   );
 };

@@ -1,32 +1,144 @@
-import { Box, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import { CourseRequest } from "../../../../../services/CourseService";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Pagination,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import CourseService, {
+  CourseCriteria,
+  CourseRequest,
+} from '../../../../../services/CourseService';
+import TypeService, { TypeResponse } from '../../../../../services/TypeService';
+import { Theme, useTheme } from '@mui/material/styles';
+import { Course } from '../../../../backend/teachers/TeacherDetail';
 
+const FindCourses = ({ id }) => {
+  const cri = {} as CourseCriteria;  
+  
+  // Pagination
+  const [limit, setLimit] = useState<number>(5);
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
 
-const FindCourses = () => {
+  // Criteria
+  const [typeId, setTypeId] = useState<string>();
+  const [name, setName] = useState<string | null>();
 
-    const [limit, setLimit] = useState<number>(5);
-    const [page, setPage] = useState<number>(0);
-    const [typeId, setTypeId] = useState<number[]| null>();
-    const [name, setName] = useState<string | null>();
+  const [courses, setCourses] = useState<CourseRequest[]>([]);
 
-    const [courses, setCourses] = useState<CourseRequest[]>([]);
+  const [category, setCategory] = useState<TypeResponse[]>([]);
 
-    useEffect(() => {
+  const [criteria, setCriteria] = useState<CourseCriteria>(cri);
 
-    }, [])
+  useEffect(() => {
+    TypeService.getAllType().then((res) => {
+      if (res.data) {
+        setCategory(res.data);
+      }
+    });
+  }, []);
 
-    const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    }
+  useEffect(() => {
+    const criteria1 = {
+      limit: limit,
+      page: page - 1,
+      typeId: (typeId && typeId.length > 0) ? typeId : null
+    } as CourseCriteria;
+    CourseService.findCourses(criteria1).then((res) => {
+      if (res.data) {
+        console.log(res.data);
+        setCourses(res.data.content);
+        setTotalPage(res.data.totalPages);
+      }
+    });
+  }, [page, criteria]);
 
-    return (
+  const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const handleTypeChange = (event: SelectChangeEvent) => {
+    setTypeId(event.target.value);
+  };
+
+  const handleSearch = () => {
+    const criteri = {
+        limit: limit,
+        page: page - 1,
+        typeId: (typeId && typeId.length > 0) ? typeId : null
+      } as CourseCriteria;
+    setCriteria(criteri);
+  };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
+  return (
+    <Box display={'flex'} flexDirection={'column'}>
+      <Box display={'flex'} margin={1} padding={2}>
+        <TextField
+          value={name}
+          placeholder="Nhập tên khóa học..."
+          onChange={handleNameInput}
+        ></TextField>
+        <FormControl sx={{ marginLeft: 2, width: '300px' }}>
+          <InputLabel id="demo-simple-select-label">Loại khóa học</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={typeId}
+            label="Loại khóa học"
+            onChange={handleTypeChange}
+            MenuProps={{
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
+              transformOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+            }}
+          >
+            <MenuItem value={``}>-----</MenuItem>
+            {category.map((item) => {
+              return <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>;
+            })}
+          </Select>
+        </FormControl>
+        <Button sx={{ marginLeft: 2 }} onClick={handleSearch} variant={'outlined'}>
+          Tìm kiếm
+        </Button>
+      </Box>
+      <Box>
         <Box>
-            <Box>
-                <TextField value={name} ></TextField>
-            </Box>
+          {courses.map((course) => {
+            return (
+              <Box padding={1} margin={0.5} border={1} key={course.id}>
+                <Box component={'img'} src={course.cover} alt=""></Box>
+                <Typography>{course.name}</Typography>
+                <Typography>{course.rating}</Typography>
+                <Typography>{course.ratingCount}</Typography>
+                <Typography>{course.price}</Typography>
+                <Button variant="contained">Lấy link</Button>
+                {/* <Typography>{course.}</Typography> */}
+              </Box>
+            );
+          })}
         </Box>
-    )
-}
+        <Pagination count={totalPage} page={page} onChange={handlePageChange}></Pagination>
+      </Box>
+    </Box>
+  );
+};
 
 export default FindCourses;

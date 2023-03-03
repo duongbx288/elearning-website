@@ -27,10 +27,10 @@ const Home = () => {
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 3000,
+        //   disableOnInteraction: false,
+        // }}
         loop={true}
         spaceBetween={30}
         slidesPerView={1}
@@ -45,49 +45,79 @@ const Home = () => {
         }}
       >
         <SwiperSlide>
-          <Grid container height={'100%'}>
-            <Grid
-              item
-              xs={8}
-              display={'flex'}
+          <div
+            style={{
+              height: '100%',
+              // background: 'aqua',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundImage:
+                "url('https://www.harvard.edu/wp-content/uploads/2021/02/091520_Stock_KS_025-1200x630.jpeg')",
+            }}
+          >
+            <Box
+              display="flex"
               flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
+              position="absolute"
+              left={'10%'}
+              top={'100px'}
+              padding={2}
+              sx={{ bgcolor: '#ffffff', color: '#000000', fontFamily: 'Gloock, serif' }}
             >
-              <Box>
-                <Item>xs=8</Item>
-                <Typography variant="h4">Hello</Typography>
-                <Typography>Hello</Typography>
-                <Typography>Hello</Typography>
+              <Box marginRight={2}>
+                {' '}
+                <Typography
+                  sx={{ fontFamily: 'Gloock, serif', marginBottom: 1 }}
+                  variant="h3"
+                >
+                  Học và phát triển
+                </Typography>
+                <Typography sx={{ fontFamily: 'Kanit, sans-serif', fontSize: '18px' }}>
+                  Các kĩ năng cần thiết. Hãy bắt đầu
+                </Typography>
+                <Typography sx={{ fontFamily: 'Kanit, sans-serif', fontSize: '18px' }}>
+                  học cùng chúng tôi.
+                </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box component="img" alt="" src=""></Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Grid container height={'100%'}>
-            <Grid
-              item
-              xs={8}
-              display={'flex'}
+          <div
+            style={{
+              height: '100%',
+              // background: 'aqua',
+              backgroundImage:
+                "url('https://www.harvard.edu/wp-content/uploads/2021/02/091520_Stock_KS_025-1200x630.jpeg')",
+            }}
+          >
+            <Box
+              display="flex"
               flexDirection={'column'}
-              justifyContent={'center'}
-              alignItems={'center'}
+              position="absolute"
+              left={'10%'}
+              top={'100px'}
+              padding={2}
+              sx={{ bgcolor: '#ffffff', color: '#000000' }}
             >
-              <Box>
-                <Item>xs=8</Item>
-                <Typography variant="h4">Hello</Typography>
-                <Typography>Hello</Typography>
-                <Typography>Hello</Typography>
+              <Box marginRight={2}>
+                {' '}
+                <Typography
+                  sx={{ fontFamily: 'Gloock, serif', marginBottom: 1 }}
+                  variant="h3"
+                >
+                  Học và phát triển
+                </Typography>
+                <Typography sx={{ fontFamily: 'Kanit, sans-serif', fontSize: '18px' }}>
+                  Các kĩ năng cần thiết. Hãy bắt đầu
+                </Typography>
+                <Typography sx={{ fontFamily: 'Kanit, sans-serif', fontSize: '18px' }}>
+                  học cùng chúng tôi.
+                </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box component="img" alt="" src=""></Box>
-            </Grid>
-          </Grid>
-        </SwiperSlide>  
+            </Box>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </>
   );

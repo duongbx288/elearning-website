@@ -12,6 +12,7 @@ export type CourseResponse = {
 
 export type CourseRequest = {
     id?: number;
+    cover?: string;
     pageNum?: number | null;
     typeId?: number | null;
     pageLimit?: number | null;
