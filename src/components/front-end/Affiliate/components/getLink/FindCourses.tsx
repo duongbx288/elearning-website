@@ -1,6 +1,10 @@
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
@@ -23,7 +27,7 @@ import { Course } from '../../../../backend/teachers/TeacherDetail';
 const FindCourses = ({ id }) => {
   // Pagination
   const [limit, setLimit] = useState<number>(5);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [totalPage, setTotalPage] = useState<number>(0);
 
   // Criteria
@@ -32,6 +36,18 @@ const FindCourses = ({ id }) => {
   const [courses, setCourses] = useState<CourseRequest[]>([]);
   const [category, setCategory] = useState<TypeResponse[]>([]);
   const [criteria, setCriteria] = useState<CourseCriteria>({});
+
+  // Dialog
+  const [open, setOpen] = useState<boolean>(false);
+  const [courseChosen, setCourseChosen] = useState<CourseRequest>({});
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
 
   useEffect(() => {
     TypeService.getAllType().then((res) => {
@@ -44,7 +60,7 @@ const FindCourses = ({ id }) => {
   useEffect(() => {
     CourseService.findCourses(criteria).then((res) => {
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
         setCourses(res.data.content);
         setTotalPage(res.data.totalPages);
       }
@@ -54,7 +70,7 @@ const FindCourses = ({ id }) => {
   useEffect(() => {
     const criteria1 = {
       limit: limit,
-      page: page - 1,
+      page: page,
       typeId: typeId && Number(typeId) > 0 ? typeId : null,
       name: name,
     } as CourseCriteria;
@@ -68,6 +84,7 @@ const FindCourses = ({ id }) => {
       typeId: typeId && Number(typeId) > 0 ? typeId : null,
       name: name,
     } as CourseCriteria;
+    setPage(0);
     setCriteria(criteria1);
   }, [typeId, name]);
 
@@ -79,7 +96,6 @@ const FindCourses = ({ id }) => {
     setTypeId(event.target.value);
   };
 
-  console.log(typeId, criteria);
 
   // const handleSearch = async () => {
   //   const criteri = {
@@ -161,17 +177,17 @@ const FindCourses = ({ id }) => {
                   <Box
                     component={'img'}
                     src={course.cover}
-                    sx={{ width: '100px', heigh: '50px' }}
+                    sx={{ width: '150px', height: '100px' }}
                     alt=""
                   ></Box>
-                  <Box>
+                  <Box marginLeft={2}>
                     <Typography>{course.name}</Typography>
-                    <Typography>{course.price}</Typography>
+                    <Typography>{course.teacherName}</Typography>
                   </Box>
                 </Box>
-                <Box>
-                  <Typography>{course.rating}</Typography>
-                  <Typography>{course.ratingCount}</Typography>
+                <Box marginRight={1}>
+                  <Typography>Danh gia: {course.rating}</Typography>
+                  <Typography>Gia: {course.price}</Typography>
                   <Button variant="contained" onClick={handleGetLink}>Lấy link</Button>
                 </Box>
                 {/* <Typography>{course.}</Typography> */}
@@ -185,6 +201,11 @@ const FindCourses = ({ id }) => {
           onChange={handlePageChange}
         ></Pagination>
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle></DialogTitle>
+        <DialogContent></DialogContent>
+        <DialogActions></DialogActions>
+      </Dialog>
     </Box>
   );
 };

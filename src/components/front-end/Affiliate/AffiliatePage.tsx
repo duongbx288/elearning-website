@@ -8,6 +8,7 @@ import GetLinkTab from './components/getLink/GetLinkTab';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import CouponManage from './components/coupon/CouponManage';
 
 const AffiliatePage = () => {
   const navigate = useNavigate();
@@ -51,10 +52,14 @@ const AffiliatePage = () => {
             <Tab label="Lấy link" icon={<AddLinkIcon/>} iconPosition="start" {...a11yProps(0)} />
             <Tab label="Đơn hàng" icon={<CreditCardIcon/>} iconPosition="start" {...a11yProps(1)} />
             <Tab label="Thu nhập" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(2)} />
+            <Tab label="Coupon" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(3)} />
           </Tabs>
           <Divider/>
           <TabPanel value={value} index={0}>
             <GetLinkTab id={id} info={info}/>
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            <CouponManage id={id} info={info}/>
           </TabPanel>
           {/* <TabPanel value={value} index={1}>
             <InfoTab id={id} info={info} />

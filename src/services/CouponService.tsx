@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type CouponRequest = {
+export type CouponRequest = {
     id?: number;
     affiliateId?: number;
     couponCode?: string;
@@ -11,13 +11,7 @@ type CouponRequest = {
 class CouponService {
 
     createNewCoupon = (coupon: CouponRequest) => {
-        return axios.post(`/api/coupon/create`, coupon).catch(function (error) {
-            if (error.response) {
-            } else if (error.request) {
-            } else {
-              console.log('Error', error.message);
-            }
-        });
+        return axios.post(`/api/coupon/create`, coupon);
     };
 }
 
