@@ -21,8 +21,6 @@ import { Theme, useTheme } from '@mui/material/styles';
 import { Course } from '../../../../backend/teachers/TeacherDetail';
 
 const FindCourses = ({ id }) => {
-  const cri = {} as CourseCriteria;  
-  
   // Pagination
   const [limit, setLimit] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
@@ -31,12 +29,9 @@ const FindCourses = ({ id }) => {
   // Criteria
   const [typeId, setTypeId] = useState<string>();
   const [name, setName] = useState<string | null>();
-
   const [courses, setCourses] = useState<CourseRequest[]>([]);
-
   const [category, setCategory] = useState<TypeResponse[]>([]);
-
-  const [criteria, setCriteria] = useState<CourseCriteria>(cri);
+  const [criteria, setCriteria] = useState<CourseCriteria>({});
 
   useEffect(() => {
     TypeService.getAllType().then((res) => {
@@ -47,19 +42,34 @@ const FindCourses = ({ id }) => {
   }, []);
 
   useEffect(() => {
-    const criteria1 = {
-      limit: limit,
-      page: page - 1,
-      typeId: (typeId && typeId.length > 0) ? typeId : null
-    } as CourseCriteria;
-    CourseService.findCourses(criteria1).then((res) => {
+    CourseService.findCourses(criteria).then((res) => {
       if (res.data) {
         console.log(res.data);
         setCourses(res.data.content);
         setTotalPage(res.data.totalPages);
       }
     });
-  }, [page, criteria]);
+  }, [criteria]);
+
+  useEffect(() => {
+    const criteria1 = {
+      limit: limit,
+      page: page - 1,
+      typeId: typeId && Number(typeId) > 0 ? typeId : null,
+      name: name,
+    } as CourseCriteria;
+    setCriteria(criteria1);
+  }, [limit, page]);
+
+  useEffect(() => {
+    const criteria1 = {
+      limit: limit,
+      page: 0,
+      typeId: typeId && Number(typeId) > 0 ? typeId : null,
+      name: name,
+    } as CourseCriteria;
+    setCriteria(criteria1);
+  }, [typeId, name]);
 
   const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -69,18 +79,30 @@ const FindCourses = ({ id }) => {
     setTypeId(event.target.value);
   };
 
-  const handleSearch = () => {
-    const criteri = {
-        limit: limit,
-        page: page - 1,
-        typeId: (typeId && typeId.length > 0) ? typeId : null
-      } as CourseCriteria;
-    setCriteria(criteri);
-  };
+  console.log(typeId, criteria);
+
+  // const handleSearch = async () => {
+  //   const criteri = {
+  //     limit: limit,
+  //     page: page - 1,
+  //     typeId: typeId && Number(typeId) > 0 ? typeId : null,
+  //     name: name,
+  //   } as CourseCriteria;
+  //   await CourseService.findCourses(criteri).then((res) => {
+  //     if (res.data) {
+  //       setCourses(res.data.content);
+  //       setTotalPage(res.data.totalPages);
+  //     }
+  //   });
+  // };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+
+  const handleGetLink = () => {
+
+  }
 
   return (
     <Box display={'flex'} flexDirection={'column'}>
@@ -111,31 +133,57 @@ const FindCourses = ({ id }) => {
           >
             <MenuItem value={``}>-----</MenuItem>
             {category.map((item) => {
-              return <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>;
+              return (
+                <MenuItem value={item.id} key={item.id}>
+                  {item.name}
+                </MenuItem>
+              );
             })}
           </Select>
         </FormControl>
-        <Button sx={{ marginLeft: 2 }} onClick={handleSearch} variant={'outlined'}>
+        {/* <Button sx={{ marginLeft: 2 }} onClick={handleSearch} variant={'outlined'}>
           Tìm kiếm
-        </Button>
+        </Button> */}
       </Box>
       <Box>
         <Box>
           {courses.map((course) => {
             return (
-              <Box padding={1} margin={0.5} border={1} key={course.id}>
-                <Box component={'img'} src={course.cover} alt=""></Box>
-                <Typography>{course.name}</Typography>
-                <Typography>{course.rating}</Typography>
-                <Typography>{course.ratingCount}</Typography>
-                <Typography>{course.price}</Typography>
-                <Button variant="contained">Lấy link</Button>
+              <Box
+                padding={1}
+                display="flex"
+                justifyContent={'space-between'}
+                margin={0.5}
+                border={1}
+                key={course.id}
+              >
+                <Box display="flex">
+                  <Box
+                    component={'img'}
+                    src={course.cover}
+                    sx={{ width: '100px', heigh: '50px' }}
+                    alt=""
+                  ></Box>
+                  <Box>
+                    <Typography>{course.name}</Typography>
+                    <Typography>{course.price}</Typography>
+                  </Box>
+                </Box>
+                <Box>
+                  <Typography>{course.rating}</Typography>
+                  <Typography>{course.ratingCount}</Typography>
+                  <Button variant="contained" onClick={handleGetLink}>Lấy link</Button>
+                </Box>
                 {/* <Typography>{course.}</Typography> */}
               </Box>
             );
           })}
         </Box>
-        <Pagination count={totalPage} page={page} onChange={handlePageChange}></Pagination>
+        <Pagination
+          count={totalPage}
+          page={page}
+          onChange={handlePageChange}
+        ></Pagination>
       </Box>
     </Box>
   );

@@ -35,7 +35,6 @@ const LoginMenu = () => {
   const isMenuOpen = Boolean(anchorEl);
 
   useEffect(() => {
-    console.log(account);
     setUsername(account.username);
     let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
     if (info) {
@@ -48,8 +47,9 @@ const LoginMenu = () => {
     dispatch(logout());
     setUsername('');
     if (
-      window.location.href.includes('student-course') ||
-      window.location.href.includes('study-course')
+      window.location.href.includes('student-page') ||
+      window.location.href.includes('study-course') || 
+      window.location.href.includes('affiliate-page') 
     ) {
       navigate('/main');
     }
