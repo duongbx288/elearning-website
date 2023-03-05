@@ -56,6 +56,7 @@ class BannerService {
   getListBannerPopUpNotInPage = (pageId: number) => {
     return axios.get(`api/banners/banner-popup/not-in-page=${pageId}`);
   };
+  
   saveBannerMapping = (bannerMappingItem: any) => {
     return axios.post(`/api/banner-mapping`, bannerMappingItem).catch(function (error) {
       if (error.response) {
