@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -12,6 +13,7 @@ import {
   Pagination,
   Select,
   SelectChangeEvent,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -41,13 +43,25 @@ const FindCourses = ({ id }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [courseChosen, setCourseChosen] = useState<CourseRequest>({});
 
+  // Snackbar
+  const [openS, setOpenS] = useState<boolean>(false);
+  const vertical = 'top';
+  const horizontal = 'center';
+
+  const handleOpenS = () => {
+    setOpenS(true);
+  };
+  const handleCloseS = () => {
+    setOpenS(false);
+  };
+
+  //Dialog
   const handleClose = () => {
     setOpen(false);
-  }
-
+  };
   const handleOpen = () => {
     setOpen(true);
-  }
+  };
 
   useEffect(() => {
     TypeService.getAllType().then((res) => {
@@ -96,29 +110,23 @@ const FindCourses = ({ id }) => {
     setTypeId(event.target.value);
   };
 
-
-  // const handleSearch = async () => {
-  //   const criteri = {
-  //     limit: limit,
-  //     page: page - 1,
-  //     typeId: typeId && Number(typeId) > 0 ? typeId : null,
-  //     name: name,
-  //   } as CourseCriteria;
-  //   await CourseService.findCourses(criteri).then((res) => {
-  //     if (res.data) {
-  //       setCourses(res.data.content);
-  //       setTotalPage(res.data.totalPages);
-  //     }
-  //   });
-  // };
-
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
-  const handleGetLink = () => {
+  // Open copy-link dialog
+  const handleGetLink = (course: CourseRequest) => {
+    setCourseChosen(course);
+    setOpen(true);
+  };
 
-  }
+  // Copy link + open snackbar
+  const handleCopyLink = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setOpenS(true);
+  };
+
+  console.log(window);
 
   return (
     <Box display={'flex'} flexDirection={'column'}>
@@ -177,18 +185,22 @@ const FindCourses = ({ id }) => {
                   <Box
                     component={'img'}
                     src={course.cover}
-                    sx={{ width: '150px', height: '100px' }}
+                    sx={{ width: '170px', height: '120px' }}
                     alt=""
                   ></Box>
                   <Box marginLeft={2}>
-                    <Typography>{course.name}</Typography>
-                    <Typography>{course.teacherName}</Typography>
+                    <Typography variant={'h6'}>{`Khóa học: ${course.name}`}</Typography>
+                    <Typography>{`Giáo viên: ${
+                      course.teacherName ? course.teacherName : '---'
+                    }`}</Typography>
                   </Box>
                 </Box>
-                <Box marginRight={1}>
-                  <Typography>Danh gia: {course.rating}</Typography>
-                  <Typography>Gia: {course.price}</Typography>
-                  <Button variant="contained" onClick={handleGetLink}>Lấy link</Button>
+                <Box marginRight={1} padding={1}>
+                  <Typography>{`Đánh giá: ${course.rating}`}</Typography>
+                  <Typography>{`Giá: ${course.price}`}</Typography>
+                  <Button variant="contained" onClick={() => handleGetLink(course)}>
+                    Lấy link
+                  </Button>
                 </Box>
                 {/* <Typography>{course.}</Typography> */}
               </Box>
@@ -202,10 +214,57 @@ const FindCourses = ({ id }) => {
         ></Pagination>
       </Box>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle></DialogTitle>
-        <DialogContent></DialogContent>
-        <DialogActions></DialogActions>
+        <DialogTitle>Tạo link giới thiệu khóa học</DialogTitle>
+        <DialogContent>
+          <Typography>{`Khóa học: ${courseChosen.name}`}</Typography>
+          <Typography>{`Giá: ${courseChosen.price}`}</Typography>
+          <Typography>{`Link khóa học: ${
+            window.location.host + '/course-info/' + courseChosen.id + '/' + id
+          }`}</Typography>
+          <Typography>{`Link khóa học có coupon: ${
+            window.location.host +
+            '/course-info/' +
+            courseChosen.id +
+            '/' +
+            id +
+            '/coupon-code'
+          }`}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              const link = window.location.host + '/course-info/' + courseChosen.id + '/' + id;
+              handleCopyLink(link);
+            }}
+          >
+            Lấy link 
+          </Button>
+          <Button
+            onClick={() => {
+              const linkCoupon = window.location.host + '/course-info/' + courseChosen.id + '/' + id + '/coupon-code';
+              handleCopyLink(linkCoupon);
+            }}
+          >
+            Lấy link coupon
+          </Button>
+        </DialogActions>
       </Dialog>
+      <Snackbar
+        open={openS}
+        sx={{ width: '500px' }}
+        anchorOrigin={{ vertical, horizontal }}
+        autoHideDuration={3000}
+        onClose={handleCloseS}
+      >
+        <Alert
+          variant="filled"
+          severity="success"
+          onClose={handleCloseS}
+          sx={{ width: '500px' }}
+        >
+          Sao chép liên kết thành công
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

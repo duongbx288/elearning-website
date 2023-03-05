@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useCookies, CookiesProvider } from 'react-cookie';
 import CourseService, {
   CourseRequest,
   CourseResponse,
@@ -18,7 +19,7 @@ const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, affiliateId, coupon } = useParams();
   
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -27,14 +28,31 @@ const CourseInfo = () => {
   const [courseId, setCourseId] = useState<number>(Number(id));
   const [teacherId, setTeacherId] = useState<number>(0);
 
+  // Cookie
+  const [cookies1, setCookie1] = useCookies(['affId']);
+  const [cookies2, setCookie2] = useCookies(['coupon']);
+
   useEffect(() => {
+    var now = new Date(Date.now() + 10 * 1000 * 86400);
+
+    // 86400 * 1000 = 1 DAY
+    var expires = (new Date(Date.now()+ 10 * 86400*1000)).toUTCString();
     if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
-  }, [course]);
+    if (affiliateId !== null && typeof affiliateId !== 'undefined') {
+      console.log('getAffiliateId!', affiliateId);
+      setCookie1('affId', affiliateId, {path: '/', expires: now});
+      document.cookie = "cookieName=aff_id; expires=" + expires + ";path=/;"
+    }
+    if (coupon !== null && typeof coupon !== 'undefined') {
+      console.log('getCoupon!', coupon);
+      setCookie2('coupon', coupon, {path: '/', expires: now});
+    }
+
+
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log(id);
-    console.log(course);
     if (id !== null && typeof id === 'string') {
       CourseService.getCourseInfo(Number(id)).then((res) => {
         if (res.data) {

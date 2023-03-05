@@ -17,6 +17,18 @@ export type OrderRequest = {
     lastModifiedBy?: string;
 }
 
+export type OrderItemRequest = {
+    id?: number;
+    orderId?: number;
+    courseId?: number;
+    initPrice?: number;
+    discount?: number;
+    total?: number;
+    couponCode?: number;    
+    affiliateId?: number;
+}
+
+
 class OrderService {
     getAllPag = (request: OrderRequest) => {
         return axios.get(`/api/orders/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)
