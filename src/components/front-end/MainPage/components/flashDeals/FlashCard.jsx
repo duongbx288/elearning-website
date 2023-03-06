@@ -67,9 +67,6 @@ const FlashCard = ({ courses }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('');
 
-  const increment = () => {
-    setCount(count + 1);
-  };
   const settings = {
     dots: false,
     infinite: true,
@@ -103,9 +100,7 @@ const FlashCard = ({ courses }) => {
 
   const handleCourse = (id) => () => {
     console.log(id);
-    navigate('/course-info/' + id,
-      {state: { id: id }},
-    );
+    navigate('/course-info/' + id, { state: { id: id } });
   };
 
   return (
@@ -128,7 +123,7 @@ const FlashCard = ({ courses }) => {
                           WebkitLineClamp: '8',
                           WebkitBoxOrient: 'vertical',
                           marginBottom: '1',
-                          whiteSpace: 'pre-line'
+                          whiteSpace: 'pre-line',
                         }}
                       >
                         {course.introduction}
@@ -164,7 +159,11 @@ const FlashCard = ({ courses }) => {
                 }
               >
                 <div className="product mtop">
-                  <div className="img" onClick={handleCourse(course.id)} style={{cursor: 'pointer'}}>
+                  <div
+                    className="img"
+                    onClick={handleCourse(course.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     {course.discount ? (
                       <span className="discount">{course.discount}% Off</span>
                     ) : (
@@ -177,10 +176,6 @@ const FlashCard = ({ courses }) => {
                       />
                     </div>
                     <Divider />
-                    <div className="product-like">
-                      <label>{count}</label> <br />
-                      <i className="fa-regular fa-heart" onClick={increment}></i>
-                    </div>
                   </div>
                   <div className="product-details">
                     <Typography
@@ -197,9 +192,20 @@ const FlashCard = ({ courses }) => {
                     />
                     <div className="price">
                       <h5>{course.price} đ </h5>
-                      <button onClick={() => addToCart(course)}>
-                        <i className="fa fa-plus"></i>
-                      </button>
+                      {!cartContext.checkExistItem(course) ? (
+                        <button onClick={() => addToCart(course)}>
+                          <i className="fa fa-plus"></i>
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setSelected(course);
+                            setOpen(true);
+                          }}
+                        >
+                          <i className="fa fa-minus"></i>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

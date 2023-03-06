@@ -22,7 +22,6 @@ const CourseInfo = () => {
   const { id, affiliateId, coupon } = useParams();
   
   const [loading, setLoading] = useState<boolean>(true);
-
   
   const [courseInfo, setCourseInfo] = useState<CourseResponse>();
   const [courseId, setCourseId] = useState<number>(Number(id));
@@ -31,21 +30,25 @@ const CourseInfo = () => {
   // Cookie
   const [cookies1, setCookie1] = useCookies(['affId']);
   const [cookies2, setCookie2] = useCookies(['coupon']);
+  
 
   useEffect(() => {
     var now = new Date(Date.now() + 10 * 1000 * 86400);
 
-    // 86400 * 1000 = 1 DAY
+    // Tao cookie neu co 
     var expires = (new Date(Date.now()+ 10 * 86400*1000)).toUTCString();
     if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
     if (affiliateId !== null && typeof affiliateId !== 'undefined') {
-      console.log('getAffiliateId!', affiliateId);
       setCookie1('affId', affiliateId, {path: '/', expires: now});
       document.cookie = "cookieName=aff_id; expires=" + expires + ";path=/;"
     }
     if (coupon !== null && typeof coupon !== 'undefined') {
       console.log('getCoupon!', coupon);
-      setCookie2('coupon', coupon, {path: '/', expires: now});
+      const couponInfo = {
+        couponCode: coupon,
+        useTime: 0,
+      }
+      setCookie2('coupon', JSON.stringify(couponInfo), {path: '/', expires: now});
     }
 
 

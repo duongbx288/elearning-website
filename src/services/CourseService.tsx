@@ -28,12 +28,16 @@ export type CourseRequest = {
     createdBy?: string | null;
     lastModifiedBy?: string | null;
     boughtCount?: number | null;
-    month?: number | null;
-    year?: number | null;
+    // month?: number | null;
+    // year?: number | null;
     limit?: number | null;
     rating?: number | null;
     ratingCount?: number | null;
     link?: string | null;
+    // For affiliate
+    couponCode?: string | null;
+    affiliateId?: number | null;
+    discount?: number | null;
 }
 
 export type CourseCriteria = {

@@ -5,7 +5,7 @@ export type OrderRequest = {
     pageNum?: number;
     pageLimit?: number;
     userId?: number;
-    courseId?: number;
+    // courseId?: number;
     affiliateId?: number;
     initialSum?: number; // Tong tien chua khuyen mai
     discount?: number; // So tien khuyen mai
@@ -15,6 +15,7 @@ export type OrderRequest = {
     lastModifiedDate?: Date;
     createdBy?: string;
     lastModifiedBy?: string;
+    orderItems?: OrderItemRequest[];
 }
 
 export type OrderItemRequest = {
@@ -24,8 +25,13 @@ export type OrderItemRequest = {
     initPrice?: number;
     discount?: number;
     total?: number;
-    couponCode?: number;    
+    couponCode?: string | null;    
     affiliateId?: number;
+    // from course
+    price?: string;
+    name?: string;
+    teacherId?: string;
+    cover?: string;
 }
 
 
