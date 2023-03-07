@@ -24,8 +24,6 @@ const CourseInfo = () => {
   const { id } = useParams();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get('_affiliateId'));
-  console.log(searchParams.get('_couponCode'));
 
   const [affiliateId, setAffiliateId] = useState(searchParams.get('_affiliateId'));
   const [couponCode, setCouponCode] = useState(searchParams.get('_couponCode'));
@@ -47,18 +45,12 @@ const CourseInfo = () => {
     if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
     if (affiliateId && affiliateId !== null && !isNaN(Number(affiliateId))) {
       info['affiliateId'] = affiliateId;
-      console.log(info);
-      if (couponCode && couponCode !== null) {
-        info['coupon'] = couponCode;
-        console.log(info);
-    }
     }
     if (Object.keys(info).length === 0) {
     } else {
       setCookie1('affId', JSON.stringify(info), { path: '/', expires: expire });
     }
-  }, []);
-
+  }, [affiliateId, course, setCookie1]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,18 +58,16 @@ const CourseInfo = () => {
       CourseService.getCourseInfo(Number(id)).then((res) => {
         if (res.data) {
           setCourseInfo(res.data);
-          console.log(res.data);
         }
       });
     } else if (course !== null && typeof course !== 'undefined') {
       CourseService.getCourseInfo(course.id).then((res) => {
         if (res.data) {
           setCourseInfo(res.data);
-          console.log(res.data);
         }
       });
     }
-  }, [course, id]);
+  }, [course, id, searchParams]);
 
   useEffect(() => {
     setTeacherId(courseInfo?.course.teacherId ? courseInfo.course.teacherId : 0);
@@ -95,8 +85,6 @@ const CourseInfo = () => {
     teacherName: courseInfo?.course?.teacherName,
     studentCount: courseInfo?.studentCount,
   };
-
-  const purchaseCardProps = {};
 
   return !loading ? (
     <>
@@ -120,7 +108,8 @@ const CourseInfo = () => {
               </div>
             </Grid>
             <Grid item sm={4} padding={2}>
-              <PurchaseCard info={courseInfo?.course} />
+              {/* <PurchaseCard info={courseInfo?.course} /> */}
+              <PurchaseCard info={courseInfo?.course} affiliateId={affiliateId} couponCode={searchParams.get('_couponCode')}/>
             </Grid>
           </Grid>
         </Grid>

@@ -28,13 +28,13 @@ import ShareIcon from '@mui/icons-material/Share';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import { useNavigate } from 'react-router-dom';
+import CouponService from '../../../../../services/CouponService';
 
 // export interface PurchaseCardProps {
 //   info: CourseRequest | undefined;
 // }
 
-const PurchaseCard = ({ info }: PurchaseCardProps) => {
-
+const PurchaseCard = ({ info, affiliateId, couponCode }) => {
   // Read COOKIE:
   var temp = {} as CourseRequest;
   const navigate = useNavigate();
@@ -44,27 +44,13 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
   const [openShare, setOpenShare] = useState<boolean>(false);
   const [selected, setSelected] = useState<any>();
   const [userInfo, setUserInfo] = useState<any>();
-  const [affCookie, setAffCookie] = useState(JSON.parse(Cookies.get('affId')));
-  const [courseInf, setCourseInf] = useState(info);
-
-  console.log(courseInf);
-  console.log(affCookie);
 
   useEffect(() => {
     let uInfo = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
     if (uInfo) {
       setUserInfo(JSON.parse(uInfo));
     }
-    if (info) setCourseInf(info);
-    if (affCookie && affCookie != null && info) {
-      if (affCookie.affiliateId && affCookie.affiliateId !== null) {
-        info['affiliateId'] = Number(affCookie.affiliateId)
-        if (affCookie.coupon && affCookie.coupon !== null) {
-        }
-      }
-    }
   }, []);
-  console.log(info);
 
   const handleOpenCart = () => {
     setOpenCart(true);
@@ -76,8 +62,26 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
 
   useEffect(() => {}, []);
 
-  const addToCart = (item) => {
-    cartContext.addToCart(item);
+  const addToCart = async (item) => {
+    
+    await CouponService.checkExistCoupon(couponCode).then((res) => {
+      if (res.data === "Success") {
+        const courseResq = {
+          ...item,
+          affiliateId: affiliateId,
+          couponCode: couponCode,
+        };
+        cartContext.addToCart(courseResq);
+      } else {
+        console.log(res);
+        const courseResq = {
+          ...item,
+          affiliateId: affiliateId,
+        };
+        cartContext.addToCart(courseResq);
+      }
+    })
+
     return;
   };
 
@@ -92,8 +96,9 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
       const existCourse = userInfo?.listCourses.find((item) => item === info.id);
       if (existCourse) return true;
       else return false;
-    } return false;
-  }
+    }
+    return false;
+  };
 
   const handleAddCourseButton = () => {
     if (checkUserCourse(info)) {

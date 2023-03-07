@@ -53,7 +53,6 @@ const Cart = () => {
     window.scrollTo(0, 0);
     let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
     if (info) {
-      console.log('user-info', JSON.parse(info));
       setUserInfo(JSON.parse(info));
     }
   }, []);
@@ -94,13 +93,13 @@ const Cart = () => {
     } as OrderRequest;
     OrderService.createNewOrder(orderResquest).then((res) => {
       if(res.data === "Successful") {
-        console.log('Success!');
         handleClose();
         setSuccess(true);
         setCartData([]);
         cartContext.removeAll();
       } else {
         console.log(res.data);
+        setError(true);
       }
     })
   };
