@@ -11,6 +11,8 @@ import { Star } from '@mui/icons-material';
 import BasicTabs from './components/Tab/Tab';
 import PurchaseCard from './components/PurchaseCard/PurchaseCard';
 import CourseTitle, { CourseTitleProps } from './components/CourseTitle/CourseTitle';
+import CouponService from '../../../services/CouponService';
+
 interface CustomerState {
   id: number;
 }
@@ -19,15 +21,17 @@ const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
   const navigate = useNavigate();
-  const { id  } = useParams();
-  
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("_affiliateId"));
-  console.log(searchParams.get("_couponCode"));
+  const { id } = useParams();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.get('_affiliateId'));
+  console.log(searchParams.get('_couponCode'));
+
+  const [affiliateId, setAffiliateId] = useState(searchParams.get('_affiliateId'));
+  const [couponCode, setCouponCode] = useState(searchParams.get('_couponCode'));
 
   const [loading, setLoading] = useState<boolean>(true);
-  
+
   const [courseInfo, setCourseInfo] = useState<CourseResponse>();
   const [courseId, setCourseId] = useState<number>(Number(id));
   const [teacherId, setTeacherId] = useState<number>(0);
@@ -35,29 +39,26 @@ const CourseInfo = () => {
   // Cookie
   const [cookies1, setCookie1] = useCookies(['affId']);
   const [cookies2, setCookie2] = useCookies(['coupon']);
-  
 
   useEffect(() => {
-    var now = new Date(Date.now() + 10 * 1000 * 86400);
-
-    // // Tao cookie neu co 
-    // var expires = (new Date(Date.now()+ 10 * 86400*1000)).toUTCString();
-    // if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
-    // if (affiliateId !== null && typeof affiliateId !== 'undefined') {
-    //   setCookie1('affId', affiliateId, {path: '/', expires: now});
-    //   document.cookie = "cookieName=aff_id; expires=" + expires + ";path=/;"
-    // }
-    // if (coupon !== null && typeof coupon !== 'undefined') {
-    //   console.log('getCoupon!', coupon);
-    //   const couponInfo = {
-    //     couponCode: coupon,
-    //     useTime: 0,
-    //   }
-    //   setCookie2('coupon', JSON.stringify(couponInfo), {path: '/', expires: now});
-    // }
-
-
+    var expire = new Date(Date.now() + 10 * 1000 * 86400);
+    var info = {};
+    // Tao cookie neu co
+    if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
+    if (affiliateId && affiliateId !== null && !isNaN(Number(affiliateId))) {
+      info['affiliateId'] = affiliateId;
+      console.log(info);
+      if (couponCode && couponCode !== null) {
+        info['coupon'] = couponCode;
+        console.log(info);
+    }
+    }
+    if (Object.keys(info).length === 0) {
+    } else {
+      setCookie1('affId', JSON.stringify(info), { path: '/', expires: expire });
+    }
   }, []);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -137,7 +138,9 @@ const CourseInfo = () => {
       <Typography>Similar Course</Typography>
       <Typography>Khóa học từ giáo viên</Typography>
     </>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };
 
 export default CourseInfo;

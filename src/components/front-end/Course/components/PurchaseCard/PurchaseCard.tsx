@@ -17,6 +17,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { CartContext } from '../../../../../context/CartContext';
 import { CourseRequest } from '../../../../../services/CourseService';
 import { numberWithCommas } from '../../../../../services/helpers/NumberFormat';
+import Cookies from 'js-cookie';
 
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -28,14 +29,14 @@ import RedeemIcon from '@mui/icons-material/Redeem';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import { useNavigate } from 'react-router-dom';
 
-export interface PurchaseCardProps {
-  info: CourseRequest | undefined;
-}
+// export interface PurchaseCardProps {
+//   info: CourseRequest | undefined;
+// }
 
 const PurchaseCard = ({ info }: PurchaseCardProps) => {
 
-  // Doc o COOKIE
-
+  // Read COOKIE:
+  var temp = {} as CourseRequest;
   const navigate = useNavigate();
   const cartContext = useContext(CartContext).cartInfo;
 
@@ -43,13 +44,27 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
   const [openShare, setOpenShare] = useState<boolean>(false);
   const [selected, setSelected] = useState<any>();
   const [userInfo, setUserInfo] = useState<any>();
+  const [affCookie, setAffCookie] = useState(JSON.parse(Cookies.get('affId')));
+  const [courseInf, setCourseInf] = useState(info);
+
+  console.log(courseInf);
+  console.log(affCookie);
 
   useEffect(() => {
-    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
-    if (info) {
-      setUserInfo(JSON.parse(info));
+    let uInfo = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    if (uInfo) {
+      setUserInfo(JSON.parse(uInfo));
+    }
+    if (info) setCourseInf(info);
+    if (affCookie && affCookie != null && info) {
+      if (affCookie.affiliateId && affCookie.affiliateId !== null) {
+        info['affiliateId'] = Number(affCookie.affiliateId)
+        if (affCookie.coupon && affCookie.coupon !== null) {
+        }
+      }
     }
   }, []);
+  console.log(info);
 
   const handleOpenCart = () => {
     setOpenCart(true);
