@@ -25,11 +25,14 @@ import CourseService, {
 import TypeService, { TypeResponse } from '../../../../../services/TypeService';
 import { Theme, useTheme } from '@mui/material/styles';
 import { Course } from '../../../../backend/teachers/TeacherDetail';
+import { useNavigate } from 'react-router-dom';
 
 const FindCourses = ({ id }) => {
+  const navigate = useNavigate();
+
   // Pagination
   const [limit, setLimit] = useState<number>(5);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
 
   // Criteria
@@ -74,33 +77,25 @@ const FindCourses = ({ id }) => {
   useEffect(() => {
     CourseService.findCourses(criteria).then((res) => {
       if (res.data) {
-        // console.log(res.data);
+        console.log(res.data);
         setCourses(res.data.content);
         setTotalPage(res.data.totalPages);
+        setPage(res.data.number + 1);
       }
     });
   }, [criteria]);
 
-  useEffect(() => {
-    const criteria1 = {
-      limit: limit,
-      page: page,
-      typeId: typeId && Number(typeId) > 0 ? typeId : null,
-      name: name,
-    } as CourseCriteria;
-    setCriteria(criteria1);
-  }, [limit, page]);
+  console.log(criteria);
 
   useEffect(() => {
     const criteria1 = {
       limit: limit,
-      page: 0,
+      page: page - 1,
       typeId: typeId && Number(typeId) > 0 ? typeId : null,
       name: name,
     } as CourseCriteria;
-    setPage(0);
     setCriteria(criteria1);
-  }, [typeId, name]);
+  }, [limit, page, typeId, name]);
 
   const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -189,7 +184,7 @@ const FindCourses = ({ id }) => {
                     alt=""
                   ></Box>
                   <Box marginLeft={2}>
-                    <Typography variant={'h6'}>{`Khóa học: ${course.name}`}</Typography>
+                    <Typography variant={'h6'} sx={{ cursor: 'pointer'}} onClick={() => {navigate(`/course-info/`+course.id)}}>{`Khóa học: ${course.name}`}</Typography>
                     <Typography>{`Giáo viên: ${
                       course.teacherName ? course.teacherName : '---'
                     }`}</Typography>
@@ -219,7 +214,7 @@ const FindCourses = ({ id }) => {
           <Typography>{`Khóa học: ${courseChosen.name}`}</Typography>
           <Typography>{`Giá: ${courseChosen.price}`}</Typography>
           <Typography>{`Link khóa học: ${
-            window.location.host + '/course-info/' + courseChosen.id + '/' + id
+            window.location.host + '/course-info/' + courseChosen.id + '/?_affiliateId=' + id
           }`}</Typography>
           <Typography>{`Link khóa học có coupon: ${
             window.location.host +
@@ -227,13 +222,13 @@ const FindCourses = ({ id }) => {
             courseChosen.id +
             '/' +
             id +
-            '/coupon-code'
+            '&_couponCode='
           }`}</Typography>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={() => {
-              const link = window.location.host + '/course-info/' + courseChosen.id + '/' + id;
+              const link = window.location.host + '/course-info/' + courseChosen.id + '/?_affiliateId=' + id;
               handleCopyLink(link);
             }}
           >
@@ -241,7 +236,7 @@ const FindCourses = ({ id }) => {
           </Button>
           <Button
             onClick={() => {
-              const linkCoupon = window.location.host + '/course-info/' + courseChosen.id + '/' + id + '/coupon-code';
+              const linkCoupon = window.location.host + '/course-info/' + courseChosen.id + '/?_affiliateId=' + id + '&_couponCode=';
               handleCopyLink(linkCoupon);
             }}
           >
@@ -251,7 +246,7 @@ const FindCourses = ({ id }) => {
       </Dialog>
       <Snackbar
         open={openS}
-        sx={{ width: '500px' }}
+        sx={{ width: '600px' }}
         anchorOrigin={{ vertical, horizontal }}
         autoHideDuration={3000}
         onClose={handleCloseS}
@@ -260,7 +255,7 @@ const FindCourses = ({ id }) => {
           variant="filled"
           severity="success"
           onClose={handleCloseS}
-          sx={{ width: '500px' }}
+          sx={{ width: '600px' }}
         >
           Sao chép liên kết thành công
         </Alert>

@@ -52,7 +52,8 @@ const LoginMenu = () => {
       window.location.href.includes('affiliate-page') 
     ) {
       navigate('/main');
-    }
+      window.location.reload();
+    } else window.location.reload();
   };
 
   const handleGoToLearn = () => {

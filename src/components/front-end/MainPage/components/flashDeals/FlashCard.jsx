@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -18,6 +18,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import './style.css';
 import { CartContext } from '../../../../../context/CartContext';
 import { styled } from '@mui/material/styles';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -61,11 +62,19 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 const FlashCard = ({ courses }) => {
+  let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
   const cartContext = useContext(CartContext).cartInfo;
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState('');
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    if (info) {
+      setUserInfo(JSON.parse(info));
+    }
+  }, [info]);
 
   const settings = {
     dots: false,
@@ -103,6 +112,83 @@ const FlashCard = ({ courses }) => {
     navigate('/course-info/' + id, { state: { id: id } });
   };
 
+  const checkUserCourse = (info) => {
+    if (info && userInfo && userInfo?.listCourses) {
+      const existCourse = userInfo?.listCourses.find((item) => item === info.id);
+      if (existCourse) return true;
+      else return false;
+    }
+    return false;
+  };
+
+  const handleMiniButton = (info) => {
+    if (checkUserCourse(info)) {
+      return (
+        <button onClick={() => navigate('/student-page/' + userInfo.studentId)}>
+          <KeyboardArrowRightIcon />
+        </button>
+      );
+    } else if (!cartContext.checkExistItem(info)) {
+      return (
+        <button onClick={() => addToCart(info)}>
+          <i className="fa fa-plus"></i>
+        </button>
+      );
+    } else
+      return (
+        <button
+          onClick={() => {
+            setSelected(info);
+            setOpen(true);
+          }}
+        >
+          <i className="fa fa-minus"></i>
+        </button>
+      );
+  };
+
+  const handleAddCourseButton = (info) => {
+    if (checkUserCourse(info)) {
+      return (
+        <Button
+          fullWidth
+          variant={'outlined'}
+          onClick={() => {
+            navigate('/student-page/' + userInfo.studentId);
+          }}
+          color="success"
+        >
+          <KeyboardArrowRightIcon /> Vào khóa học
+        </Button>
+      );
+    } else if (!cartContext.checkExistItem(info)) {
+      return (
+        <Button
+          fullWidth
+          variant={'outlined'}
+          onClick={() => {
+            addToCart(info);
+          }}
+        >
+          Thêm vào giỏ hàng
+        </Button>
+      );
+    } else
+      return (
+        <Button
+          fullWidth
+          variant={'contained'}
+          color={'error'}
+          onClick={() => {
+            setSelected(info);
+            setOpen(true);
+          }}
+        >
+          Bỏ khỏi giỏ hàng
+        </Button>
+      );
+  };
+
   return (
     <>
       <Slider {...settings}>
@@ -129,31 +215,7 @@ const FlashCard = ({ courses }) => {
                         {course.introduction}
                       </Typography>
                       <Divider />
-                      <Box margin={1}>
-                        {cartContext.checkExistItem(course) ? (
-                          <Button
-                            fullWidth
-                            variant={'contained'}
-                            color={'error'}
-                            onClick={() => {
-                              setSelected(course);
-                              setOpen(true);
-                            }}
-                          >
-                            Bỏ khỏi giỏ hàng
-                          </Button>
-                        ) : (
-                          <Button
-                            fullWidth
-                            variant={'outlined'}
-                            onClick={() => {
-                              addToCart(course);
-                            }}
-                          >
-                            Thêm vào giỏ hàng
-                          </Button>
-                        )}
-                      </Box>
+                      <Box margin={1}>{handleAddCourseButton(course)}</Box>
                     </Box>
                   </>
                 }
@@ -192,20 +254,7 @@ const FlashCard = ({ courses }) => {
                     />
                     <div className="price">
                       <h5>{course.price} đ </h5>
-                      {!cartContext.checkExistItem(course) ? (
-                        <button onClick={() => addToCart(course)}>
-                          <i className="fa fa-plus"></i>
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => {
-                            setSelected(course);
-                            setOpen(true);
-                          }}
-                        >
-                          <i className="fa fa-minus"></i>
-                        </button>
-                      )}
+                      {handleMiniButton(course)}
                     </div>
                   </div>
                 </div>

@@ -110,7 +110,7 @@ const CreateCoupon = ({ id }) => {
       </Typography>
       <Box padding={2}></Box>
       <Typography align="center">
-        Người sử dụng coupon này cũng được giảm học phí 40% khi mua khóa học.
+        Người sử dụng coupon này cũng được giảm học phí 30% khi mua khóa học.
       </Typography>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Thông báo</DialogTitle>

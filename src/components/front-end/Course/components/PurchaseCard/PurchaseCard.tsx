@@ -26,17 +26,30 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ShareIcon from '@mui/icons-material/Share';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import { useNavigate } from 'react-router-dom';
 
 export interface PurchaseCardProps {
   info: CourseRequest | undefined;
 }
 
 const PurchaseCard = ({ info }: PurchaseCardProps) => {
+
+  // Doc o COOKIE
+
+  const navigate = useNavigate();
   const cartContext = useContext(CartContext).cartInfo;
 
   const [openCart, setOpenCart] = useState<boolean>(false);
   const [openShare, setOpenShare] = useState<boolean>(false);
   const [selected, setSelected] = useState<any>();
+  const [userInfo, setUserInfo] = useState<any>();
+
+  useEffect(() => {
+    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    if (info) {
+      setUserInfo(JSON.parse(info));
+    }
+  }, []);
 
   const handleOpenCart = () => {
     setOpenCart(true);
@@ -59,6 +72,60 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
     return;
   };
 
+  const checkUserCourse = (info) => {
+    if (info && userInfo && userInfo?.listCourses) {
+      const existCourse = userInfo?.listCourses.find((item) => item === info.id);
+      if (existCourse) return true;
+      else return false;
+    } return false;
+  }
+
+  const handleAddCourseButton = () => {
+    if (checkUserCourse(info)) {
+      return (
+        <Button
+          fullWidth
+          variant="contained"
+          color={'success'}
+          sx={{ padding: 2, fontSize: '16px', mt: 1, mb: 2 }}
+          onClick={() => {
+            navigate('/student-page/' + userInfo.studentId);
+          }}
+        >
+          Vào khóa học
+        </Button>
+      );
+    } else if (!cartContext.checkExistItem(info)) {
+      return (
+        <Button
+          fullWidth
+          variant="contained"
+          color={'success'}
+          sx={{ padding: 2, fontSize: '16px', mt: 1, mb: 2 }}
+          onClick={() => {
+            addToCart(info);
+          }}
+        >
+          Thêm vào giỏ hàng
+        </Button>
+      );
+    } else
+      return (
+        <Button
+          fullWidth
+          sx={{ padding: 2, fontSize: '16px', mt: 1, mb: 2 }}
+          onClick={() => {
+            setSelected(info);
+            setOpenCart(true);
+          }}
+          variant="contained"
+          color="error"
+        >
+          Xóa khỏi giỏ hàng
+        </Button>
+      );
+  };
+
   return (
     <>
       <Card>
@@ -66,32 +133,7 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
           <Typography variant="h6" fontWeight={600}>
             {info?.price ? numberWithCommas(info?.price) : 0} đ
           </Typography>
-          {!cartContext.checkExistItem(info) ? (
-            <Button
-              fullWidth
-              variant="contained"
-              color={'success'}
-              sx={{ padding: 2, fontSize: '16px', mt: 1, mb: 2 }}
-              onClick={() => {
-                addToCart(info);
-              }}
-            >
-              Thêm vào giỏ hàng
-            </Button>
-          ) : (
-            <Button
-              fullWidth
-              sx={{ padding: 2, fontSize: '16px', mt: 1, mb: 2 }}
-              onClick={() => {
-                setSelected(info);
-                setOpenCart(true);
-              }}
-              variant="contained"
-              color="error"
-            >
-              Xóa khỏi giỏ hàng
-            </Button>
-          )}
+          {handleAddCourseButton()}
           <Button fullWidth variant="contained">
             Thêm vào danh sách yêu thích
           </Button>
@@ -114,8 +156,7 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
               &nbsp; Cấp chứng nhận hoàn thành
             </Typography>
           </Box>
-          <Grid container               display={'flex'}
-              justifyContent={'space-between'} >
+          <Grid container display={'flex'} justifyContent={'space-between'}>
             <Grid
               item
               xs={3.5}
@@ -192,23 +233,28 @@ const PurchaseCard = ({ info }: PurchaseCardProps) => {
         aria-describedby="alert-dialog-share-description"
       >
         <DialogTitle>Chia sẻ khóa học</DialogTitle>
-        <DialogContent sx={{display: 'flex' , flexDirection: 'column'}}>
-            <TextField variant='filled' value={window.location.href}></TextField>
-            <Divider/>
-            <Button
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
+          <TextField variant="filled" value={window.location.href}></TextField>
+          <Divider />
+          <Button
             variant={'outlined'}
             onClick={() => {
-                navigator.clipboard.writeText(window.location.href)
+              navigator.clipboard.writeText(window.location.href);
             }}
-            sx={{ mt: 1}}
-            >Copy link</Button>
+            sx={{ mt: 1 }}
+          >
+            Copy link
+          </Button>
         </DialogContent>
         <DialogActions>
-          <Button color={'primary'} variant={'outlined'} onClick={() => setOpenShare(false)}>
+          <Button
+            color={'primary'}
+            variant={'outlined'}
+            onClick={() => setOpenShare(false)}
+          >
             Đóng
           </Button>
         </DialogActions>
-
       </Dialog>
     </>
   );

@@ -1,14 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useAppSelector } from '../store/hooks';
 
 export const CartContext = React.createContext<any>(null);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState<any>([]);
 
+  useEffect(() => {
+    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
+    if (info) {
+      console.log('user-info', JSON.parse(info));
+    }
+  }, []);
+
   const setInfo = (info: any) => {
     setCart(info);
   };
 
+  
   // Kiem tra xem khoa hoc da co trong gio hang hay khong
   const checkExistItem = (product: any) => {
     if (product) {

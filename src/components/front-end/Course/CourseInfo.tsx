@@ -4,7 +4,7 @@ import CourseService, {
   CourseRequest,
   CourseResponse,
 } from '../../../services/CourseService';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import './style.css';
 import { Container, Grid, Icon, Typography } from '@mui/material';
 import { Star } from '@mui/icons-material';
@@ -19,8 +19,13 @@ const CourseInfo = () => {
   const location = useLocation();
   const course = location.state as CustomerState;
   const navigate = useNavigate();
-  const { id, affiliateId, coupon } = useParams();
+  const { id  } = useParams();
   
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.get("_affiliateId"));
+  console.log(searchParams.get("_couponCode"));
+
+
   const [loading, setLoading] = useState<boolean>(true);
   
   const [courseInfo, setCourseInfo] = useState<CourseResponse>();
@@ -35,21 +40,21 @@ const CourseInfo = () => {
   useEffect(() => {
     var now = new Date(Date.now() + 10 * 1000 * 86400);
 
-    // Tao cookie neu co 
-    var expires = (new Date(Date.now()+ 10 * 86400*1000)).toUTCString();
-    if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
-    if (affiliateId !== null && typeof affiliateId !== 'undefined') {
-      setCookie1('affId', affiliateId, {path: '/', expires: now});
-      document.cookie = "cookieName=aff_id; expires=" + expires + ";path=/;"
-    }
-    if (coupon !== null && typeof coupon !== 'undefined') {
-      console.log('getCoupon!', coupon);
-      const couponInfo = {
-        couponCode: coupon,
-        useTime: 0,
-      }
-      setCookie2('coupon', JSON.stringify(couponInfo), {path: '/', expires: now});
-    }
+    // // Tao cookie neu co 
+    // var expires = (new Date(Date.now()+ 10 * 86400*1000)).toUTCString();
+    // if (course !== null && typeof course !== 'undefined') setCourseId(course.id);
+    // if (affiliateId !== null && typeof affiliateId !== 'undefined') {
+    //   setCookie1('affId', affiliateId, {path: '/', expires: now});
+    //   document.cookie = "cookieName=aff_id; expires=" + expires + ";path=/;"
+    // }
+    // if (coupon !== null && typeof coupon !== 'undefined') {
+    //   console.log('getCoupon!', coupon);
+    //   const couponInfo = {
+    //     couponCode: coupon,
+    //     useTime: 0,
+    //   }
+    //   setCookie2('coupon', JSON.stringify(couponInfo), {path: '/', expires: now});
+    // }
 
 
   }, []);

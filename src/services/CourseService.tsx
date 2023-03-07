@@ -21,7 +21,7 @@ export type CourseRequest = {
     name?: string | null;
     description?: string | null;
     introduction?: string | null;
-    price?: string | null;
+    price?: number | null;
     status?: string | null;
     createdAt?: Date | null;
     lastModifiedAt?: Date | null;
