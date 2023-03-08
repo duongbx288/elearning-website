@@ -7,7 +7,8 @@ import {
   Select,
   MenuItem,
   Typography,
-  Pagination
+  Pagination,
+  Button
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -149,6 +150,7 @@ const FindCourses = ({ studentId }) => {
                 <Box marginRight={1} padding={1}>
                   <Typography>{`Đánh giá: ${course.rating}`}</Typography>
                   <Typography>{`Giá: ${course.price}`}</Typography>
+                  <Button variant="contained" onClick={() => {navigate(`/course-info/`+course.id)}}>Xem thông tin</Button>
                 </Box>
                 {/* <Typography>{course.}</Typography> */}
               </Box>

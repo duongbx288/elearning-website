@@ -6,13 +6,6 @@ export const CartContext = React.createContext<any>(null);
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState<any>([]);
 
-  useEffect(() => {
-    let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
-    if (info) {
-      console.log('user-info', JSON.parse(info));
-    }
-  }, []);
-
   const setInfo = (info: any) => {
     setCart(info);
   };

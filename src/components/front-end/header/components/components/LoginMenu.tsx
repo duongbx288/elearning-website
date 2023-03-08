@@ -48,8 +48,8 @@ const LoginMenu = () => {
     setUsername('');
     if (
       window.location.href.includes('student-page') ||
-      window.location.href.includes('study-course') || 
-      window.location.href.includes('affiliate-page') 
+      window.location.href.includes('study-course') ||
+      window.location.href.includes('affiliate-page')
     ) {
       navigate('/main');
       window.location.reload();
@@ -67,11 +67,14 @@ const LoginMenu = () => {
     handleClose();
     navigate('/affiliate-page/' + userInfo?.affiliateId, {
       state: { id: userInfo?.affiliateId },
-    })
+    });
   };
 
   const handleGoToTeacher = () => {
     handleClose();
+    navigate('/teacher-page/' + userInfo?.teacherId, {
+      state: { id: userInfo?.teacherId },
+    });
   };
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -126,23 +129,24 @@ const LoginMenu = () => {
 
   const styles = {
     button: {
-        width: 64, height: 64,
-        padding: 0
+      width: 64,
+      height: 64,
+      padding: 0,
     },
     icon: {
-        fontSize:40,
-        color:'#fffff'
+      fontSize: 40,
+      color: '#fffff',
     },
     tooltip: {
-        marginLeft:7
-    }
-};
+      marginLeft: 7,
+    },
+  };
 
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
       {typeof username !== 'undefined' && username.length > 0 ? (
         <>
-          <IconButton sx={{ margin: 0.5}} size="large" aria-label="" color="inherit">
+          <IconButton sx={{ margin: 0.5 }} size="large" aria-label="" color="inherit">
             <Badge badgeContent={0} color="error">
               <NotificationsIcon />
             </Badge>
@@ -154,7 +158,7 @@ const LoginMenu = () => {
             aria-haspopup="true"
             onClick={handleProfileMenuOpen}
             color="inherit"
-            sx={{ margin: 1}}
+            sx={{ margin: 1 }}
           >
             <AccountCircle />
           </IconButton>
@@ -167,7 +171,7 @@ const LoginMenu = () => {
             onClick={() => {
               navigate('/sign-in');
             }}
-            sx={{ margin: 1}}
+            sx={{ margin: 1 }}
           >
             Đăng nhập
           </Button>
@@ -177,13 +181,18 @@ const LoginMenu = () => {
             onClick={() => {
               navigate('/sign-in');
             }}
-            sx={{ margin: 1}}
+            sx={{ margin: 1 }}
           >
             Đăng ký
           </Button>
         </>
       )}
-      <IconButton edge="end" size="large" onClick={() => navigate('/cart')} color="inherit">
+      <IconButton
+        edge="end"
+        size="large"
+        onClick={() => navigate('/cart')}
+        color="inherit"
+      >
         <Badge badgeContent={cartItem.length} color="error">
           <ShoppingCartOutlinedIcon />
         </Badge>

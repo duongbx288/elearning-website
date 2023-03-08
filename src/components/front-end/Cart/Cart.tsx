@@ -103,19 +103,8 @@ const Cart = () => {
       if(res.data === "Successful") {
         handleClose();
         setSuccess(true);
-        var newList = userInfo.listCourses;
-        cartData.forEach(item => {
-          newList.push(item.coureseId);
-        })
         setCartData([]);
         cartContext.removeAll();
-        if (localStorage.get('user-info')) {
-          var info = {...userInfo, listCourses: newList}
-          localStorage.set('user-info', JSON.stringify(info));
-        } else if (sessionStorage.get('user-info')) {
-          var info = {...userInfo, listCourses: newList}
-          sessionStorage.set('user-info', JSON.stringify(info));
-        }
       } else {
         console.log(res.data);
         setError(true);
