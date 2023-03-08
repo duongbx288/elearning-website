@@ -57,6 +57,12 @@ class CourseService {
         return axios.get(`/api/course/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)
     }
 
+    getRecommendCourse = (criteria: CourseCriteria) => {
+        return axios.get(`/api/course/get-recommend`, 
+        {params: criteria},
+        );
+    }
+
     findCourses = (criteria: CourseCriteria) => {
         return axios.get(`/api/course/info/search/`, 
         {params: criteria},

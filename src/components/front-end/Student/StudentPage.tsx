@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StudentCourse from './components/StudentCourse';
 import StudentService, {StudentResponse} from '../../../services/StudentService';
 import InfoTab from './components/InfoTab';
-import ExploreTab from './components/ExploreTab';
+import ExploreTab from './components/ExploreTab/ExploreTab';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import PersonIcon from '@mui/icons-material/Person';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';

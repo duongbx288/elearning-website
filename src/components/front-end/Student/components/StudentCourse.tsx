@@ -94,7 +94,8 @@ const StudentCourse = ({ id }) => {
                       fontSize: '15px',
                     }}
                     title={course.courseName}
-                  ></CardHeader>
+                  >
+                  </CardHeader>
                   <CardContent sx={{ height: '90px' }}>
                     <Box
                       component={'img'}
