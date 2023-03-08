@@ -50,6 +50,12 @@ const CreateCourse = () => {
   const [lesson, setLesson] = useState([]);
   const [lessonInfos, setLessonInfos] = useState([]);
 
+  // Tab
+  const [value, setValue] = useState(0);
+
+
+
+
   useEffect(() => {
     document.title = 'Tạo khóa học';
     TypeService.getAllType().then((res) => {
@@ -163,6 +169,10 @@ const CreateCourse = () => {
     console.log(newCourse);
   };
 
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <Box
@@ -171,6 +181,38 @@ const CreateCourse = () => {
         sx={{ bgcolor: '#f6f9fc' }}
         flexDirection="column"
       >
+              <Box sx={{ width: '80%', bgcolor: '#ffffff' }}>
+        {/* <Box>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab
+              label="Khoá học"
+              icon={<BookIcon />}
+              iconPosition="start"
+              {...a11yProps(0)}
+            />
+            <Tab
+              label="Thông tin cá nhân"
+              icon={<BarChartIcon />}
+              iconPosition="start"
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Thu nhập"
+              icon={<CreditCardIcon />}
+              iconPosition="start"
+              {...a11yProps(1)}
+            />
+          </Tabs>
+          <Divider />
+          <TabPanel value={value} index={0}>
+            <ManageCourse teacherId={id} />
+          </TabPanel>
+          <TabPanel value={value} index={1}></TabPanel>
+          <TabPanel value={value} index={2}>
+            <Income />
+          </TabPanel>
+        </Box> */}
+      </Box>
         <Box sx={{ width: '80%', bgcolor: '#2a004d', padding: 2 }}>
           <Typography variant="h4" sx={{ color: 'white' }}>
             Giáo viên: {teacherInfo?.name}
@@ -182,7 +224,7 @@ const CreateCourse = () => {
           <Divider />
           <Box component={'form'} sx={{ padding: 3 }}>
             <Grid container>
-              <Grid item xs={4} padding={1}>
+              <Grid item xs={3} padding={1}>
                 <TextField
                   value={name}
                   placeholder={'Điền tên..'}
@@ -191,7 +233,7 @@ const CreateCourse = () => {
                   fullWidth
                 ></TextField>
               </Grid>
-              <Grid item xs={4} padding={1}>
+              <Grid item xs={2} padding={1}>
                 <TextField
                   value={price}
                   placeholder={'Điền giá..'}
@@ -200,7 +242,7 @@ const CreateCourse = () => {
                   fullWidth
                 ></TextField>
               </Grid>
-              <Grid item xs={4} padding={1}>
+              <Grid item xs={3} padding={1}>
                 <TextField
                   value={link}
                   placeholder={'Link video giới thiệu'}
@@ -208,6 +250,36 @@ const CreateCourse = () => {
                   onChange={handleLinkInput}
                   fullWidth
                 ></TextField>
+              </Grid>
+              <Grid item xs={3} padding={1}>
+                <FormControl sx={{ marginLeft: 2, width: '300px' }}>
+                  <InputLabel id="demo-simple-select-label">Loại khóa học</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={typeId}
+                    label="Loại khóa học"
+                    onChange={handleTypeChange}
+                    MenuProps={{
+                      anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                      },
+                      transformOrigin: {
+                        vertical: 'top',
+                        horizontal: 'left',
+                      },
+                    }}
+                  >
+                    {category.map((item) => {
+                      return (
+                        <MenuItem value={item.id} key={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               </Grid>
               <Grid item xs={12} padding={1}>
                 <TextField
@@ -240,40 +312,11 @@ const CreateCourse = () => {
               </Grid>
               <Grid item xs={12} padding={1}><Box padding={0.1} sx={{ border: '1px solid'}}></Box></Grid>
               <Grid item xs={6} padding={1}>
+              <Typography>Ảnh bìa khóa học</Typography>
                 <input type="file" accept="image/*" onChange={handleImageChange}></input>
                 <Button variant="outlined" onClick={handleUploadImage}>
                   Tải ảnh
                 </Button>
-              </Grid>
-              <Grid item xs={6} padding={1}>
-                <FormControl sx={{ marginLeft: 2, width: '300px' }}>
-                  <InputLabel id="demo-simple-select-label">Loại khóa học</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={typeId}
-                    label="Loại khóa học"
-                    onChange={handleTypeChange}
-                    MenuProps={{
-                      anchorOrigin: {
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                      },
-                      transformOrigin: {
-                        vertical: 'top',
-                        horizontal: 'left',
-                      },
-                    }}
-                  >
-                    {category.map((item) => {
-                      return (
-                        <MenuItem value={item.id} key={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
               </Grid>
               <Grid item xs={6} padding={1}>
                 <Card>
@@ -303,3 +346,10 @@ const CreateCourse = () => {
 };
 
 export default CreateCourse;
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}

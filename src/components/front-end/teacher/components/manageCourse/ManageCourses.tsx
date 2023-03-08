@@ -28,7 +28,7 @@ const ManageCourse = ({ teacherId }) => {
           return (
             <Grid item xs={3}>
               <Box>
-                <Card sx={{ margin: 2, height: '300px' }}>
+                <Card sx={{ margin: 2 }}>
                   <CardHeader
                     sx={{
                       height: '100px',

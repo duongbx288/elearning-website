@@ -87,7 +87,7 @@ const TopCart = ({ courses }) => {
   return (
     <>
       <Slider {...settings}>
-        {Tdata.map((course) => {
+        {courses.map((course) => {
           return (
             <>
               <HtmlTooltip

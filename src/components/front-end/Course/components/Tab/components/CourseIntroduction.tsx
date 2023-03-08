@@ -15,7 +15,6 @@ const CourseIntroduction: React.FC<CourseInfo> = ({
   description,
   introduction,
 }: CourseInfo) => {
-  const trymore = '';
 
   return (
     <>
@@ -25,7 +24,7 @@ const CourseIntroduction: React.FC<CourseInfo> = ({
         </Grid>
       </Grid>
       <Box>
-        <Typography variant="body2">{description}</Typography>
+        <div dangerouslySetInnerHTML={{ __html: description ? description : "" }}></div>
       </Box>
     </>
   );
