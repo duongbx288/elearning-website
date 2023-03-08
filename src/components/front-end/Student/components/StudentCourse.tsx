@@ -47,7 +47,38 @@ const StudentCourse = ({ id }) => {
       getStudentData(studentId);
     }
     // }
-  }, [studentId]);
+  }, [studentId, id]);
+
+  useEffect(() => {
+
+    // Cap nhap cac khoa hoc da hoc tren storage
+    var listCourseId = [] as number[];
+    if (courses && courses.length > 0) {
+      courses.forEach((item) => {
+        if (item.courseId) listCourseId.push(item.courseId);
+      });
+    }
+    if (
+      localStorage.getItem('user-info') != null &&
+      typeof localStorage.getItem('user-info') !== 'undefined'
+    ) {
+      var userInfo = localStorage.getItem('user-info');
+      if (userInfo) {
+        var info = { ...JSON.parse(userInfo), listCourses: listCourseId };
+        localStorage.setItem('user-info', JSON.stringify(info));
+      }
+    }
+    if (
+      sessionStorage.getItem('user-info') != null &&
+      typeof sessionStorage.getItem('user-info') !== 'undefined'
+    ) {
+      var userInfo1 = sessionStorage.getItem('user-info');
+      if (userInfo1) {
+      var info1 = { ...JSON.parse(userInfo1), listCourses: listCourseId };
+      sessionStorage.setItem('user-info', JSON.stringify(info1));
+      }
+    }
+  }, [courses]);
 
   const renderCourseList = (courseList: StudentCourseType[]) => {
     if (courseList && courseList.length > 0) {
@@ -119,7 +150,7 @@ const StudentCourse = ({ id }) => {
             Khóa học của bạn
           </Typography>
           {renderCourseList(courses)}
-          <Divider/>
+          <Divider />
           <Typography variant="h5" sx={{ fontWeight: 500, marginTop: 1 }}>
             Khóa học yêu thích
           </Typography>
