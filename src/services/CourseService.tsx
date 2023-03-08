@@ -10,6 +10,7 @@ export type CourseResponse = {
     ratings?: RatingResponse[] | null;
 }
 
+
 export type CourseRequest = {
     id?: number;
     cover?: string;

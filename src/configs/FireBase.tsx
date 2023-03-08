@@ -9,21 +9,21 @@ import { getFirestore } from 'firebase/firestore/lite';
 // Your web app's Firebase configuration
 const firebaseConfig = {
 
-  apiKey: "AIzaSyChjO3SfJVEfcCX64GTBWMMi1oCS739Qg4",
+  apiKey: "AIzaSyC4p2VjmWVsahUGOxA6dft4Yta--i1MJ0I",
 
-  authDomain: "try-bs.firebaseapp.com",
+  authDomain: "web-elear.firebaseapp.com",
 
-  projectId: "try-bs",
+  projectId: "web-elear",
 
-  storageBucket: "try-bs.appspot.com",
+  storageBucket: "web-elear.appspot.com",
 
-  messagingSenderId: "181307636992",
+  messagingSenderId: "391298203027",
 
-  appId: "1:181307636992:web:0faf05fe71109d1c2b07e5"
+  appId: "1:391298203027:web:9dce54088f9057ee463c66"
 
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-export const storage = getStorage(app);
+const storage = getStorage(app);
+export default storage;
