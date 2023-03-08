@@ -17,6 +17,9 @@ const ExploreTab = ({ id, studentInfo }) => {
 
   useEffect(() => {
     console.log('explore');
+        // axios.get('http://127.0.0.1:8000/recommend/get-course/1').then((res) => {
+    //   console.log(res.data);
+    // })
   }, []);
 
   return (

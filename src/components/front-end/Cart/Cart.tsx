@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { useNavigate } from 'react-router-dom';
 import OrderService, { OrderRequest, OrderItemRequest } from '../../../services/OrderService';
 import { handleDiscount, handleCoursePrice, totalPrice, initSum, sumAllDiscount } from './CalculatePrice';
+import Cookies from 'js-cookie';
 // import UserService, { UserInfo } from '../../../../services/UserService';
 const Cart = () => {
   // Kiem tra xem khach hang da dang nhap chua
@@ -45,6 +46,7 @@ const Cart = () => {
   const [success, setSuccess] = useState<boolean>(false);
   const [noItem, setNoItem] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [affCookie, setAffCookie] = useState<any>();
   const vertical = 'top';
   const horizontal = 'center';
 
@@ -55,8 +57,14 @@ const Cart = () => {
     if (info) {
       setUserInfo(JSON.parse(info));
     }
+    if (Cookies.get('affId')) {
+      const aff = Cookies.get('affId');
+      setAffCookie(JSON.parse(aff));
+    }
   }, []);
 
+  console.log(affCookie);
+  
   useEffect(() => {
     if (typeof cartContext.cart !== 'undefined' && cartContext.cart.length > 0) {
       setCartData(cartContext.cart);
@@ -79,7 +87,7 @@ const Cart = () => {
         discount: handleDiscount(item),
         price: handleCoursePrice(item),
         couponCode: item.couponCode,
-        affiliateId: item.affiliateId,
+        affiliateId: item.affiliateId ? item.affiliateId : affCookie?.affiliateId,
       } as OrderItemRequest;
       itemList.push(orderItemRequest);
     });
@@ -95,8 +103,19 @@ const Cart = () => {
       if(res.data === "Successful") {
         handleClose();
         setSuccess(true);
+        var newList = userInfo.listCourses;
+        cartData.forEach(item => {
+          newList.push(item.coureseId);
+        })
         setCartData([]);
         cartContext.removeAll();
+        if (localStorage.get('user-info')) {
+          var info = {...userInfo, listCourses: newList}
+          localStorage.set('user-info', JSON.stringify(info));
+        } else if (sessionStorage.get('user-info')) {
+          var info = {...userInfo, listCourses: newList}
+          sessionStorage.set('user-info', JSON.stringify(info));
+        }
       } else {
         console.log(res.data);
         setError(true);
