@@ -38,6 +38,16 @@ const CourseRating: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
     setPageNum(value);
   };
 
+  const handleShowRating = () => {
+    if (ratings.length > 0) {
+
+    } else {
+      <Box>
+        <Typography variant="h5">Khóa học chưa có đánh giá</Typography>
+      </Box>
+    }
+  }
+
   return (
     <>
       <Box>
@@ -65,11 +75,11 @@ const CourseRating: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
                 <Grid justifyContent={'left'} item xs={9} key={item.id}>
                   <Rating readOnly value={item.value ? item.value : 0} key={item.id} />
                   <Typography variant="h6" sx={{ margin: 0, textAlign: 'left' }}>
-                    {item.studentName ? item.studentName : 'Anonymous'}
+                    {item.name ? item.name : 'Anonymous'}
                   </Typography>
                   <Typography sx={{ textAlign: 'left' }}>{item.content}</Typography>
                   <Typography sx={{ textAlign: 'left', color: 'gray' }}>
-                    {item.createdAt ? item.createdAt : ''}
+                    {item.createdDate ? item.createdDate : ''}
                   </Typography>
                 </Grid>
               </Grid>

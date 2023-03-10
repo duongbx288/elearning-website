@@ -36,7 +36,7 @@ export type Course = {
   status?: string;
   description?: string;
   introduction?: string;
-  createdAt?: string;
+  createdDate?: string;
   boughtCount?: number;
 };
 
@@ -140,7 +140,7 @@ const TeacherDetail = () => {
         },
       },
       {
-        accessorKey: 'createdAt',
+        accessorKey: 'createdDate',
         header: 'Tạo ngày',
         size: 200,
         Cell: ({ cell }) => {
@@ -215,7 +215,7 @@ const TeacherDetail = () => {
         },
       },
       {
-        accessorKey: 'createdAt',
+        accessorKey: 'createdDate',
         header: 'Tạo ngày',
         size: 200,
         Cell: ({ cell }) => {

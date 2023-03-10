@@ -26,6 +26,8 @@ export type Lesson = {
     status?: string;
     lessonNumber: string;
     locked?: string;
+    createdDate?: Date;
+    lastModifiedDate?: Date;
 }
 
 export type LessonInfo = {
@@ -35,8 +37,8 @@ export type LessonInfo = {
     introduction?: string;
     content?: string;
     startNumber: string;
-    createdAt?: Date;
-    lastModifiedAt?: Date;
+    createDate?: Date;
+    lastModifiedDate?: Date;
     videoLink?: string;
     locked: number;
 }

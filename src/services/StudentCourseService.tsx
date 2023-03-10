@@ -28,6 +28,7 @@ class StudentCourseService {
         return axios.get(`/api/student_course/studentId=${id}/courseId=${courseId}`);
     }
 
+
 }
 
 export default new StudentCourseService();

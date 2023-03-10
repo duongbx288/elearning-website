@@ -1,7 +1,9 @@
-import * as React from 'react';
+import {useEffect, useState} from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { InputBase } from '@mui/material';
+import { Divider, InputBase, Menu, MenuItem, MenuProps, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
+import CourseService, { CourseRequest, CourseCriteria } from '../../../../../services/CourseService';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,15 +48,127 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledMenu = styled((props: MenuProps) => (
+  <Menu
+    elevation={2}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'left',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'left',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 180,
+    color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+    boxShadow:
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
+    },
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      '&:active': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity
+        ),
+      },
+    },
+  },
+}));
+
 const SearchBar = () => {
+
+  const navigate = useNavigate();
+  // criteria
+  const [courses, setCourses] = useState<CourseRequest[]>([]);
+  const [criteria, setCriteria] = useState<CourseCriteria>({});
+  const [name, setName] = useState<string | null>();
+
+  // For menu
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    CourseService.findCourses(criteria).then((res) => {
+      if (res.data) {
+        setCourses(res.data.content);
+      }
+    });
+  }, [criteria]);
+
+  useEffect(() => {
+    const criteria1 = {
+      limit: 5,
+      page: 0,
+      name: name,
+    } as CourseCriteria;
+    setCriteria(criteria1);
+  }, [name]);
+
+  const handleChange = (e: any) => {
+    setName(e.target.value);
+  }
+
   return (
     <>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
-        <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }}/>
+        <StyledInputBase placeholder="Search…" 
+        aria-controls={(name && name.length > 0) ? 'demo-customized-menu' : undefined} 
+        aria-haspopup="true"
+        aria-expanded={(name && name.length > 0) ? 'true' : undefined} 
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={handleChange}
+        />
       </Search>
+      {/* <StyledMenu
+        id="demo-customized-menu"
+        disableEnforceFocus
+        disableRestoreFocus
+        disableAutoFocus
+        disableAutoFocusItem
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={(name && name.length > 0) ? true : false}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: 48 * 4.5,
+            width: '20ch',
+          },
+        }}
+      >
+        {courses.map((item) => {
+          return (
+            <MenuItem key={item.id} onClick={() => navigate(`/course-info/`+item.id)} disableRipple>
+              <Typography variant="inherit" noWrap key={item.id}>
+                {item.name}
+              </Typography>
+              <Divider sx={{ my: 0.5 }} />
+            </MenuItem>
+          );
+        })}
+      </StyledMenu> */}
     </>
   );
 };

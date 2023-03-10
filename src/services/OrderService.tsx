@@ -12,8 +12,8 @@ export type OrderRequest = {
     discount?: number; // So tien khuyen mai
     total?: number; // Tong tien sau khi tinh khuyen mai
     status?: string;
-    createdAt?: Date;
-    lastModifiedAt?: Date;
+    createdDate?: Date;
+    lastModifiedDate?: Date;
     createdBy?: string;
     lastModifiedBy?: string;
     orderItems?: OrderItemRequest[];

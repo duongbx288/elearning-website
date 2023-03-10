@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 
-const StudentRating = ({rating, setRating}) => {
+const StudentRating = ({rating, setRating, readonly}) => {
   function getLabelText(value: number) {
     return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
   }
@@ -31,6 +31,7 @@ const StudentRating = ({rating, setRating}) => {
         name="hover-feedback"
         value={rating? rating : value}
         precision={1}
+        readOnly={readonly}
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
           setValue(newValue);

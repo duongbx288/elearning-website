@@ -44,6 +44,7 @@ const RecommendCourse = ({ studentId }) => {
               console.log(res.data);
               setRecommended(res.data);
               check = 1;
+              setLoading(false);
             }
           });
         }
@@ -68,7 +69,7 @@ const RecommendCourse = ({ studentId }) => {
       });
   }, []);
 
-  return (
+  return !loading ? (
     <>
       <Box>
         <Typography></Typography>
@@ -123,7 +124,11 @@ const RecommendCourse = ({ studentId }) => {
         </Grid>
       </Box>
     </>
-  );
+  ) : (
+    <Box display={'flex'} justifyContent={'center'} margin={2}>
+      <CircularProgress/>
+    </Box>
+  )
 };
 
 export default RecommendCourse;
