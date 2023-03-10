@@ -64,7 +64,7 @@ const MainLayout = (props: any) => {
         <Route path="/admin/order/detail/:id" element={<OrderDetail />} />
         <Route path="/admin/order" element={<OrderList />} />
         <Route path="/admin/send-email" element={<ContactUs />} />
-        {/* <Route path="/admin/" element={<Navigate to={'admin/teacher'} />} /> */}
+        <Route path="/admin/" element={<Navigate to={'/admin/teacher'} />} />
       </Route>
     </Routes>
   );

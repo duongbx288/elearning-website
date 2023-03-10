@@ -103,13 +103,17 @@ const CourseInfo = () => {
                     allowFullScreen
                   ></iframe>
                 ) : (
-                  <div></div>
+                  <div className='img'></div>
                 )}
               </div>
             </Grid>
             <Grid item sm={4} padding={2}>
               {/* <PurchaseCard info={courseInfo?.course} /> */}
-              <PurchaseCard info={courseInfo?.course} affiliateId={affiliateId} couponCode={searchParams.get('_couponCode')}/>
+              <PurchaseCard
+                info={courseInfo?.course}
+                affiliateId={affiliateId}
+                couponCode={searchParams.get('_couponCode')}
+              />
             </Grid>
           </Grid>
         </Grid>

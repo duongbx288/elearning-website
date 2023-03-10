@@ -109,9 +109,9 @@ const StudentCourse = ({ id }) => {
                       color="primary"
                       onClick={() => {
                         navigate(
-                          '/study-course/course=' +
+                          '/study-course/course/' +
                             course.courseId +
-                            '/student=' +
+                            '/student/' +
                             course.studentId,
                           {
                             state: {

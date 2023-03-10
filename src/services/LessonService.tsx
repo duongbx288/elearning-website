@@ -11,6 +11,7 @@ export type LessonRequest = {
     introduction?: string;
     status?: string;
     lessonNumber?: string;
+    locked?: string;
 }
 
 export type Lesson = {
@@ -24,7 +25,7 @@ export type Lesson = {
     introduction?: string;
     status?: string;
     lessonNumber: string;
-    lessonInfos?: LessonInfo[];
+    locked?: string;
 }
 
 export type LessonInfo = {

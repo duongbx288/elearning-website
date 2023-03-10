@@ -43,8 +43,6 @@ const ManageCourse = ({ teacherId }) => {
                       //  alt="image_alt.PNG"
                       src={item.cover}
                     />
-                    {item.name}
-                    {item.teacherName}
                   </CardContent>
                   <CardActions>{item.price}</CardActions>
                 </Card>

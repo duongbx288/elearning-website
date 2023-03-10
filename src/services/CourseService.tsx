@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { CommentResponse } from './CommentService';
+import { Lesson, LessonRequest } from './LessonService';
 import { RatingResponse } from './RatingService';
 
 export type CourseResponse = {
@@ -39,6 +40,7 @@ export type CourseRequest = {
     couponCode?: string | null;
     affiliateId?: number | null;
     discount?: number | null;
+    lessons?: LessonRequest[];
 }
 
 export type CourseCriteria = {
@@ -56,6 +58,10 @@ export type CourseCriteria = {
 class CourseService {
     getAllPag = (request: CourseRequest) => {
         return axios.get(`/api/course/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`)
+    }
+
+    createCourse = (request: CourseRequest) => {
+        return axios.post(`/api/course/create`, request);
     }
 
     getRecommendCourse = (criteria: CourseCriteria) => {

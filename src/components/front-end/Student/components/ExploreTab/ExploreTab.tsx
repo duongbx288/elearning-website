@@ -30,7 +30,7 @@ const ExploreTab = ({ id, studentInfo }) => {
 
   return (
     <Box padding={1} margin={1} border={1}>
-      <Typography>
+      <Typography variant='h6'>
         <BookIcon /> {`Các khóa học được gợi ý cho bạn:`}
       </Typography>
       <Box>

@@ -48,13 +48,6 @@ const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
     lessonList.sort(function (a, b) {
       return parseFloat(a?.lessonNumber) - parseFloat(b?.lessonNumber);
     });
-    lessonList.forEach((lesson) => {
-      if (lesson.lessonInfos && lesson.lessonInfos.length > 0) {
-        lesson.lessonInfos.sort(function (a, b) {
-          return parseFloat(a?.startNumber) - parseFloat(b?.startNumber);
-        });
-      }
-    });
   }, [lessonList]);
 
   const handleOpen = (link: string | undefined) => {
@@ -122,11 +115,11 @@ const CourseCurriculum: React.FC<CourseInfo> = ({ courseId }: CourseInfo) => {
             </AccordionSummary>
             <AccordionDetails>
               {/* <Typography>{`${lesson.name}`}</Typography> */}
-              {lesson.lessonInfos && lesson.lessonInfos.length > 0 ? (
+              {/* {lesson.lessonInfos && lesson.lessonInfos.length > 0 ? (
                 <Box>{lessonInfoList(lesson.lessonInfos)}</Box>
               ) : (
                 <></>
-              )}
+              )} */}
             </AccordionDetails>
           </Accordion>
         );
