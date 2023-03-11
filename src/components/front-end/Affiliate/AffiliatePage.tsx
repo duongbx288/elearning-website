@@ -9,6 +9,8 @@ import AddLinkIcon from '@mui/icons-material/AddLink';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import CouponManage from './components/coupon/CouponManage';
+import IncomeTab from './components/income/IncomeTab';
+import OrderTab from './components/order/OrderTab';
 
 const AffiliatePage = () => {
   const navigate = useNavigate();
@@ -51,22 +53,18 @@ const AffiliatePage = () => {
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Lấy link" icon={<AddLinkIcon/>} iconPosition="start" {...a11yProps(0)} />
             <Tab label="Đơn hàng" icon={<CreditCardIcon/>} iconPosition="start" {...a11yProps(1)} />
-            <Tab label="Thu nhập" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(2)} />
-            <Tab label="Coupon" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(3)} />
+            <Tab label="Coupon" icon={<BarChartIcon/>} iconPosition="start" {...a11yProps(2)} />
           </Tabs>
           <Divider/>
           <TabPanel value={value} index={0}>
             <GetLinkTab id={id} info={info}/>
           </TabPanel>
-          <TabPanel value={value} index={3}>
+          <TabPanel value={value} index={2}>
             <CouponManage id={id} info={info}/>
           </TabPanel>
-          {/* <TabPanel value={value} index={1}>
-            <InfoTab id={id} info={info} />
+          <TabPanel value={value} index={1}>
+            <OrderTab id={id}/>
           </TabPanel>
-          <TabPanel value={value} index={2}>
-            <ExploreTab id={id} info={info} />
-          </TabPanel> */}
         </Box>
       </Box>
     </Box>

@@ -85,6 +85,7 @@ const Cart = () => {
         courseId: item.id,
         initPrice: item.price,
         discount: handleDiscount(item),
+        total: item.price - handleDiscount(item),
         price: handleCoursePrice(item),
         couponCode: item.couponCode,
         affiliateId: item.affiliateId ? item.affiliateId : affCookie?.affiliateId,

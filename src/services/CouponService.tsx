@@ -17,6 +17,10 @@ class CouponService {
     checkExistCoupon = async (coupon: string) => {
         return axios.get(`/api/coupon/check/code=${coupon}`);
     }
+
+    getCouponByAff = (id: number, pageLimit: number, pageNum: number) => {
+        return axios.get(`/api/coupon/affId=${id}/pageNum=${pageNum}/pageLimit=${pageLimit}`)
+    }
 }
 
 export default new CouponService();

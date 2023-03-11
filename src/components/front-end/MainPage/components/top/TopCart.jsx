@@ -139,15 +139,6 @@ const TopCart = ({ courses }) => {
                   </>
                 }
               >
-                {/* <div className="box product" key={course.id}>
-                  <div className="nametop d_flex">
-                    <span className="tleft">{course.name}</span>
-                    <span className="tright">{course.studentCount}</span>
-                  </div>
-                  <div className="img">
-                    <img src={course.cover} alt="" />
-                  </div>
-                </div> */}
                 <Card sx={{ margin: 2, padding: 1 }}>
                   <CardActionArea>
                     <CardMedia
@@ -160,6 +151,7 @@ const TopCart = ({ courses }) => {
                         minHeight: '170px',
                         maxHeight: '170px',
                       }}
+                      onClick={() => navigate(`/course-info/`+course.id)}
                     />
                     <CardContent>
                       <Typography noWrap variant="h6">
@@ -183,8 +175,8 @@ const TopCart = ({ courses }) => {
                     </CardContent>
                   </CardActionArea>
                   <CardActions display={'flex'} sx={{ justifyContent: 'space-between' }}>
-                    <Button size="small" color="primary">
-                      Share
+                    <Button variant="outlined" size="small" color="primary" onClick={() => navigate('/course-info/'+course.id)}>
+                        Xem thông tin 
                     </Button>
                     <Typography sx={{ marginRight: 2}}>
                       {course.price} đ

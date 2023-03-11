@@ -12,7 +12,7 @@ const TopCate = () => {
       pageNum: 0,
       pageLimit: 5,
     };
-    CourseService.getTopCourse().then((res) => {
+    CourseService.getHighRating().then((res) => {
       console.log(res);
       if (res.data){
         setCourses(res.data);

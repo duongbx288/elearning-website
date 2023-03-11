@@ -7,14 +7,9 @@ const FlashDeals = () => {
   const [courses, setCourses] = useState<CourseRequest[]>([]);
 
   useEffect(() => {
-    const request:CourseRequest = {
-      pageNum: 0,
-      pageLimit: 5,
-    };
-    CourseService.getAllPag(request).then((res) => {
-      console.log(res);
-      if (res.data.content.length > 0) {
-        setCourses(res.data.content);
+    CourseService.getNewCourses().then((res) => {
+      if (res.data) {
+        setCourses(res.data);
       }
     });
   }, []);

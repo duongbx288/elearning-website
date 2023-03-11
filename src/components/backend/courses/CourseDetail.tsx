@@ -18,6 +18,7 @@ import { MRT_Localization_VI } from 'material-react-table/locales/vi';
 import StudentCourseService from '../../../services/StudentCourseService';
 import { Course } from './type';
 import CourseService from '../../../services/CourseService';
+import { CourseRatingRequest } from '../../../services/CourseRatingService';
 
 interface CustomerState {
   id: number;
@@ -64,9 +65,9 @@ const CourseDetail = () => {
           setStudentComplete(res2.data);
         }
       })
-      CourseService.getCommentOfCourse(courseId.id).then((res3) => {
+      CourseService.getRatingOfCourse(courseId.id).then((res3) => {
         if(res3.data){
-          setData(res3.data);
+          setRating(res3.data);
         }
       })
     });
@@ -82,15 +83,19 @@ const CourseDetail = () => {
     } else return;
   };
 
-  const columns = useMemo<MRT_ColumnDef<Course>[]>(
+  const columns = useMemo<MRT_ColumnDef<CourseRatingRequest>[]>(
     () => [
       {
-        accessorKey: 'price',
-        header: 'price',
+        accessorKey: 'studentId',
+        header: 'Id học viên',
       },
       {
-        accessorKey: 'status',
-        header: 'Trạng thái ',
+        accessorKey: 'value',
+        header: 'Điểm đánh giá',
+      },
+      {
+        accessorKey: 'content',
+        header: 'Nội dung',
         size: 200,
         Cell: ({ cell }) => {
           return statusProcess(cell.getValue());
@@ -175,30 +180,13 @@ const CourseDetail = () => {
         <Box sx={{ padding: 2 }}>
           <MaterialReactTable
             columns={columns}
-            data={data}
+            data={rating}
             localization={MRT_Localization_VI}
             renderTopToolbar={({ table }) => {
               return (
                 <>
                   <Box sx={{ padding: 2 }}>
                     <Typography>Đánh giá về khóa học</Typography>
-                  </Box>
-                  <Divider />
-                </>
-              );
-            }}
-          />
-        </Box>
-        <Box sx={{ padding: 2 }}>
-          <MaterialReactTable
-            columns={columns}
-            data={data}
-            localization={MRT_Localization_VI}
-            renderTopToolbar={({ table }) => {
-              return (
-                <>
-                  <Box sx={{ padding: 2 }}>
-                    <Typography>Bình luận về khóa học</Typography>
                   </Box>
                   <Divider />
                 </>

@@ -33,8 +33,29 @@ export type OrderItemRequest = {
     name?: string;
     teacherId?: string;
     cover?: string;
+    studentName?: string;
+    createdDate?: Date;
 }
 
+export type OrderItemResponse = {
+    id: number;
+    orderId?: number;
+    courseId?: number;
+    initPrice?: number;
+    discount?: number;
+    total?: number;
+    couponCode?: string | null;    
+    affiliateId?: number;
+    studentName?: string;
+}
+
+export type OrderItemCriteria = {
+    limit?: number;
+    page?: number;
+    affiliateId?: number;
+    year?: number;
+    month?: number;
+}
 
 class OrderService {
     getAllPag = (request: OrderRequest) => {
@@ -67,6 +88,12 @@ class OrderService {
     
     getOrderItemByOrderId = (id: number) => {
         return axios.get(`/api/order-item/orderId=${id}`);
+    }
+
+    findOrderItem = (criteria: OrderItemCriteria) => {
+        return axios.get(`/api/order-item/search`, 
+        {params: criteria},
+        );
     }
 
 }

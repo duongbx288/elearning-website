@@ -70,6 +70,14 @@ class CourseService {
         );
     }
 
+    getHighRating = () => {
+        return axios.get(`/api/course/high-rating`);
+    }
+
+    getNewCourses = () => {
+        return axios.get(`/api/course/new`);
+    }
+
     findCourses = (criteria: CourseCriteria) => {
         return axios.get(`/api/course/info/search/`, 
         {params: criteria},
