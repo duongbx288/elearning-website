@@ -14,6 +14,7 @@ import AffiliatePage from '../components/front-end/Affiliate/AffiliatePage';
 import MainPage from '../components/front-end/MainPage/MainPage';
 import TeacherPage from '../components/front-end/teacher/TeacherPage';
 import CreateCourse from '../components/front-end/teacher/components/manageCourse/CreateCourse';
+import UpdateCourse from '../components/front-end/teacher/components/manageCourse/UpdateCourse';
 
 export const HeaderFooter = () => {
   return (
@@ -36,6 +37,7 @@ const ClientMainLayout = () => {
           <Route path="course-info/:id" element={<CourseInfo/>} />
           {/* <Route path="course-info/:id/:affiliateId" element={<CourseInfo/>} /> */}
           <Route path="course-info/:id/:redirectParam" element={<CourseInfo/>} />
+          <Route path="course-update/:id/teacher/:teacherId" element={<UpdateCourse/>} />
           <Route path="" element={<Navigate to="main"/>}/>
           <Route path="student-info/:id" element={<StudentInfo/>}></Route>
           <Route path="student-page/:id" element={<StudentPage/>}></Route>

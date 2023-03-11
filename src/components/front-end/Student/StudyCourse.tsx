@@ -101,13 +101,11 @@ const StudyCourse = () => {
     if (courseId && courseId != null && !isNaN(Number(courseId))) {
       CourseService.getById(Number(courseId)).then((res) => {
         if (res.data) {
-          console.log('course', res.data);
           setCourseInfo(res.data);
         }
       });
       LessonService.getByCourseId(Number(courseId)).then((res) => {
         if (res.data) {
-          console.log('lesson', res.data);
           setCourseLessons(res.data);
         }
       });

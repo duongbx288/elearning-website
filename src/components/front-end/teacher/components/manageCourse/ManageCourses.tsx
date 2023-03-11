@@ -43,8 +43,11 @@ const ManageCourse = ({ teacherId }) => {
                       //  alt="image_alt.PNG"
                       src={item.cover}
                     />
+                    <Typography></Typography>
                   </CardContent>
-                  <CardActions>{item.price}</CardActions>
+                  <CardActions>
+                  <Button variant={"outlined"} onClick={() => {navigate('/course-update/'+ item.id + '/teacher/' + teacherId)}}>Cập nhật</Button>
+                  </CardActions>
                 </Card>
               </Box>
             </Grid>
