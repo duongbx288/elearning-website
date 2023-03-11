@@ -5,6 +5,12 @@ class Common {
         return this.numberFormat.format(info);
     }
 
+    handleDate = (date) => {
+        if (date) {
+          const toString = new Date(date).toLocaleDateString();
+          return String(toString);
+        } else return '----';
+      };
 
 }
 

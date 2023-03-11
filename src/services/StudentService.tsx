@@ -46,6 +46,7 @@ class StudentService {
     getStudentPurchaseInfo = (request: number) => {
         return axios.get(`/api/students/get-purchase-info/student-id=${request}`);
     }
+
 }
 
 export default new StudentService();
