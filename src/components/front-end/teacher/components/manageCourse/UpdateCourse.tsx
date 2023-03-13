@@ -19,7 +19,7 @@ const UpdateCourse = () => {
   const [teacherInfo, setTeacherInfo] = useState<TeacherResponse>();
 
   // For Tabs
-  const [basicInfo, setBasicInfo] = useState<CourseRequest>();
+  const [basicInfo, setBasicInfo] = useState<CourseRequest>(temp);
   const [image, setImage] = useState<any>('');
   const [lessons, setLessons] = useState<LessonRequest[]>([]);
 
@@ -39,6 +39,11 @@ const UpdateCourse = () => {
     });
   }, [courseLessons]);
 
+  const handleInfoPassed = (info) => {
+
+    setBasicInfo(info);
+  }
+
   useEffect(() => {
     document.title = 'Cập nhật khóa học';
     if (id !== null) {
@@ -47,6 +52,7 @@ const UpdateCourse = () => {
           setCourseInfo(res.data);
           setImage(res.data.cover);
           setBasicInfo(res.data);
+          handleInfoPassed(res.data);
         }
       });
       LessonService.getByCourseId(Number(id)).then((res1) => {
@@ -73,16 +79,17 @@ const UpdateCourse = () => {
   const updateCourse = () => {
     const courseRequest = {
       id: id,
-      teacherId: basicInfo?.teacherId,
+      teacherId: teacherId,
       name: basicInfo?.name,
       description: basicInfo?.description,
       introduction: basicInfo?.introduction,
       price: basicInfo?.price ? Number(basicInfo.price) : 0,
-      typeId: Number(basicInfo?.typeId),
+      typeId: Number(basicInfo.typeId),
       link: basicInfo?.link,
       cover: image,
       lessons: lessons,
       createdDate: courseInfo?.createdDate,
+      rating: courseInfo?.rating && courseInfo.rating != null ? courseInfo.rating : 0
     } as CourseRequest;
     console.log(courseRequest);
     CourseService.createCourse(courseRequest).then((res) => {
@@ -90,6 +97,8 @@ const UpdateCourse = () => {
         console.log('nice');
         navigate(`/teacher-page/`+teacherId);
       }
+    }).catch((err) => {
+      console.log(err);
     })
   };
 
@@ -142,7 +151,7 @@ const UpdateCourse = () => {
           </Tabs>
           <Divider />
           <TabPanel value={value} index={0}>
-            <BasicInfos setBInfo={handleBasicInfo} info={courseInfo} courseId={id} />
+            <BasicInfos setBInfo={handleBasicInfo} info={basicInfo} courseId={id} />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <ImageUpload setCImage={handleImageURL} image={image} />

@@ -22,7 +22,7 @@ const CreateCourse = () => {
   const [lessons, setLessons] = useState<LessonRequest[]>([]);
 
   useEffect(() => {
-    document.title = 'Tạo khóa học';
+    document.title = 'ELearning - học trực tuyến';
     if (id !== null && typeof id === 'string') {
       TeacherService.getTeacherById(Number(id)).then((res) => {
         if (res.data) {
@@ -40,7 +40,7 @@ const CreateCourse = () => {
 
   const createNewCourse = () => {
     const courseRequest = {
-      teacherId: basicInfo.teacherId,
+      teacherId: id,
       name: basicInfo.name,
       description: basicInfo.description,
       introduction: basicInfo.introduction,

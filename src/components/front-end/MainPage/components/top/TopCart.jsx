@@ -171,7 +171,7 @@ const TopCart = ({ courses }) => {
                           whiteSpace: 'pre-line',
                         }}
                       >
-                        {course.description}
+                        {course.introduction}
                       </Typography>
                     </CardContent>
                   </CardActionArea>

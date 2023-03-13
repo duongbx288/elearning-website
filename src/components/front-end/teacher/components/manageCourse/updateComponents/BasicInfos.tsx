@@ -30,18 +30,16 @@ import {
   const BasicInfos = ({ setBInfo , info, courseId }) => {
     const { id } = useParams();
   
-    const [category, setCategory] = useState<TypeResponse[]>([]);
+    const [category, setCategory] = useState<TypeResponse[]>();
     const [name, setName] = useState<string>(info?.name); // ten khoa hoc
     const [description, setDescription] = useState<string>(info?.description);
     const [introduction, setIntroduction] = useState<string>(info?.introduction);
     const [price, setPrice] = useState<string>(info?.price);
-    const [typeId, setTypeId] = useState<string>(info?.typeId);
+    const [typeId, setTypeId] = useState<string>(info?.typeId && info?.typeId !== null ? info.typeId : 1);
     const [link, setLink] = useState<string>(info?.link); // Video gioi thieu
-  
 
-  
     useEffect(() => {
-      document.title = 'Tạo khóa học';
+      document.title = 'ELearning - học trực tuyến';
       TypeService.getAllType().then((res) => {
         if (res.data) {
           setCategory(res.data);
@@ -49,10 +47,12 @@ import {
       });
     }, []);
   
-    const handleTypeChange = (event: SelectChangeEvent) => {
-      setTypeId(event.target.value);
+    const handleTypeChange = (e: any) => {
+      setTypeId(e.target.value);
     };
   
+
+
     const handleNameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
       setName(event.target.value);
     };
@@ -100,14 +100,12 @@ import {
   
     const handleCreateCourse = () => {
       const newCourse = {
-        teacherId: id,
         name: name,
         description: description ? description : '',
         introduction: introduction,
         price: Number(price),
         typeId: Number(typeId),
         link: link,
-        rating: 0,
       } as CourseRequest;
       setBInfo(newCourse);
     };
@@ -164,7 +162,7 @@ import {
                       },
                     }}
                   >
-                    {category.map((item) => {
+                    {category?.map((item) => {
                       return (
                         <MenuItem value={item.id} key={item.id}>
                           {item.name}
@@ -192,6 +190,7 @@ import {
                 <Typography>Mô tả khóa học</Typography>
                 <ReactQuill
                   theme="snow"
+                  key={'112123213'}
                   modules={modules}
                   formats={formats}
                   value={description ? description : ''}

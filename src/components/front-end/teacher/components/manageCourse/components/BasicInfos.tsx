@@ -40,7 +40,7 @@ const BasicInfos = ({ setBInfo , BInfo }) => {
 
 
   useEffect(() => {
-    document.title = 'Tạo khóa học';
+    document.title = 'ELearning - học trực tuyến';
     TypeService.getAllType().then((res) => {
       if (res.data) {
         setCategory(res.data);
@@ -196,6 +196,7 @@ const BasicInfos = ({ setBInfo , BInfo }) => {
                 value={description ? description : ''}
                 onChange={setDescription}
                 placeholder={'Mô tả...'}
+                key={'abscscd'}
               />
             </Grid>
             <Grid item xs={6} padding={1}>

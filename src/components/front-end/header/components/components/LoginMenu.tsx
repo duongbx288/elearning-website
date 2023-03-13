@@ -55,7 +55,10 @@ const LoginMenu = () => {
     ) {
       navigate('/main');
       window.location.reload();
-    } else window.location.reload();
+    } else {
+      navigate('/main');
+      window.location.reload();
+    }
   };
 
   const handleGoToLearn = () => {
@@ -68,17 +71,21 @@ const LoginMenu = () => {
   const handleGoToAffiliate = () => {
     handleClose();
     if (userInfo.affiliateId && userInfo.affiliateId != null) {
-    navigate('/affiliate-page/' + userInfo?.affiliateId, {
-      state: { id: userInfo?.affiliateId },
-    });
-    } else {navigate('/affiliate-register')}
+      navigate('/affiliate-page/' + userInfo?.affiliateId, {
+        state: { id: userInfo?.affiliateId },
+      });
+    } else {
+      navigate('/affiliate-register');
+    }
   };
 
   const handleGoToTeacher = () => {
     handleClose();
-    navigate('/teacher-page/' + userInfo?.teacherId, {
-      state: { id: userInfo?.teacherId },
-    });
+    if (userInfo.teacherId && userInfo.teacherId != null) {
+      navigate('/teacher-page/' + userInfo?.teacherId, {
+        state: { id: userInfo?.teacherId },
+      });
+    }
   };
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {

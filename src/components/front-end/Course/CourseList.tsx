@@ -76,89 +76,8 @@ const CourseList = () => {
         </Grid>
         <Grid item xs={4}></Grid>
       </Grid>
-
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle></DialogTitle>
-        <DialogContent>Bạn có muốn bỏ khóa học này khỏi giỏ hàng không ?</DialogContent>
-        <DialogActions>
-          <Button color={'primary'} variant={'outlined'} onClick={handleClose}>
-            Không
-          </Button>
-          <Button
-            color={'error'}
-            variant={'contained'}
-            onClick={() => {
-              setOpen(false);
-              removeItem(selected);
-            }}
-          >
-            Có
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 };
 
 export default CourseList;
-
-
-const test = {
-//     <HtmlTooltip
-//     title={
-//       <>
-//         <Box padding={1}>
-//           <Typography variant={'h6'}>Khóa học: {course.name}</Typography>
-//           <br />
-//           <Typography
-//             sx={{
-//               overflow: 'hidden',
-//               textOverflow: 'ellipsis',
-//               display: '-webkit-box',
-//               WebkitLineClamp: '6',
-//               WebkitBoxOrient: 'vertical',
-//               marginBottom: '1',
-//               whiteSpace: 'pre-line',
-//             }}
-//           >
-//             {course.introduction}
-//           </Typography>
-//           <Divider />
-//           <Box margin={1}>
-//             {cartContext.checkExistItem(course) ? (
-//               <Button
-//                 fullWidth
-//                 variant={'contained'}
-//                 color={'error'}
-//                 onClick={() => {
-//                   setSelected(course);
-//                   setOpen(true);
-//                 }}
-//               >
-//                 Bỏ khỏi giỏ hàng
-//               </Button>
-//             ) : (
-//               <Button
-//                 fullWidth
-//                 variant={'outlined'}
-//                 onClick={() => {
-//                   addToCart(course);
-//                 }}
-//               >
-//                 Thêm vào giỏ hàng
-//               </Button>
-//             )}
-//           </Box>
-//         </Box>
-//       </>
-//     }
-//   >
-// <Paper>Hello</Paper>
-// </HtmlTooltip>
-}
