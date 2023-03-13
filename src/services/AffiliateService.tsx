@@ -6,6 +6,14 @@ export type AffiliateRequest = {
     pageNum?: number;
     pageLimit?: number;
     name?: string
+    birthDate?: Date;
+    avatar?: string;
+    address?: string;
+    phoneNumber?: string;
+    facebook?: string;
+    email?: string;
+    status?: string;
+    username?: string;
 }
 
 export type AffiliateResponse = {
@@ -29,6 +37,10 @@ class AffiliateService {
 
     getAffiliatePag = (request: AffiliateRequest) => {
         return axios.get(`/api/affiliate/pagination/pageNum=${request.pageNum}/pageLimit=${request.pageLimit}`);
+    }
+
+    registerAffiliate = (request: AffiliateRequest) => {
+        return axios.post(`/api/affiliate/add`, request);
     }
 
     updateAffiliateStatus = (request: AffiliateRequest) => {

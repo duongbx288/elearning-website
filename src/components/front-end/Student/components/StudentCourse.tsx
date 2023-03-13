@@ -93,6 +93,7 @@ const StudentCourse = ({ id }) => {
                       height: '80px',
                       fontSize: '15px',
                     }}
+                    titleTypographyProps={{ fontSize: '18px'}}
                     title={course.courseName}
                   >
                   </CardHeader>
@@ -100,7 +101,7 @@ const StudentCourse = ({ id }) => {
                     <Box
                       component={'img'}
                       //  alt="image_alt.PNG"
-                      src={course.cover}
+                      src={course.cover ? course.cover : './Alternate.PNG'}
                     ></Box>
                   </CardContent>
                   <CardActions sx={{ margin: 1 }}>

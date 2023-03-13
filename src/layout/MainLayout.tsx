@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
-import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
+import { Route, Routes, Outlet, Navigate, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 
 import TeacherList from '../components/backend/teachers/TeacherList';
@@ -66,6 +66,21 @@ const MainLayout = (props: any) => {
         <Route path="/admin/send-email" element={<ContactUs />} />
         <Route path="/admin/" element={<Navigate to={'/admin/teacher'} />} />
       </Route>
+        {/* <Route path="" element={<InitLayout />}>
+        <Route path="teacher" element={<TeacherList />} />
+        <Route path="teacher/detail/:id" element={<TeacherDetail />} />
+        <Route path="student" element={<StudentList />} />
+        <Route path="student/detail/:id" element={<StudentDetail />} />
+        <Route path="student/update/:id" element={<StudentUpdate />} />
+        <Route path="affiliate" element={<AffiliateList />} />
+        <Route path="affiliate/detail/:id" element={<AffiliateDetail />} />
+        <Route path="course" element={<CourseList />} />
+        <Route path="course/detail/:id" element={<CourseDetail />} />
+        <Route path="order/detail/:id" element={<OrderDetail />} />
+        <Route path="order" element={<OrderList />} />
+        <Route path="send-email" element={<ContactUs />} /> */}
+        {/* <Route path="/" element={<Navigate to={'/admin/teacher'} />} /> */}
+      {/* </Route> */}
     </Routes>
   );
 };

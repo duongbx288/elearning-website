@@ -96,15 +96,16 @@ const CourseInfo = () => {
           <Grid container item sm={12} margin={2} sx={{ mt: 0 }}>
             <Grid item sm={8} padding={2}>
               <div className="ratio ratio-16x9 video">
-                {courseInfo?.course.link ? (
                   <iframe
-                    src={courseInfo?.course.link}
+                    src={
+                      courseInfo?.course.link && courseInfo?.course.link !== null
+                        ? courseInfo?.course.link
+                        : "https://www.youtube.com/embed/KcQoJS9R6Lk"
+                    }
                     title="video"
                     allowFullScreen
+                    allow="accelerometer; autoplay;"
                   ></iframe>
-                ) : (
-                  <div className='img'></div>
-                )}
               </div>
             </Grid>
             <Grid item sm={4} padding={2}>

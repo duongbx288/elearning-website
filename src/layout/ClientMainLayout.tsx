@@ -46,7 +46,6 @@ const ClientMainLayout = () => {
           <Route path="affiliate-page/:id" element={<AffiliatePage/>}></Route>
           <Route path="teacher-page/:id" element={<TeacherPage/>}></Route>
           <Route path="teacher-page/:id/create-course" element={<CreateCourse/>}></Route>
-          
         </Route>
       </Routes>
     </>

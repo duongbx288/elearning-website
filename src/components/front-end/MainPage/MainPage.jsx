@@ -4,8 +4,11 @@ import FlashDeals from './components/flashDeals/FlashDeals';
 import TopCate from './components/top/TopCate';
 import Wrapper from './components/wrapper/Wrapper';
 import axios from 'axios';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,6 +22,7 @@ const MainPage = () => {
 
   return (
     <>
+      <Button onClick={() => navigate('/teacher-register')}>Hello</Button>
       <Home />
       <FlashDeals/>
       <TopCate />

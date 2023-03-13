@@ -38,6 +38,8 @@ import StudyCourse from './components/front-end/Student/StudyCourse';
 import AffiliatePage from './components/front-end/Affiliate/AffiliatePage';
 import MainPage from './components/front-end/MainPage/MainPage';
 import StudentPage from './components/front-end/Student/StudentPage';
+import AffiliateRegister from './components/front-end/auth/AffiliateRegister';
+import TeacherRegister from './components/front-end/auth/TeacherRegister';
 
 interface AppProps extends PropsFromRedux {}
 
@@ -56,8 +58,10 @@ const App = (props: AppProps) => {
             <Routes>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/sign-in" element={<SignIn />} />
+              <Route path="affiliate-register" element={<AffiliateRegister />}/>
+              <Route path="teacher-register" element={<TeacherRegister />}/>
               {/* <Route
-                path="/"
+                path="/admin"
                 element={
                   <RequireAuth redirectTo={'/login'}>
                     <MainLayout/>

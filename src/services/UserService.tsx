@@ -13,8 +13,6 @@ export type UserInfo = {
     roles?: string;
 }
 
-
-
 class UserService {
 
     getUserInfoByUsername(username: string) {

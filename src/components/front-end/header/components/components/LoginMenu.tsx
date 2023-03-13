@@ -34,6 +34,8 @@ const LoginMenu = () => {
 
   const isMenuOpen = Boolean(anchorEl);
 
+  console.log(account.username);
+
   useEffect(() => {
     setUsername(account.username);
     let info = localStorage.getItem('user-info') || sessionStorage.getItem('user-info');
@@ -65,9 +67,11 @@ const LoginMenu = () => {
 
   const handleGoToAffiliate = () => {
     handleClose();
+    if (userInfo.affiliateId && userInfo.affiliateId != null) {
     navigate('/affiliate-page/' + userInfo?.affiliateId, {
       state: { id: userInfo?.affiliateId },
     });
+    } else {navigate('/affiliate-register')}
   };
 
   const handleGoToTeacher = () => {

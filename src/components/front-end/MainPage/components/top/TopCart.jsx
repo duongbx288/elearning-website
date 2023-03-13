@@ -144,7 +144,7 @@ const TopCart = ({ courses }) => {
                     <CardMedia
                       component="img"
                       height="170"
-                      image={course.cover}
+                      image={course.cover && course.cover != null ? course.cover : './images/flash/Alternate.PNG' }
                       alt={course.name}
                       sx={{
                         objectFit: 'contain',

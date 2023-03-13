@@ -13,12 +13,13 @@ export type TeacherResponse = {
     teacherCode?: string;
     name?: string;
     avatar?: string;
-    birthdate?: Date | string;
+    birthDate?: Date | string;
     title?: string;
     description?: string;
     phoneNumber?: string;
     city?: string;
     status?: string;
+    username?: string;
 }
 
 class TeacherService {
@@ -26,6 +27,11 @@ class TeacherService {
     getAllTeacher = () => {
         return axios.get(`/api/teacher`);
     };
+
+    registerTeacher = (request: TeacherRequest) => {
+        return axios.post(`/api/teacher/add`, request);
+    }
+
 
     getTeacherById = (id: number) => {
         return axios.get(`/api/teacher/${id}`);

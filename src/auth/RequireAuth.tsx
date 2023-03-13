@@ -8,6 +8,7 @@ export function RequireAuth({ children, redirectTo, hasAnyAuthorities = [] }) {
   );
   const account = useAppSelector((state) => state.authentication.account);
   const isAuthorized = hasAnyAuthority(account.authorities, hasAnyAuthorities);
+  const navigate = useNavigate();
 
   const checkAuthorities = () => {
     if(isAuthorized) {
@@ -27,7 +28,8 @@ export function RequireAuth({ children, redirectTo, hasAnyAuthorities = [] }) {
     if (!sessionHasBeenFetched) {
       return <div></div>;
     } else {
-      return isAuthenticated ? children : <Navigate to={redirectTo} replace/>;
+      // return isAuthenticated ? children : <Navigate to={redirectTo} replace/>;
+      return isAuthenticated ? children :  navigate(redirectTo);
     }
   };
 

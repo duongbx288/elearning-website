@@ -27,7 +27,6 @@ const RecommendCourse = ({ studentId }) => {
   useEffect(() => {
     setLoading(true);
     var criteria = {} as CourseCriteria;
-    var check = 0;
     axios
       .get('http://127.0.0.1:8000/recommend/get-course/' + studentId)
       .then((res) => {
@@ -43,7 +42,6 @@ const RecommendCourse = ({ studentId }) => {
             if (res.data) {
               console.log(res.data);
               setRecommended(res.data);
-              check = 1;
               setLoading(false);
             }
           });
@@ -51,23 +49,19 @@ const RecommendCourse = ({ studentId }) => {
       })
       .catch((error) => {
         console.log('cant get recommend course');
-      }).finally(() => {
-        if (check === 1) {}
-        else {
-          const criteria = {
-            listCourseId: [],
-            studentId: studentId,
-          } as CourseCriteria;
-          CourseService.getRecommendCourse(criteria).then((res) => {
-            if (res.data) {
-              console.log(res.data);
-              setRecommended(res.data);
-              setLoading(false);
-            }
-          });
-        }
+        criteria = {
+          listCourseId: [],
+          studentId: studentId,
+        } as CourseCriteria;
+        CourseService.getRecommendCourse(criteria).then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            setRecommended(res.data);
+            setLoading(false);
+          }
+        });
       });
-  }, []);
+  }, [studentId]);
 
   return !loading ? (
     <>
@@ -97,9 +91,9 @@ const RecommendCourse = ({ studentId }) => {
                 <CardContent sx={{ height: '120px', width: '100%' }}>
                   <Box
                     component={'img'}
-                    alt="image_alt.PNG"
+                    alt="Cover image"
                     sx={{ objectFit: 'contain' }}
-                    src={item.cover}
+                    src={item.cover && item.cover !== null ? item.cover : './Alternate.PNG'}
                   ></Box>
                 </CardContent>
                 <CardActions sx={{ margin: 1 }}>

@@ -25,7 +25,6 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.authentication.isAuthenticated);
-  console.log(isAuthenticated);
   // loading state
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -62,7 +61,8 @@ const SignIn = () => {
       email: newEmail,
       name: newName
     }
-    UserService.saveUserInfo(info).then((res) => {
+    console.log(info);
+    await UserService.saveUserInfo(info).then((res) => {
       if(typeof res === 'undefined'){
         return;
       } else if (res.data === '') {
