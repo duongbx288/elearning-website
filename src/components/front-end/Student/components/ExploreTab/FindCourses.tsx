@@ -17,6 +17,7 @@ import CourseService, {
   CourseCriteria,
 } from '../../../../../services/CourseService';
 import TypeService, { TypeResponse } from '../../../../../services/TypeService';
+import { altImage } from '../../../../../utility/Common';
 
 const FindCourses = ({ studentId }) => {
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ const FindCourses = ({ studentId }) => {
                 <Box display="flex">
                   <Box
                     component={'img'}
-                    src={course.cover}
+                    src={course.cover && course.cover !== null ? course.cover : altImage}
                     sx={{ width: '170px', height: '120px' }}
                     alt=""
                   ></Box>

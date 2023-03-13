@@ -22,6 +22,7 @@ import {
   CardActions,
   CardActionArea,
 } from '@mui/material';
+import { altImage } from '../../../../../utility/Common';
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip placement={'auto'} {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -144,7 +145,7 @@ const TopCart = ({ courses }) => {
                     <CardMedia
                       component="img"
                       height="170"
-                      image={course.cover && course.cover != null ? course.cover : './images/flash/Alternate.PNG' }
+                      image={course.cover && course.cover != null ? course.cover : altImage }
                       alt={course.name}
                       sx={{
                         objectFit: 'contain',

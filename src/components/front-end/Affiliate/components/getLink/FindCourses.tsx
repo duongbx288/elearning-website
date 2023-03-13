@@ -26,6 +26,7 @@ import TypeService, { TypeResponse } from '../../../../../services/TypeService';
 import { Theme, useTheme } from '@mui/material/styles';
 import { Course } from '../../../../backend/teachers/TeacherDetail';
 import { useNavigate } from 'react-router-dom';
+import { altImage } from '../../../../../utility/Common';
 
 const FindCourses = ({ id }) => {
   const navigate = useNavigate();
@@ -178,7 +179,7 @@ const FindCourses = ({ id }) => {
                 <Box display="flex">
                   <Box
                     component={'img'}
-                    src={course.cover}
+                    src={course.cover && course.cover !== null ? course.cover : altImage}
                     sx={{ width: '170px', height: '120px' }}
                     alt=""
                   ></Box>

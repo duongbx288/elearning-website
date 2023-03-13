@@ -166,7 +166,7 @@ const StudyCourse = () => {
               <CardMedia
                 height={'500px'}
                 width={'100%'}
-                src={courseInfo?.link ? courseInfo.link : ''}
+                src={courseInfo?.link && courseInfo?.link != null ? courseInfo.link : "https://www.youtube.com/embed/KcQoJS9R6Lk"}
                 component="iframe"
               ></CardMedia>
             </Box>

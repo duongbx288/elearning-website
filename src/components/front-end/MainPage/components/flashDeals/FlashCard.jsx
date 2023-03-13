@@ -19,6 +19,7 @@ import './style.css';
 import { CartContext } from '../../../../../context/CartContext';
 import { styled } from '@mui/material/styles';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { altImage } from '../../../../../utility/Common';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -233,7 +234,7 @@ const FlashCard = ({ courses }) => {
                     )}
                     <div className="container-img">
                       <img
-                        src={course.cover ? course.cover : './images/flash/Alternate.PNG'}
+                        src={course.cover && course.cover != null ? course.cover : altImage}
                         alt=""
                       />
                     </div>

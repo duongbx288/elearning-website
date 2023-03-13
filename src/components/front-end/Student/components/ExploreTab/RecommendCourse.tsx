@@ -16,6 +16,7 @@ import CourseService, {
   CourseCriteria,
   CourseRequest,
 } from '../../../../../services/CourseService';
+import { altImage } from '../../../../../utility/Common';
 
 const RecommendCourse = ({ studentId }) => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const RecommendCourse = ({ studentId }) => {
                     component={'img'}
                     alt="Cover image"
                     sx={{ objectFit: 'contain' }}
-                    src={item.cover && item.cover !== null ? item.cover : './Alternate.PNG'}
+                    src={item.cover && item.cover !== null ? item.cover : altImage}
                   ></Box>
                 </CardContent>
                 <CardActions sx={{ margin: 1 }}>

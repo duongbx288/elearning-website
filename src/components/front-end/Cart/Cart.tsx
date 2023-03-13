@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import OrderService, { OrderRequest, OrderItemRequest } from '../../../services/OrderService';
 import { handleDiscount, handleCoursePrice, totalPrice, initSum, sumAllDiscount } from './CalculatePrice';
 import Cookies from 'js-cookie';
+import { altImage } from '../../../utility/Common';
 // import UserService, { UserInfo } from '../../../../services/UserService';
 const Cart = () => {
   // Kiem tra xem khach hang da dang nhap chua
@@ -157,7 +158,7 @@ const Cart = () => {
                           component={'img'}
                           width="200px"
                           height="100px"
-                          src={item.cover}
+                          src={item.cover && item.cover != null ? item.cover : altImage}
                           alt=""
                         ></Box>
                         <Box marginLeft={2}>

@@ -12,6 +12,9 @@ class Common {
         } else return '----';
       };
 
+    
 }
+
+export const altImage = 'https://firebasestorage.googleapis.com/v0/b/web-elear.appspot.com/o/files%2F123.PNG?alt=media&token=0b60b627-a262-4048-a8bc-fcc4223d5156';
 
 export default new Common();
