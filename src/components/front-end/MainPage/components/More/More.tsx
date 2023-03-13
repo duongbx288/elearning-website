@@ -38,23 +38,25 @@ const More = () => {
                 variant={'h4'}
                 marginTop={2}
                 marginBottom={2}
+                sx={{ color: '#000'}}
               >
                 Trở thành giảng viên
               </Typography>
-              <Typography marginBottom={3}>
+              <Typography marginBottom={3} sx={{ color: '#000'}}>
                 Giảng viên mọi nơi giảng dạy hàng ngàn học viên tại ELEARN. Chúng tôi cung
                 cấp công cụ và kỹ năng để dạy những gì bạn yêu thích.
               </Typography>
               <Button
                 sx={{
-                  color: 'white !important',
+                  // color: 'white !important',
                   boxShadow: 3,
-                  background: 'black !important',
-                  ':hover': {
-                    background: '#000055 !important',
-                  },
+                  // background: 'black !important',
+                  // ':hover': {
+                  //   background: '#000055 !important',
+                  // },
                   marginBottom: 3,
                 }}
+                variant={"contained"}
                 fullWidth
                 onClick={() => navigate('/teacher-register')}
               >
