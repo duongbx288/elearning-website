@@ -22,7 +22,6 @@ const MainPage = () => {
 
   return (
     <>
-      <Button onClick={() => navigate('/teacher-register')}>Hello</Button>
       <Home />
       <FlashDeals/>
       <TopCate />

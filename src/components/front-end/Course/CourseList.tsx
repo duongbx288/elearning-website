@@ -22,8 +22,6 @@ const CourseList = () => {
   const [rating, setRating] = useState<number | null>();
   const [maxPrice, setMaxPrice] = useState<number | null>();
   const [minPrice, setMinPrice] = useState<number | null>();
-  const [createdDate, setCreatedDate] = useState<string | null>();
-  const [hotSeller, setHotSeller] = useState<boolean | null>();
 
   const [courses, setCourses] = useState<CourseRequest[]>([]);
 

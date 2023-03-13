@@ -34,6 +34,7 @@ const ClientMainLayout = () => {
           <Route path="main" element={<MainPage />} />
           <Route path="cart" element={<Cart />}></Route>
           <Route path="course-list" element={<CourseList />}></Route>
+          <Route path="course-list/:searchParam" element={<CourseList />}></Route>
           <Route path="course-info/:id" element={<CourseInfo/>} />
           {/* <Route path="course-info/:id/:affiliateId" element={<CourseInfo/>} /> */}
           <Route path="course-info/:id/:redirectParam" element={<CourseInfo/>} />
