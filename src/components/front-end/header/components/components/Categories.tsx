@@ -79,8 +79,8 @@ export default function Categories() {
   };
 
   const handleCategory = (id: number) => {
-    console.log(id);
-    navigate('/' + id, { state: { id: id } });
+    handleClose();
+    navigate('/course-list/' + id, { state: { id: id } });
   };
 
   return (

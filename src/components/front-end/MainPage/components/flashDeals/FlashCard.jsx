@@ -50,7 +50,7 @@ const SamplePrevArrow = (props) => {
 };
 
 const HtmlTooltip = styled(({ className, ...props }) => (
-  <Tooltip placement={'auto'} {...props} classes={{ popper: className }} />
+  <Tooltip placement='right' {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#f5f5f9',
@@ -195,8 +195,9 @@ const FlashCard = ({ courses }) => {
       <Slider {...settings}>
         {courses.map((course) => {
           return (
-            <div className="box flash-card">
+            <div className="box flash-card" key={course.id}>
               <HtmlTooltip
+               key={course.id}
                 title={
                   <>
                     <Box padding={1}>
@@ -221,7 +222,7 @@ const FlashCard = ({ courses }) => {
                   </>
                 }
               >
-                <div className="product mtop">
+                <div className="product mtop" key={course.id}>
                   <div
                     className="img"
                     onClick={handleCourse(course.id)}

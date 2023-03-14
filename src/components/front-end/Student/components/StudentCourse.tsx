@@ -16,6 +16,7 @@ import CourseService from '../../../../services/CourseService';
 import StudentCourseService, {
   StudentCourseType,
 } from '../../../../services/StudentCourseService';
+import { altImage } from '../../../../utility/Common';
 
 interface CustomState {
   id: number;
@@ -93,7 +94,7 @@ const StudentCourse = ({ id }) => {
                       height: '80px',
                       fontSize: '15px',
                     }}
-                    titleTypographyProps={{ fontSize: '18px'}}
+                    titleTypographyProps={{ fontSize: '20px'}}
                     title={course.courseName}
                   >
                   </CardHeader>
@@ -101,7 +102,7 @@ const StudentCourse = ({ id }) => {
                     <Box
                       component={'img'}
                       //  alt="image_alt.PNG"
-                      src={course.cover ? course.cover : './Alternate.PNG'}
+                      src={course.cover && course.cover != null ? course.cover : altImage}
                     ></Box>
                   </CardContent>
                   <CardActions sx={{ margin: 1 }}>

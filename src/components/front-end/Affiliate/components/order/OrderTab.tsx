@@ -22,9 +22,12 @@ import OrderService, {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 import Common from '../../../../../utility/Common';
+import { useParams } from 'react-router-dom';
 
-const OrderTab = ({ id }) => {
+const OrderTab = () => {
   const [orderItem, setOrderItem] = useState<OrderItemRequest[]>([]);
+
+  const { id } = useParams();
 
   // Pagination
   const [limit, setLimit] = useState<number>(5);
@@ -40,6 +43,7 @@ const OrderTab = ({ id }) => {
   useEffect(() => {
     OrderService.findOrderItem(criteria).then((res) => {
       if (res.data) {
+        console.log(res.data);
         setOrderItem(res.data.content);
         setTotalPage(res.data.totalPages);
         setPage(res.data.number + 1);
@@ -56,7 +60,7 @@ const OrderTab = ({ id }) => {
       affiliateId: id,
     } as OrderItemCriteria;
     setCriteria(criteria1);
-  }, [limit, page, month, year]);
+  }, [limit, page, month, year, id]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -149,7 +153,7 @@ const OrderTab = ({ id }) => {
           {orderItem.length > 0 ? (
             orderItem.map((item) => {
               return (
-                <Accordion>
+                <Accordion key={item.id}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"

@@ -8,7 +8,6 @@ const More = () => {
   return (
     <>
       <Box
-        margin={3}
         padding={3}
         width={'100%'}
         display={'flex'}
@@ -75,7 +74,7 @@ const More = () => {
           marginBottom={3}
           padding={3}
           sx={{ 
-            width: '100vw',
+            width:'96vw',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundImage: "url('https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_Internet.jpg')"

@@ -48,7 +48,7 @@ const Navbar = () => {
                     color: '#0d6efd',
                   },
                 }}
-                onClick={() => navigate('/contact')}
+                // onClick={() => navigate('/contact')}
               >
                 Liên hệ
               </Typography>

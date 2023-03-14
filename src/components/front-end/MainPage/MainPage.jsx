@@ -18,8 +18,6 @@ const MainPage = () => {
     // })
   }, []);
 
-  
-
   return (
     <>
       <Home />

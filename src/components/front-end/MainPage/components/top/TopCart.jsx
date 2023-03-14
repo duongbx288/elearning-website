@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { altImage } from '../../../../../utility/Common';
 const HtmlTooltip = styled(({ className, ...props }) => (
-  <Tooltip placement={'auto'} {...props} classes={{ popper: className }} />
+  <Tooltip placement='right' {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#f5f5f9',
@@ -90,7 +90,7 @@ const TopCart = ({ courses }) => {
       <Slider {...settings}>
         {courses.map((course) => {
           return (
-            <>
+            <div key={course.id}>
               <HtmlTooltip
                 title={
                   <>
@@ -139,8 +139,9 @@ const TopCart = ({ courses }) => {
                     </Box>
                   </>
                 }
+                key={course.id}
               >
-                <Card sx={{ margin: 2, padding: 1 }}>
+                <Card sx={{ margin: 2, padding: 1 }} key={course.id}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -185,7 +186,7 @@ const TopCart = ({ courses }) => {
                   </CardActions>
                 </Card>
               </HtmlTooltip>
-            </>
+            </div>
           );
         })}
       </Slider>

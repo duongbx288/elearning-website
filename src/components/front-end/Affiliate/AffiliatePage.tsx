@@ -63,7 +63,7 @@ const AffiliatePage = () => {
             <CouponManage id={id} info={info}/>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <OrderTab id={id}/>
+            <OrderTab/>
           </TabPanel>
         </Box>
       </Box>

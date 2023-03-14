@@ -45,11 +45,12 @@ const ManageCourse = ({ teacherId }) => {
                       height: '100px',
                       fontSize: '13px',
                     }}
+                    titleTypographyProps={{ fontSize: '20px'}}
                     title={item.name}
                   ></CardHeader>
                   <CardContent>
                     <Box
-                      sx={{ height: '50px' }}
+                      sx={{ height: '100px' }}
                       component={'img'}
                       //  alt="image_alt.PNG"
                       src={item.cover && item.cover != null ? item.cover : altImage}
@@ -57,14 +58,25 @@ const ManageCourse = ({ teacherId }) => {
                     <Typography></Typography>
                   </CardContent>
                   <CardActions>
+                    <Box display={'flex'}>
                     <Button
-                      variant={'outlined'}
+                      variant={'contained'}
                       onClick={() => {
                         navigate('/course-update/' + item.id + '/teacher/' + teacherId);
                       }}
+                      sx={{ marginRight: 1}}
                     >
                       Cập nhật
                     </Button>
+                    <Button
+                      variant={'outlined'}
+                      onClick={() => {
+                        navigate('/course-info/' + item.id);
+                      }}
+                    >
+                      Thông tin
+                    </Button>
+                    </Box>
                   </CardActions>
                 </Card>
               </Box>
