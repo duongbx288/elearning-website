@@ -33,7 +33,7 @@ const OrderTab = () => {
   const [limit, setLimit] = useState<number>(5);
   const [page, setPage] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(0);
-
+  const [affId, setAffId] = useState<number>(Number(id));
   // Criteria
   const [month, setMonth] = useState<string>('');
   const [year, setYear] = useState<string>('');
@@ -57,10 +57,10 @@ const OrderTab = () => {
       page: page - 1,
       month: month && month !== 'Tất cả' ? Number(month) : null,
       year: year && year !== 'Tất cả' ? Number(year) : null,
-      affiliateId: id,
+      affiliateId: affId,
     } as OrderItemCriteria;
     setCriteria(criteria1);
-  }, [limit, page, month, year, id]);
+  }, [limit, page, month, year, id, affId]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -159,7 +159,8 @@ const OrderTab = () => {
                     aria-controls="panel1a-content"
                     id={`panel1a-header-${item.id}`}
                   >
-                    <Box display={'flex'} flexDirection="column">
+                    <Box display={'flex'} justifyContent={'space-around'}>
+                    <Box display={'flex'} flexDirection="column" marginRight={4}>
                       <Box display={'flex'}>
                         <FeaturedPlayListIcon />
                         <Typography
@@ -171,6 +172,13 @@ const OrderTab = () => {
                         sx={{ color: 'black', marginLeft: 2 }}
                         variant={'h6'}
                       >{`Giá trị khóa học: ${item.total}`}</Typography>
+                      <Typography
+                        sx={{ color: 'black', marginLeft: 2 }}
+                        variant={'h6'}
+                      >{`Thời gian: ${
+                        item.createdDate ? Common.handleDate(item.createdDate) : '---'
+                      }`}</Typography>
+                    </Box>
                     </Box>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -201,9 +209,6 @@ const OrderTab = () => {
                         <Box>
                           <Typography>{`Học viên mua: ${
                             item.studentName ? item.studentName : '---'
-                          }`}</Typography>
-                          <Typography>{`Thời gian: ${
-                            item.createdDate ? Common.handleDate(item.createdDate) : '---'
                           }`}</Typography>
                         </Box>
                       </Grid>

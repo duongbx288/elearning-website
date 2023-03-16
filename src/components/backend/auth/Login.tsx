@@ -95,11 +95,10 @@ const Login = () => {
         <br/>
         <div className="info">
           <p>
-            Tổng đài hỗ trợ khách hàng: <span>1900 1090</span>
+          <br />
             <br />
             <br />
-            Hỗ trợ khách hàng các ngày trong tuần từ thứ 2 đến Chủ nhật
-            {'('}từ 8h00 – 22h00 hàng ngày{')'}
+            Tổng đài hỗ trợ khách hàng: <span>1900 0091</span>
           </p>
         </div>
       </Grid>

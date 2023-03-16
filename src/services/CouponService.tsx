@@ -6,6 +6,7 @@ export type CouponRequest = {
     couponCode?: string;
     status?: string;
     useTime?: number;
+    createdDate?: Date;
 }
 
 class CouponService {

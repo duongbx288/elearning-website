@@ -10,6 +10,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import BookIcon from '@mui/icons-material/Book';
 import ManageCourse from './components/manageCourse/ManageCourses';
 import Income from './components/income/Income';
+import TeacherInfo from './components/teacherInfo/TeacherInfo';
 
 const TeacherPage = () => {
   const { id } = useParams();
@@ -64,18 +65,20 @@ const TeacherPage = () => {
               iconPosition="start"
               {...a11yProps(2)}
             />
-            <Tab
+            {/* <Tab
               label="Thu nhập"
               icon={<CreditCardIcon />}
               iconPosition="start"
               {...a11yProps(1)}
-            />
+            /> */}
           </Tabs>
           <Divider />
           <TabPanel value={value} index={0}>
             <ManageCourse teacherId={id} />
           </TabPanel>
-          <TabPanel value={value} index={1}></TabPanel>
+          <TabPanel value={value} index={1}>
+            <TeacherInfo id={id} />
+          </TabPanel>
           <TabPanel value={value} index={2}>
             <Income />
           </TabPanel>

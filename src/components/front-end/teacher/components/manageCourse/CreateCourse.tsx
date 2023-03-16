@@ -44,7 +44,7 @@ const CreateCourse = () => {
       name: basicInfo.name,
       description: basicInfo.description,
       introduction: basicInfo.introduction,
-      price: basicInfo.price? Number(basicInfo.price) : 0,
+      price: basicInfo.price ? Number(basicInfo.price) : 0,
       typeId: Number(basicInfo.typeId),
       link: basicInfo.link,
       rating: 0,
@@ -57,22 +57,24 @@ const CreateCourse = () => {
     CourseService.createCourse(courseRequest).then((res) => {
       if (res.data) {
         console.log('nice');
-        navigate(`/teacher-page/`+id);
+        navigate(`/teacher-page/` + id);
       }
-    })
-  }
+    });
+  };
 
   const handleBasicInfo = (info: CourseRequest) => {
     setBasicInfo(info);
-  }
+  };
 
   const handleImageURL = (info: any) => {
     setImage(info);
-  }
+  };
 
-  const handleLesson = (lesson : LessonRequest[]) => {
+  const handleLesson = (lesson: LessonRequest[]) => {
     setLessons(lesson);
-  }
+  };
+
+  // newcoupon123
 
   return (
     <Box
@@ -85,8 +87,11 @@ const CreateCourse = () => {
         <Typography variant="h4" sx={{ color: 'white' }}>
           Giáo viên: {teacherInfo?.name}
         </Typography>
-        <Typography sx={{ color: 'white' }}>Tạo khóa học</Typography>
-        <Button onClick={createNewCourse}> Tạo khóa học</Button>
+        {/* <Typography sx={{ color: 'white' }}>Tạo khóa học</Typography> */}
+        <Button variant={'contained'} onClick={createNewCourse} sx={{ marginTop: 3 }}>
+          {' '}
+          Tạo khóa học
+        </Button>
         <Box sx={{ p: 3, mt: 1 }} />
       </Box>
       <Box sx={{ width: '80%', bgcolor: '#ffffff' }}>
@@ -113,13 +118,13 @@ const CreateCourse = () => {
           </Tabs>
           <Divider />
           <TabPanel value={value} index={0}>
-            <BasicInfos setBInfo={handleBasicInfo} BInfo={basicInfo}/>
+            <BasicInfos setBInfo={handleBasicInfo} BInfo={basicInfo} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <ImageUpload setCImage={handleImageURL} image={image}/>
+            <ImageUpload setCImage={handleImageURL} image={image} />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <LessonInfo lesson={lessons} setCLesson={handleLesson}/>
+            <LessonInfo lesson={lessons} setCLesson={handleLesson} />
           </TabPanel>
         </Box>
       </Box>
