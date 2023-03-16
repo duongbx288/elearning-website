@@ -212,14 +212,14 @@ const AffiliateList = () => {
             Danh sách affiliate{' '}
           </Typography>
           <div>
-            <Button
+            {/* <Button
               variant="contained"
               sx={{
                 width: '165px',
               }}
             >
               Thêm affiliate
-            </Button>
+            </Button> */}
           </div>
         </Box>
         <Box sx={{ padding: 2 }}>

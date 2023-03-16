@@ -167,14 +167,14 @@ const CourseList = () => {
             Danh sách khóa học{' '}
           </Typography>
           <div>
-            <Button
+            {/* <Button
               variant="contained"
               sx={{
                 width: '165px',
               }}
             >
               Thêm khóa học
-            </Button>
+            </Button> */}
           </div>
         </Box>
         <Box sx={{ padding: 2 }}>
