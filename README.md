@@ -2,7 +2,8 @@
 Website mua và học khóa học, có áp dụng affiliate marketing.
 Có các chức năng chính: mua, tạo khóa học, tạo mã khuyến mại, gợi ý khóa học dựa trên Collaborative Filtering (Chưa hoàn thiện),v.v.
 
-Project gồm các thư mục chính: backend, frontend, recommend
+Project gồm các thư mục chính: backend, frontend, recommend.
+
 File cơ sở dữ liệu: e_learn.sql 
 
 Yêu cầu cài đặt:
