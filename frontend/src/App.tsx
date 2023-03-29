@@ -16,28 +16,6 @@ import SignIn from './components/front-end/auth/SignIn';
 
 import { CartProvider } from './context/CartContext';
 import { CourseProvider } from './context/CourseBoughtContext';
-import { RequireAuth } from './auth/RequireAuth';
-import AffiliateDetail from './components/backend/affiliates/AffiliateDetail';
-import AffiliateList from './components/backend/affiliates/AffiliateList';
-import CourseDetail from './components/backend/courses/CourseDetail';
-import CourseList from './components/backend/courses/CourseList';
-import ContactUs from './components/backend/email/SendEmail';
-import OrderDetail from './components/backend/order/OrderDetail';
-import OrderList from './components/backend/order/OrderList';
-import StudentDetail from './components/backend/student/StudentDetail';
-import StudentList from './components/backend/student/StudentList';
-import StudentUpdate from './components/backend/student/StudentUpdate';
-import TeacherDetail from './components/backend/teachers/TeacherDetail';
-import TeacherList from './components/backend/teachers/TeacherList';
-import { Pages } from '@mui/icons-material';
-import Cart from './components/front-end/Cart/Cart';
-import CourseInfo from './components/front-end/Course/CourseInfo';
-import StudentCourse from './components/front-end/Student/components/StudentCourse';
-import StudentInfo from './components/front-end/Student/StudentInfo';
-import StudyCourse from './components/front-end/Student/StudyCourse';
-import AffiliatePage from './components/front-end/Affiliate/AffiliatePage';
-import MainPage from './components/front-end/MainPage/MainPage';
-import StudentPage from './components/front-end/Student/StudentPage';
 import AffiliateRegister from './components/front-end/auth/AffiliateRegister';
 import TeacherRegister from './components/front-end/auth/TeacherRegister';
 

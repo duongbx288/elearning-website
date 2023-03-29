@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Slf4j
@@ -66,6 +67,8 @@ public class OrderItemServiceImpl extends BaseServiceImpl<OrderItemEntity, Long>
     public boolean createOrderItem(OrderItemDTO dto){
         try {
             OrderItemEntity newOrderItem = orderItemMapper.toEntity(dto);
+            newOrderItem.setCreatedDate(Instant.now());
+            newOrderItem.setLastModifiedDate(Instant.now());
             if (newOrderItem.getAffiliateId() != null && newOrderItem.getCouponCode() != null) {
                 var affId = couponService.getAffIdByCode(newOrderItem.getCouponCode());
                 newOrderItem.setAffiliateId(affId);

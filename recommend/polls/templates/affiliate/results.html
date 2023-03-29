@@ -1,0 +1,14 @@
+<h1>{{ affiliate.name }}</h1>
+
+<ul>
+{% for status in affiliate.status.all %}
+    <li>{{ affiliate.status }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'affiliates:detail' affiliate.id %}">Change again?</a>
+
+<br/>
+<br/>
+
+

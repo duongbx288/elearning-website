@@ -10,6 +10,9 @@ import vn.project.affiliate.entity.CouponEntity;
 import vn.project.affiliate.mapper.CouponMapper;
 import vn.project.affiliate.repository.CouponRepository;
 import vn.project.affiliate.service.CouponService;
+
+import java.time.Instant;
+
 @Slf4j
 @Service
 public class CouponServiceImpl extends BaseServiceImpl<CouponEntity, Long> implements CouponService {
@@ -46,6 +49,8 @@ public class CouponServiceImpl extends BaseServiceImpl<CouponEntity, Long> imple
         entity.setStatus("active");
         entity.setAffiliateId(affId);
         entity.setUseTime(0);
+        entity.setCreatedDate(Instant.now());
+        entity.setLastModifiedDate(Instant.now());
         try {
             save(entity);
         } catch (Exception e){

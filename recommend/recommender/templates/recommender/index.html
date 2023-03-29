@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'recommender/index.css' %}">
+
+<h1>Gợi ý sản phẩm</h1>
+
+<form action="{% url 'recommend:index' %}" method="POST">
+    {% csrf_token %}
+    <label for="fname">ID người dùng</label>
+    <input type="text" id="fname" name="user-id"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<div>Input : Id người dùng {{ user }}</div>
+
+<br/>
+
+{% if recommend|length > 0%}
+<table summary="Recommend">
+    <tr><th>Id sản phẩm</th><th>Dự đoán điểm đánh giá</th><th>Tên</th>
+
+        {% for item in recommend %}
+        <tr><td>{{ item.id }}</td><td>{{ item.similar }}</td><td>{{ item.name }}</td></tr>
+        {% endfor %}
+</table>
+{% else %}
+<h3>Không lấy được dữ liệu hoặc thông tin không hợp lệ</h3>
+{% endif %}
+

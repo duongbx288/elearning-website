@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
 import vn.project.affiliate.config.UserProperties;
-import vn.project.affiliate.common.media.EnableMediaProvider;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -15,7 +14,6 @@ import java.util.TimeZone;
 @Slf4j
 @SpringBootApplication
 @EnableConfigurationProperties({UserProperties.class})
-@EnableMediaProvider
 public class Application {
 
     public static void main(String[] args) {
@@ -30,7 +28,7 @@ public class Application {
         var serverPort = env.getProperty("server.port");
         var contextPath = "/";
         var hostAddress = "localhost";
-        try {
+        try {W
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             log.warn("The host name could not be determined, using `localhost` as fallback");

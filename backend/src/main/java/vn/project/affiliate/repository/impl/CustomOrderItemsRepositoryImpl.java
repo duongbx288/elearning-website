@@ -48,9 +48,12 @@ public class CustomOrderItemsRepositoryImpl implements CustomOrderItemsRepositor
             predicates.add(affId);
         }
 
+
         // Add predicate to criteria query
         Predicate finalQuery = cb.and(predicates.toArray(Predicate[]::new));
+        cq.orderBy(cb.desc(root.get("createdDate")));
         cq.where(finalQuery);
+
 
         // Get result
         TypedQuery<OrderItemEntity> query = em.createQuery(cq).setFirstResult((int) pageable.getOffset()).setMaxResults(pageable.getPageSize());

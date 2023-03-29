@@ -1,0 +1,13 @@
+# Change the server port: python manage.py runserver 8080 (example)
+# Change the server IP: python manage.py runserver 0.0.0.0:8080 (example)
+
+# run command: python manage.py startapp name -> create an app 
+-> to include app: go to settings.py -> INSTALLED_APPS: add
+1. write view: in view.py -> .... -> to call view -> need to map it to a URL
+
+# Database set up: 
+Go to the settings.py file -> change item in DATABASES 
+
+-> python manage.py inspectdb
+-> python manage.py inspectdb > models.py
+

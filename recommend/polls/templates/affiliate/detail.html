@@ -1,0 +1,37 @@
+{{ affiliate }}
+<br/>
+<h1>{{ affiliate.name }}</h1>
+<h1>{{ affiliate.status }}</h1>
+<ul>
+{% for item in affiliates %}
+    <li>{{item.name}}</li>
+{% endfor %}
+</ul>
+<br/>
+<form action="{% url 'affiliates:vote' affiliate.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ affiliate.name }}</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <input type="radio" name="status" id="choice 1" value="active">
+        <label for="choice{{ forloop.counter }}">active</label><br>
+        <input type="radio" name="status" id="choice 2" value="inactive">
+        <label for="choice{{ forloop.counter }}">inactive</label><br>
+    </fieldset>
+    <input type="submit" value="Vote">
+</form>
+
+<br/>
+<br/>
+
+
+{% if testing %}
+<form action="{% url 'affiliates:button2' affiliate.id %}" method='GET'>
+    <button type='submit'>Hide</button>
+</form>
+<h3>{{ testing }}</h3>
+{% else %}
+<form action="{% url 'affiliates:button1' affiliate.id %}" method='GET'>
+    <button type='submit'>Show</button>
+</form>
+{% endif %}

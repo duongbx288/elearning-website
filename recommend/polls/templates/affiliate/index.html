@@ -1,0 +1,17 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'affiliate/style.css' %}">
+
+{% if test_order %}
+    <ul>
+    {% for item in test_order %}
+    <!-- Giai thich: affiliates: detail -> affiliates: app_name, detail: url name
+        Check in polls/urls.py for more infomation
+    -->
+        <li><a href="{% url 'affiliates:detail' item.id %}">{{ item.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No affiliates are available.</p>
+{% endif %}
+

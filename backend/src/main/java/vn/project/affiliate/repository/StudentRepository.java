@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import vn.project.affiliate.entity.StudentEntity;
-import vn.project.affiliate.entity.WebsiteEntity;
 
 import java.util.List;
 

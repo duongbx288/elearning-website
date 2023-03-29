@@ -18,6 +18,9 @@ public interface CourseService extends BaseService<CourseEntity, Long> {
     @Transactional
     boolean createCourse(CourseDTO dto);
 
+//    @Transactional
+//    CourseDTO updateCourseInfo(CourseDTO dto);
+
     List<CourseDTO> getRecommendCourse(CourseCriteria criteria);
 
     Page<CourseDTO> getAllPagination(int pageNum, int pageLimit);
@@ -34,6 +37,7 @@ public interface CourseService extends BaseService<CourseEntity, Long> {
 //    void searchCourses(CourseCriteria criteria);
 
     Page<CourseDTO> findCourses(CourseCriteria criteria);
+
 
     String updateCourse(CourseDTO dto);
 
